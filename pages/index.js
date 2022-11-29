@@ -1,7 +1,3 @@
 export default function Home() {
-  return (
-    <>
-      <p>Page Home is under construction</p>
-    </>
-  );
+  return <h1>Willkommen zum 🐙-Capstone-Template!</h1>;
 }
