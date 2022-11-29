@@ -3,13 +3,11 @@ import Home from "../pages/index";
 import "@testing-library/jest-dom";
 
 describe("Home", () => {
-  it("renders an octopus", () => {
+  it("render text", () => {
     render(<Home />);
 
-    const heading = screen.getByRole("heading", {
-      name: /🐙/i,
-    });
-
-    expect(heading).toBeInTheDocument();
+    expect(
+      screen.getByText("Page Home is under construction")
+    ).toBeInTheDocument();
   });
 });
