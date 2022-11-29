@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import {useRouter} from "next/router";
 import StyledLink from "./StyledLink";
-import Metamask from "../public/images/Metamask.svg";
+import Metamask from "../public/images/metamask.svg";
 import Funds from "../public/images/funds.svg";
 import Home from "../public/images/home.svg";
 import Profile from "../public/images/profile.svg";
