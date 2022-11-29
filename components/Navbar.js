@@ -17,40 +17,40 @@ export default function Navbar() {
 
       <footer>
         <StyledList>
-          <StyledDiv1 active={pathname}>
+          <StyledDiv active={pathname === "/" ? true : false}>
             <StyledLink href="/">
               <Image alt="home" src={Home} width="50px" height="50px"></Image>
             </StyledLink>
-          </StyledDiv1>
-          <StyledDiv2 active={pathname}>
+          </StyledDiv>
+          <StyledDiv active={pathname === "/funds" ? true : false}>
             <StyledLink href="/funds">
-              <Image alt="home" src={Funds} width="50px" height="50px"></Image>
+              <Image alt="funds" src={Funds} width="50px" height="50px"></Image>
             </StyledLink>
-          </StyledDiv2>
+          </StyledDiv>
 
           <StyledLink href="">
             <Image
-              alt="home"
+              alt="metamask"
               src={Metamask}
               width="100px"
               height="100px"
             ></Image>
           </StyledLink>
-          <StyledDiv3 active={pathname}>
+          <StyledDiv active={pathname === "/tasks" ? true : false}>
             <StyledLink href="/tasks">
-              <Image alt="home" src={Tasks} width="50px" height="50px"></Image>
+              <Image alt="tasks" src={Tasks} width="50px" height="50px"></Image>
             </StyledLink>
-          </StyledDiv3>
-          <StyledDiv4 active={pathname}>
+          </StyledDiv>
+          <StyledDiv active={pathname === "/profile" ? true : false}>
             <StyledLink href="/profile">
               <Image
-                alt="home"
+                alt="personal profile"
                 src={Profile}
                 width="50px"
                 height="50px"
               ></Image>
             </StyledLink>
-          </StyledDiv4>
+          </StyledDiv>
         </StyledList>
       </footer>
     </>
@@ -76,7 +76,7 @@ const StyledSection = styled.section`
   margin-bottom: 20%;
 `;
 
-const StyledDiv1 = styled.div`
+const StyledDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -84,36 +84,5 @@ const StyledDiv1 = styled.div`
   width: 46px;
   height: 21px;
   background-color: ${props =>
-    props.active === "/" ? "rgba(255, 123, 137, 0.5)" : ""};
-`;
-
-const StyledDiv2 = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 20px;
-  width: 46px;
-  height: 21px;
-  background-color: ${props =>
-    props.active === "/funds" ? "rgba(255, 123, 137, 0.5)" : ""};
-`;
-const StyledDiv3 = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 20px;
-  width: 46px;
-  height: 21px;
-  background-color: ${props =>
-    props.active === "/tasks" ? "rgba(255, 123, 137, 0.5)" : ""};
-`;
-const StyledDiv4 = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 20px;
-  width: 46px;
-  height: 21px;
-  background-color: ${props =>
-    props.active === "/profile" ? "rgba(255, 123, 137, 0.5)" : ""};
+    props.active === true ? "rgba(255, 123, 137, 0.5)" : ""};
 `;
