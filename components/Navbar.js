@@ -17,8 +17,8 @@ export default function Navbar() {
 
       <footer>
         <StyledList>
-          <StyledDiv active={pathname === "/" ? true : false}>
-            <StyledLink href="/">
+          <StyledDiv active={pathname === "/home" ? true : false}>
+            <StyledLink href="/home">
               <Image alt="home" src={Home} width="50px" height="50px"></Image>
             </StyledLink>
           </StyledDiv>
