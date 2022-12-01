@@ -69,8 +69,7 @@ const StyledList = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
-  opacity: 0.7;
-  background-color: rgba(165, 202, 210, 0.6); ;
+  background-color: rgba(165, 202, 210);
 `;
 const StyledSection = styled.section`
   margin-bottom: 20%;
@@ -84,5 +83,5 @@ const StyledDiv = styled.div`
   width: 46px;
   height: 21px;
   background-color: ${props =>
-    props.active === true ? "rgba(255, 123, 137, 0.5)" : ""};
+    props.active === true ? "rgba(255, 123, 137)" : ""};
 `;
