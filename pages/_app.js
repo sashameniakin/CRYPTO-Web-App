@@ -1,15 +1,22 @@
 import Layout from "../components/Layout";
 import GlobalStyles from "../styles/GlobalStyles";
 
+import {useRouter} from "next/router";
+
 function MyApp({Component, pageProps}) {
+  const {asPath} = useRouter();
+
   return (
     <>
       <GlobalStyles />
-      <Layout>
+      {asPath === "/login" || asPath === "/" ? (
         <Component {...pageProps} />
-      </Layout>
+      ) : (
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      )}
     </>
   );
 }
-
 export default MyApp;
