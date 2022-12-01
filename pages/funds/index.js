@@ -1,10 +1,16 @@
 import {useCallback, useContext, useEffect, useState} from "react";
-
+import CoinCard from "../../components/CoinCard";
 import {CMContext} from "../../context/context";
 
 export default function Funds() {
   let {getCoins} = useContext(CMContext);
   let [coinData, setCoinData] = useState(null);
+
+  const octop = {
+    name: "Octy",
+    color: "yellow",
+    age: 4,
+  };
 
   useEffect(() => {
     setData();
@@ -20,5 +26,9 @@ export default function Funds() {
   }, [getCoins]);
   console.log(coinData);
 
-  return <p>Page Funds is under construction</p>;
+  return (
+    <>
+      <CoinCard coin={octop} />
+    </>
+  );
 }
