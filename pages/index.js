@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Lottie from "react-lottie";
-import animationData from "../public/lotties/86719-cryptocurrency.json";
+/* import animationData from "../public/lotties/86719-cryptocurrency.json"; */
 import Link from "next/link";
 
 export default function Welcome() {
