@@ -34,7 +34,11 @@ const LottieComponent = props => {
       <StyledDiv>
         <h1>Titel</h1>
         <div>
-          <Lottie options={defaultOptions} height={400} width={400} />
+          <Lottie
+            options={defaultOptions}
+            height={state.height}
+            width={state.width}
+          />
         </div>
         <Link href="/login">
           <StyledButton>GO</StyledButton>
