@@ -1,6 +1,5 @@
 import Layout from "../components/Layout";
 import GlobalStyles from "../styles/GlobalStyles";
-import {CMProvider} from "../context/context";
 
 import {useRouter} from "next/router";
 
@@ -14,9 +13,7 @@ function MyApp({Component, pageProps}) {
         <Component {...pageProps} />
       ) : (
         <Layout>
-          <CMProvider>
-            <Component {...pageProps} />
-          </CMProvider>
+          <Component {...pageProps} />
         </Layout>
       )}
     </>
