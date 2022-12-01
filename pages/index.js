@@ -4,10 +4,13 @@ import animationData from "../public/lotties/86719-cryptocurrency.json";
 import Link from "next/link";
 
 export default function Welcome() {
+  const lottieUrlPath =
+    "https://assets9.lottiefiles.com/private_files/lf30_gonpfxdh.json";
+
   const defaultOptions = {
     loop: true,
     autoplay: true,
-    animationData,
+    path: lottieUrlPath,
     rendererSettings: {
       preserveAspectRatio: "xMidYMid slice",
     },
