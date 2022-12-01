@@ -9,7 +9,7 @@ export default function Funds() {
 
   useEffect(() => {
     setData();
-    /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const setData = useCallback(async () => {
@@ -20,7 +20,6 @@ export default function Funds() {
       console.log(error.message);
     }
   }, [getCoins]);
-  console.log(coinData);
 
   return (
     <>
