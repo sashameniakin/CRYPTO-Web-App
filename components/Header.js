@@ -14,7 +14,7 @@ const StyledHeader = styled.header`
   width: 100%;
   top: 0%;
   bottom: 94.44%;
-  background-color: rgba(165, 202, 210, 0.6);
+  background-color: rgba(165, 202, 210);
 `;
 
 const StyledSection = styled.section`

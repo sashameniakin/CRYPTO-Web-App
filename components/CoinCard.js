@@ -1,10 +1,9 @@
 import styled from "styled-components";
 
-export default function CoinCard({coin}) {
+export default function CoinCard({id}) {
   return (
-    <StyledCard color={coin.color}>
-      <div> {coin.name}</div>
-      <p>Age: {coin.age}</p>
+    <StyledCard>
+      <div> {id}</div>
     </StyledCard>
   );
 }
@@ -14,9 +13,9 @@ const StyledCard = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  /*   background-color: ${({color}) => color}; */
-  border: 1px solid black;
-  border-radius: 5px;
-  width: 400px;
+
+  width: 100vh;
   height: 50px;
+  background: rgba(238, 237, 237, 0.8);
+  border-radius: 2px;
 `;
