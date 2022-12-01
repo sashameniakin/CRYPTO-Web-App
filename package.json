@@ -15,7 +15,6 @@
     "prettier:write": "prettier --ignore-path .gitignore --write ."
   },
   "dependencies": {
-    "axios": "^1.2.0",
     "lottie": "^0.0.1",
     "lottie-web": "^5.10.0",
     "mongoose": "^6.7.3",
