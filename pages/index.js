@@ -2,8 +2,12 @@ import styled from "styled-components";
 import Lottie from "react-lottie";
 /* import animationData from "../public/lotties/86719-cryptocurrency.json"; */
 import Link from "next/link";
+import {useEffect, useState} from "react";
 
-export default function Welcome() {
+const LottieComponent = props => {
+  const initState = {url: "", height: 100, width: 100};
+  const [state, setLottieState] = useState(initState);
+
   const lottieUrlPath =
     "https://assets9.lottiefiles.com/private_files/lf30_gonpfxdh.json";
 
@@ -15,6 +19,15 @@ export default function Welcome() {
       preserveAspectRatio: "xMidYMid slice",
     },
   };
+
+  useEffect(() => {
+    setLottieState({
+      url: lottieUrlPath,
+      name: props.name,
+      height: props.height,
+      width: props.width,
+    });
+  }, [lottieUrlPath]);
 
   return (
     <>
@@ -29,8 +42,9 @@ export default function Welcome() {
       </StyledDiv>
     </>
   );
-}
+};
 
+export default LottieComponent;
 const StyledButton = styled.button`
   width: 162px;
   height: 45px;
