@@ -1,4 +1,4 @@
-import {useCallback, useContext, useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import CoinCard from "../../components/CoinCard";
 import {CMContext} from "../../context/context";
 import styled from "styled-components";
@@ -8,17 +8,16 @@ export default function Funds() {
   let [coinData, setCoinData] = useState(null);
 
   useEffect(() => {
-    setData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    const setData = async () => {
+      try {
+        let apiResponse = await getCoins();
+        setCoinData(apiResponse);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
 
-  const setData = useCallback(async () => {
-    try {
-      let apiResponse = await getCoins();
-      setCoinData(apiResponse);
-    } catch (error) {
-      console.log(error.message);
-    }
+    setData();
   }, [getCoins]);
 
   return (
