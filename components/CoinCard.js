@@ -16,6 +16,6 @@ const StyledCard = styled.div`
 
   width: 100vh;
   height: 50px;
-  background: rgba(238, 237, 237, 0.8);
+  background: rgba(238, 237, 237, 0.75);
   border-radius: 2px;
 `;
