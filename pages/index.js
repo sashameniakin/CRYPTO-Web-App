@@ -27,7 +27,7 @@ const LottieComponent = props => {
       height: props.height,
       width: props.width,
     });
-  }, [lottieUrlPath]);
+  }, [props.height, props.name, props.width]);
 
   return (
     <>
