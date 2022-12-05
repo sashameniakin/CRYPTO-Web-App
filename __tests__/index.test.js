@@ -1,13 +1,13 @@
 import {render, screen} from "@testing-library/react";
-import Home from "../pages/home";
+import Funds from "../pages/funds";
 import "@testing-library/jest-dom";
 
-describe("Home", () => {
+describe("Funds", () => {
   it("render text", () => {
-    render(<Home />);
+    render(<Funds />);
 
     expect(
-      screen.getByText("Page Home is under construction")
+      screen.getByText("Page Funds is under construction")
     ).toBeInTheDocument();
   });
 });
