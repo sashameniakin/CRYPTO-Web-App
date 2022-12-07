@@ -15,16 +15,14 @@ export default function Header() {
   return (
     <>
       <StyledHeader>
-        <div></div>
         <StyledAddress>{metamaskAddress}</StyledAddress>
         <StyledButton onClick={() => signOut({redirect: "/login"})}>
-          <StyledImage alt="signout button" src={SignOut}></StyledImage>
+          <StyledImage alt="signout button" src={SignOut} />
         </StyledButton>
         <StyledButton onClick={() => openPopup()}>
-          <StyledImage alt="bookmark" src={Bookmark}></StyledImage>
+          <StyledImage alt="bookmark" src={Bookmark} />
         </StyledButton>
       </StyledHeader>
-      <StyledSection></StyledSection>
     </>
   );
 }
@@ -54,11 +52,7 @@ const StyledHeader = styled.header`
   align-items: center;
 `;
 
-const StyledSection = styled.section`
-  margin-top: 10%;
-`;
 const StyledButton = styled.button`
-  top: 0px;
   background-color: transparent;
   border: none;
 `;

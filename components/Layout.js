@@ -2,16 +2,11 @@ import Navbar from "./Navbar";
 import Header from "./Header";
 import styled from "styled-components";
 
-/* import {useRouter} from "next/router"; */
-
 export default function Layout({children}) {
-  /* const {path} = useRouter(); */
-
   return (
     <>
       <Header />
       <StyledMain>{children}</StyledMain>
-
       <Navbar />
     </>
   );
