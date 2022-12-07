@@ -15,16 +15,23 @@
     "prettier:write": "prettier --ignore-path .gitignore --write ."
   },
   "dependencies": {
+    "@moralisweb3/next": "^2.8.2",
+    "ethers": "^5.7.2",
+    "fortmatic": "^2.4.0",
     "lottie": "^0.0.1",
     "lottie-web": "^5.10.0",
     "moment": "^2.29.4",
     "mongoose": "^6.7.3",
+    "moralis": "^2.8.2",
     "next": "13.0.4",
+    "next-auth": "^4.18.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hooks-global-state": "^2.1.0",
     "react-lottie": "^1.2.3",
     "react-spring": "^9.5.5",
-    "styled-components": "^5.3.6"
+    "styled-components": "^5.3.6",
+    "wagmi": "^0.8.10"
   },
   "devDependencies": {
     "@babel/core": "^7.20.2",
