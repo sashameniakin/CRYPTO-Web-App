@@ -2,12 +2,17 @@ import styled from "styled-components";
 import CoinCard from "./CoinCard";
 import Close from "../public/images/close.svg";
 import Image from "next/image";
+import {setGlobalState} from "../state";
 
 function Popup(props) {
+  function closePopup() {
+    setGlobalState("openPopup", false);
+  }
+
   return props.trigger ? (
     <StyledPopup>
       <StyledPopupInner>
-        <StyledButton onClick={() => props.setTrigger(false)}>
+        <StyledButton onClick={() => closePopup()}>
           <Image alt="close" src={Close}></Image>
         </StyledButton>
         <StyledHead>

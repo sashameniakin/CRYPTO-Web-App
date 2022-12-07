@@ -5,15 +5,15 @@ import CoinCard from "../../components/CoinCard";
 import NewsCard from "../../components/NewsCard";
 import styled from "styled-components";
 import Popup from "../../components/Popup_bookmarked";
-import Bookmark from "../../public/images/bookmark.svg";
-import Image from "next/image";
+import {useGlobalState} from "../../state";
+import {getSession} from "next-auth/react";
 
 export default function Home() {
   let [coinNews, setCoinNews] = useState();
   let [coinData, setCoinData] = useState(null);
   let {getCoins, getNews} = useContext(CMContext);
   const [newCoins, setNewCoins] = useState();
-  const [buttonPopup, setButtonPopup] = useState(false);
+  const [buttonPopup] = useGlobalState("openPopup");
 
   const toggleBookmark = ID => {
     setNewCoins(
@@ -58,22 +58,11 @@ export default function Home() {
     setData();
   }, [getCoins]);
 
-  function openPopup() {
-    setButtonPopup(true);
-  }
-
   return (
     <>
-      <StyledHeader>
-        <StyledButton onClick={() => openPopup()}>
-          <StyledImage alt="bookmark" src={Bookmark}></StyledImage>
-        </StyledButton>
-      </StyledHeader>
-      <StyledHeaderSection></StyledHeaderSection>
       <Popup
         newCoins={newCoins}
         trigger={buttonPopup}
-        setTrigger={setButtonPopup}
         toggleBookmark={toggleBookmark}
       ></Popup>
 
@@ -124,6 +113,23 @@ export default function Home() {
   );
 }
 
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {user: session.user},
+  };
+}
+
 const StyledContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -162,30 +168,4 @@ const StyledSection = styled.section`
   margin-left: 20px;
   margin-right: 20px;
   gap: 3px;
-`;
-
-const StyledButton = styled.button`
-  top: 0px;
-  background-color: transparent;
-  border: none;
-`;
-const StyledImage = styled(Image)`
-  text-align: center;
-  margin-right: 10px;
-`;
-
-const StyledHeader = styled.header`
-  position: fixed;
-  width: 100%;
-  height: 50px;
-  top: 0%;
-  bottom: 94.44%;
-  background-color: rgba(165, 202, 210);
-  display: flex;
-  justify-content: end;
-  align-items: center;
-`;
-
-const StyledHeaderSection = styled.section`
-  margin-top: 10%;
 `;

@@ -1,12 +1,45 @@
 import styled from "styled-components";
+import {useGlobalState, setGlobalState} from "../state/index";
+import Bookmark from "../public/images/bookmark.svg";
+import Image from "next/image";
+import {signOut, getSession} from "next-auth/react";
+import SignOut from "../public/images/signout.svg";
 
 export default function Header() {
+  const [metamaskAddress] = useGlobalState("metamaskAddress");
+
+  function openPopup() {
+    setGlobalState("openPopup", true);
+  }
+
   return (
     <>
-      <StyledHeader></StyledHeader>
+      <StyledHeader>
+        <div></div>
+        <StyledAddress>{metamaskAddress}</StyledAddress>
+        <StyledButton onClick={() => signOut({redirect: "/login"})}>
+          <StyledImage alt="signout button" src={SignOut}></StyledImage>
+        </StyledButton>
+        <StyledButton onClick={() => openPopup()}>
+          <StyledImage alt="bookmark" src={Bookmark}></StyledImage>
+        </StyledButton>
+      </StyledHeader>
       <StyledSection></StyledSection>
     </>
   );
+}
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
 }
 
 const StyledHeader = styled.header`
@@ -23,4 +56,17 @@ const StyledHeader = styled.header`
 
 const StyledSection = styled.section`
   margin-top: 10%;
+`;
+const StyledButton = styled.button`
+  top: 0px;
+  background-color: transparent;
+  border: none;
+`;
+const StyledImage = styled(Image)`
+  text-align: center;
+  margin-right: 10px;
+`;
+const StyledAddress = styled.div`
+  margin-right: 20px;
+  color: white;
 `;

@@ -3,8 +3,47 @@ import Link from "next/link";
 import github from "../../public/images/github.svg";
 import github_logo from "../../public/images/github_logo.svg";
 import Image from "next/image";
+import {useAccount, useConnect, useSignMessage, useDisconnect} from "wagmi";
+import {MetaMaskConnector} from "wagmi/connectors/metaMask";
+import {useAuthRequestChallengeEvm} from "@moralisweb3/next";
+import {signIn} from "next-auth/react";
+import {useRouter} from "next/router";
+import MetaMask from "../../public/images/metamask.svg";
 
 export default function Login() {
+  const {connectAsync} = useConnect();
+  const {disconnectAsync} = useDisconnect();
+  const {isConnected} = useAccount();
+  const {signMessageAsync} = useSignMessage();
+  const {requestChallengeAsync} = useAuthRequestChallengeEvm();
+  const {push} = useRouter();
+
+  const handleAuth = async () => {
+    if (isConnected) {
+      await disconnectAsync();
+    }
+
+    const {account, chain} = await connectAsync({
+      connector: new MetaMaskConnector(),
+    });
+
+    const {message} = await requestChallengeAsync({
+      address: account,
+      chainId: chain.id,
+    });
+
+    const signature = await signMessageAsync({message});
+
+    const {url} = await signIn("credentials", {
+      message,
+      signature,
+      redirect: false,
+      callbackUrl: "/profile",
+    });
+
+    push(url);
+  };
+
   return (
     <>
       <StyledSection>
@@ -18,6 +57,9 @@ export default function Login() {
           <p>Login with </p>
           <Image alt="github" src={github}></Image>
         </StyledButtonGitHub>
+        <StyledMetaButton onClick={handleAuth}>
+          <StyledImage alt="signin button" src={MetaMask}></StyledImage>
+        </StyledMetaButton>
       </StyledSection>
     </>
   );
@@ -71,4 +113,13 @@ const StyledButtonGitHub = styled.button`
   align-items: center;
   justify-content: center;
   gap: 10px;
+`;
+const StyledMetaButton = styled.button`
+  top: 0px;
+  background-color: transparent;
+  border: none;
+`;
+const StyledImage = styled(Image)`
+  text-align: center;
+  margin-right: 10px;
 `;
