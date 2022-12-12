@@ -22,9 +22,10 @@ function Popup(props) {
           <StyledDiv>Market Cap</StyledDiv>
           <StyledDiv>Volume (24h)</StyledDiv>
         </StyledHead>
-        {props.newCoins.map(coins => {
+        {props.newCoins.map((coins, i) => {
           return coins.isBookmarked ? (
             <CoinCard
+              key={i}
               id={coins.id}
               rank={coins.cmc_rank}
               name={coins.name}
@@ -50,9 +51,9 @@ export default Popup;
 
 const StyledPopup = styled.div`
   position: fixed;
-  top: 0;
+  top: 10px;
   left: 0;
-
+  z-index: 2;
   width: 100%;
   height: 100%;
   background-color: rgba (0, 0, 0, 0.2);
@@ -70,7 +71,7 @@ const StyledPopupInner = styled.div`
   height: 90%;
   max-width: 940px;
 
-  background-color: #c5bbb7;
+  background-color: #d3e4e8;
   border-radius: 20px;
   overflow-y: scroll;
   margin-bottom: 150px;

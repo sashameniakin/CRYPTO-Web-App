@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import Lottie from "react-lottie";
-/* import animationData from "../public/lotties/86719-cryptocurrency.json"; */
 import Link from "next/link";
 import {useEffect, useState} from "react";
 
@@ -66,6 +65,5 @@ const StyledButton = styled.button`
 const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
-
   align-items: center;
 `;

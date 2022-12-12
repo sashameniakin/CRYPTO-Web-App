@@ -6,9 +6,8 @@ const GlobalStyles = createGlobalStyle`
         padding: 0;
         margin: 0;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-         min-width: 840px; 
-        margin-top: 3%;
-        
+     /*     min-width: 840px;  */
+       
     }
     * {
         box-sizing: border-box;

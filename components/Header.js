@@ -1,27 +1,36 @@
 import styled from "styled-components";
 import {useGlobalState, setGlobalState} from "../state/index";
 import Bookmark from "../public/images/bookmark.svg";
+import BookmarkBlack from "../public/images/Star_black.svg";
 import Image from "next/image";
 import {signOut, getSession} from "next-auth/react";
 import SignOut from "../public/images/signout.svg";
+import {useRouter} from "next/router";
 
 export default function Header() {
   const [metamaskAddress] = useGlobalState("metamaskAddress");
+  const [popupState] = useGlobalState("openPopup");
+  const path = useRouter().asPath;
 
   function openPopup() {
-    setGlobalState("openPopup", true);
+    if (path === "/home") {
+      setGlobalState("openPopup", true);
+    }
   }
 
   return (
     <>
       <StyledHeader>
         <StyledAddress>{metamaskAddress}</StyledAddress>
-        <StyledButton onClick={() => signOut({redirect: "/login"})}>
+        <StyledButtonSignOut onClick={() => signOut({redirect: "/login"})}>
           <StyledImage alt="signout button" src={SignOut} />
-        </StyledButton>
-        <StyledButton onClick={() => openPopup()}>
-          <StyledImage alt="bookmark" src={Bookmark} />
-        </StyledButton>
+        </StyledButtonSignOut>
+        <StyledButtonOpen onClick={() => openPopup()}>
+          <StyledImage
+            alt="bookmark"
+            src={popupState === true ? Bookmark : BookmarkBlack}
+          />
+        </StyledButtonOpen>
       </StyledHeader>
     </>
   );
@@ -52,15 +61,20 @@ const StyledHeader = styled.header`
   align-items: center;
 `;
 
-const StyledButton = styled.button`
+const StyledButtonOpen = styled.button`
   background-color: transparent;
   border: none;
 `;
+const StyledButtonSignOut = styled.button`
+  background-color: transparent;
+  border: none;
+  margin-top: 3px;
+`;
 const StyledImage = styled(Image)`
   text-align: center;
-  margin-right: 10px;
 `;
 const StyledAddress = styled.div`
   margin-right: 20px;
   color: white;
+  font-size: small;
 `;

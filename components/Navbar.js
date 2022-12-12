@@ -3,13 +3,20 @@ import Image from "next/image";
 import {useRouter} from "next/router";
 import StyledLink from "./StyledLink";
 import Metamask from "../public/images/metamask.svg";
+import MetamaskActive from "../public/images/metamask_filled.svg";
 import Funds from "../public/images/funds.svg";
 import Home from "../public/images/home.svg";
 import Profile from "../public/images/profile.svg";
 import Tasks from "../public/images/tasks.svg";
+import {setGlobalState, useGlobalState} from "../state";
 
 export default function Navbar() {
   const {pathname} = useRouter();
+  const [popupState] = useGlobalState("openMMPopup");
+
+  function openPopup() {
+    setGlobalState("openMMPopup", true);
+  }
 
   return (
     <>
@@ -17,31 +24,46 @@ export default function Navbar() {
 
       <footer>
         <StyledList>
-          <StyledDiv active={pathname === "/home" ? true : false}>
+          <StyledDiv
+            active={pathname === "/home" && popupState === false ? true : false}
+          >
             <StyledLink href="/home">
               <Image alt="home" src={Home} width="50px" height="50px"></Image>
             </StyledLink>
           </StyledDiv>
-          <StyledDiv active={pathname === "/funds" ? true : false}>
+          <StyledDiv
+            active={
+              pathname === "/funds" && popupState === false ? true : false
+            }
+          >
             <StyledLink href="/funds">
               <Image alt="funds" src={Funds} width="50px" height="50px"></Image>
             </StyledLink>
           </StyledDiv>
 
-          <StyledLink href="">
+          <StyledButton onClick={() => openPopup()}>
             <Image
               alt="metamask"
-              src={Metamask}
+              src={popupState ? MetamaskActive : Metamask}
               width="100px"
               height="100px"
             ></Image>
-          </StyledLink>
-          <StyledDiv active={pathname === "/tasks" ? true : false}>
+          </StyledButton>
+
+          <StyledDiv
+            active={
+              pathname === "/tasks" && popupState === false ? true : false
+            }
+          >
             <StyledLink href="/tasks">
               <Image alt="tasks" src={Tasks} width="50px" height="50px"></Image>
             </StyledLink>
           </StyledDiv>
-          <StyledDiv active={pathname === "/profile" ? true : false}>
+          <StyledDiv
+            active={
+              pathname === "/profile" && popupState === false ? true : false
+            }
+          >
             <StyledLink href="/profile">
               <Image
                 alt="personal profile"
@@ -79,9 +101,14 @@ const StyledDiv = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 20px;
-  width: 46px;
-  height: 21px;
+  border-radius: 100%;
+  width: 35px;
+  height: 35px;
   background-color: ${props =>
     props.active === true ? "rgba(255, 123, 137)" : ""};
+`;
+
+const StyledButton = styled.button`
+  background-color: transparent;
+  border: none;
 `;

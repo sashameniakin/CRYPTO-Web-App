@@ -1,13 +1,16 @@
 import {getSession} from "next-auth/react";
 import {setGlobalState} from "../../state";
+import styled from "styled-components";
 
 export default function Profile({user}) {
   setGlobalState("metamaskAddress", user.address);
+  setGlobalState("user", user);
 
   return (
     <>
-      <h4>User session:</h4>
-      <pre>{JSON.stringify(user, null, 2)}</pre>
+      <StyledBody>
+        <p>under construction</p>
+      </StyledBody>
     </>
   );
 }
@@ -28,3 +31,6 @@ export async function getServerSideProps(context) {
     props: {user: session.user},
   };
 }
+const StyledBody = styled.body`
+  margin-top: 8%;
+`;
