@@ -4,8 +4,8 @@ import Close from "../public/images/close.svg";
 import {setGlobalState, useGlobalState} from "../state";
 import {useState, useEffect} from "react";
 
-function PopupMM(props) {
-  const [error, setError] = useState();
+function PopupMM(props) {}
+/*   const [error, setError] = useState();
   const [user] = useGlobalState("user");
 
   const networks = {
@@ -138,9 +138,9 @@ function PopupMM(props) {
 
   function closePopup() {
     setGlobalState("openMMPopup", false);
-  }
+  } */
 
-  return props.trigger ? (
+/*   return props.trigger ? (
     <StyledPopup>
       <StyledPopupInner>
         <StyledButton onClick={() => closePopup()}>
@@ -173,7 +173,7 @@ function PopupMM(props) {
   ) : (
     ""
   );
-}
+} */
 
 export default PopupMM;
 
