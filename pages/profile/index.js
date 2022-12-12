@@ -31,6 +31,6 @@ export async function getServerSideProps(context) {
     props: {user: session.user},
   };
 }
-const StyledBody = styled.body`
+const StyledBody = styled.div`
   margin-top: 8%;
 `;
