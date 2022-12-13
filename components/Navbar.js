@@ -8,25 +8,88 @@ import Funds from "../public/images/funds.svg";
 import Home from "../public/images/home.svg";
 import Profile from "../public/images/profile.svg";
 import Tasks from "../public/images/tasks.svg";
-import {setGlobalState, useGlobalState} from "../state";
+import {setGlobalState} from "../state";
 import {useState} from "react";
+import Web3 from "web3";
+import {useEffect} from "react";
 
 export default function Navbar() {
   const {pathname} = useRouter();
-  const [popupState] = useGlobalState("openMMPopup");
+
   const [isConnected, setIsConnected] = useState(false);
+  const [currentAccount, setCurrentAccount] = useState(null);
+  const [provider, setProvider] = useState(/* window.ethereum */);
+  const [web3, setWeb3] = useState(null);
+  const [chainId, setChainId] = useState(null);
+  setGlobalState("metamaskAddress", currentAccount);
+  setGlobalState("chainId", chainId);
+  setGlobalState("isConnected", isConnected);
 
-  /*  function openPopup() {
-    setGlobalState("openMMPopup", true);
-  } */
+  useEffect(() => {
+    setProvider(detectProvider());
+  }, []);
 
-  const onLogin = () => {
-    setIsConnected(true);
+  const onLogin = async provider => {
+    if (provider) {
+      const web3 = new Web3(provider);
+      const accounts = await web3.eth.getAccounts();
+      const chainId = await web3.eth.getChainId();
+      if (accounts.length === 0) {
+        console.log("Please connect to Metamask!");
+      } else if (accounts[0] !== currentAccount) {
+        setCurrentAccount(accounts[0]);
+        setIsConnected(true);
+        setProvider(provider);
+        setWeb3(web3);
+        setChainId(chainId);
+      }
+    } else {
+      setGlobalState("openMMPopup", true);
+    }
   };
 
-  /*   const onLogout = () => {
+  useEffect(() => {
+    if (provider) {
+      if (provider !== window.ethereum) {
+        console.error(
+          "Not window.ethereum provider. Do you have multiple wallet installed?"
+        );
+      }
+    }
+  }, [provider]);
+
+  useEffect(() => {
+    const handleAccountsChanged = async accounts => {
+      const web3Accounts = await web3.eth.getAccounts();
+      if (accounts.length === 0) {
+        onLogout();
+      } else if (accounts[0] !== currentAccount) {
+        setCurrentAccount(accounts[0]);
+      }
+      console.log(web3Accounts);
+    };
+    const handleChainChanged = async chainId => {
+      const web3ChainId = await web3.eth.getChainId();
+      setChainId(web3ChainId);
+      console.log(chainId);
+    };
+
+    if (isConnected) {
+      provider.on("accountsChanged", handleAccountsChanged);
+      provider.on("chainChanged", handleChainChanged);
+    }
+
+    return () => {
+      if (isConnected) {
+        provider.removeListener("accountsChanged", handleAccountsChanged);
+        provider.removeListener("chainChanged", handleChainChanged);
+      }
+    };
+  }, [isConnected]);
+
+  const onLogout = () => {
     setIsConnected(false);
-  }; */
+  };
 
   const detectProvider = () => {
     let provider;
@@ -35,7 +98,7 @@ export default function Navbar() {
     } else if (window.web3) {
       provider = window.web3.currentProvider;
     } else {
-      window.alert("No Ethereum browser detected! Check out Metamask");
+      console.warn("No Ethereum browser detected! Check out Metamask");
     }
     return provider;
   };
@@ -43,18 +106,13 @@ export default function Navbar() {
   const onLoginHandler = async () => {
     const provider = detectProvider();
     if (provider) {
-      if (provider !== window.ethereum) {
-        console.error(
-          "Not window.ethereum provider. Do you have multiple wallet installed?"
-        );
-      }
-      setGlobalState("openMMPopup", true);
+      setGlobalState("isConnecting", true);
       await provider.request({
         method: "eth_requestAccounts",
       });
     }
-    setGlobalState("openMMPopup", false);
-    onLogin();
+    setGlobalState("isConnecting", false);
+    onLogin(provider);
   };
 
   return (
@@ -63,24 +121,18 @@ export default function Navbar() {
 
       <footer>
         <StyledList>
-          <StyledDiv
-            active={pathname === "/home" && popupState === false ? true : false}
-          >
+          <StyledDiv active={pathname === "/home" ? true : false}>
             <StyledLink href="/home">
               <Image alt="home" src={Home} width="50px" height="50px"></Image>
             </StyledLink>
           </StyledDiv>
-          <StyledDiv
-            active={
-              pathname === "/funds" && popupState === false ? true : false
-            }
-          >
+          <StyledDiv active={pathname === "/funds" ? true : false}>
             <StyledLink href="/funds">
               <Image alt="funds" src={Funds} width="50px" height="50px"></Image>
             </StyledLink>
           </StyledDiv>
 
-          <StyledButton onClick={/* () => openPopup() */ onLoginHandler}>
+          <StyledButton onClick={onLoginHandler}>
             <Image
               alt="metamask"
               src={isConnected ? MetamaskActive : Metamask}
@@ -89,20 +141,12 @@ export default function Navbar() {
             ></Image>
           </StyledButton>
 
-          <StyledDiv
-            active={
-              pathname === "/tasks" && popupState === false ? true : false
-            }
-          >
+          <StyledDiv active={pathname === "/tasks" ? true : false}>
             <StyledLink href="/tasks">
               <Image alt="tasks" src={Tasks} width="50px" height="50px"></Image>
             </StyledLink>
           </StyledDiv>
-          <StyledDiv
-            active={
-              pathname === "/profile" && popupState === false ? true : false
-            }
-          >
+          <StyledDiv active={pathname === "/profile" ? true : false}>
             <StyledLink href="/profile">
               <Image
                 alt="personal profile"

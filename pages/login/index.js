@@ -1,57 +1,13 @@
 import styled from "styled-components";
 import Link from "next/link";
-/* import Image from "next/image"; */
-/* import {useAccount, useConnect, useSignMessage, useDisconnect} from "wagmi";
-import {MetaMaskConnector} from "wagmi/connectors/metaMask";
-import {useAuthRequestChallengeEvm} from "@moralisweb3/next";
-import {signIn} from "next-auth/react";
-import {useRouter} from "next/router"; */
-/* import MetaMask from "../../public/images/logos_metamask.svg"; */
 
 export default function Login() {
-  /*   const {connectAsync} = useConnect();
-  const {disconnectAsync} = useDisconnect();
-  const {isConnected} = useAccount();
-  const {signMessageAsync} = useSignMessage();
-  const {requestChallengeAsync} = useAuthRequestChallengeEvm();
-  const {push} = useRouter(); */
-
-  /*  const handleAuth = async () => {
-    if (isConnected) {
-      await disconnectAsync();
-    }
-
-    const {account, chain} = await connectAsync({
-      connector: new MetaMaskConnector(),
-    });
-
-    const {message} = await requestChallengeAsync({
-      address: account,
-      chainId: chain.id,
-    });
-
-    const signature = await signMessageAsync({message});
-
-    const {url} = await signIn("credentials", {
-      message,
-      signature,
-      redirect: false,
-      callbackUrl: "/profile",
-    });
-
-    push(url);
-  }; */
-
   return (
     <>
       <StyledSection>
         <Link href="/profile">
           <StyledButton>LOGIN </StyledButton>
         </Link>
-        <p>Login via </p>
-        {/*    <StyledMetaButton onClick={handleAuth }>
-          <StyledImage alt="signin button" src={MetaMask}></StyledImage>
-        </StyledMetaButton> */}
       </StyledSection>
     </>
   );
@@ -62,7 +18,6 @@ const StyledSection = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   min-height: 100vh;
   background-color: #758eb7;
 `;

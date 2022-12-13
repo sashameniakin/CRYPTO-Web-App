@@ -9,9 +9,11 @@ import {useRouter} from "next/router";
 
 export default function Header() {
   const [metamaskAddress] = useGlobalState("metamaskAddress");
+  const [chain] = useGlobalState("chainId");
   const [popupState] = useGlobalState("openPopup");
-  const [buttonPopup] = useGlobalState("openMMPopup");
+  const [Connecting] = useGlobalState("isConnecting");
   const path = useRouter().asPath;
+  const [isConnected] = useGlobalState("isConnected");
 
   function openPopup() {
     if (path === "/home") {
@@ -23,7 +25,10 @@ export default function Header() {
     <>
       <StyledHeader>
         <StyledAddress>
-          {buttonPopup ? "...Loading" : metamaskAddress}
+          {Connecting ? "...Loading" : isConnected ? chain : ""}
+        </StyledAddress>
+        <StyledAddress>
+          {Connecting ? "...Loading" : isConnected ? metamaskAddress : ""}
         </StyledAddress>
         <StyledButtonSignOut onClick={() => signOut({redirect: "/login"})}>
           <StyledImage alt="signout button" src={SignOut} />
