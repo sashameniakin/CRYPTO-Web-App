@@ -9,14 +9,53 @@ import Home from "../public/images/home.svg";
 import Profile from "../public/images/profile.svg";
 import Tasks from "../public/images/tasks.svg";
 import {setGlobalState, useGlobalState} from "../state";
+import {useState} from "react";
 
 export default function Navbar() {
   const {pathname} = useRouter();
   const [popupState] = useGlobalState("openMMPopup");
+  const [isConnected, setIsConnected] = useState(false);
 
-  function openPopup() {
+  /*  function openPopup() {
     setGlobalState("openMMPopup", true);
-  }
+  } */
+
+  const onLogin = () => {
+    setIsConnected(true);
+  };
+
+  /*   const onLogout = () => {
+    setIsConnected(false);
+  }; */
+
+  const detectProvider = () => {
+    let provider;
+    if (window.ethereum) {
+      provider = window.ethereum;
+    } else if (window.web3) {
+      provider = window.web3.currentProvider;
+    } else {
+      window.alert("No Ethereum browser detected! Check out Metamask");
+    }
+    return provider;
+  };
+
+  const onLoginHandler = async () => {
+    const provider = detectProvider();
+    if (provider) {
+      if (provider !== window.ethereum) {
+        console.error(
+          "Not window.ethereum provider. Do you have multiple wallet installed?"
+        );
+      }
+      setGlobalState("openMMPopup", true);
+      await provider.request({
+        method: "eth_requestAccounts",
+      });
+    }
+    setGlobalState("openMMPopup", false);
+    onLogin();
+  };
 
   return (
     <>
@@ -41,10 +80,10 @@ export default function Navbar() {
             </StyledLink>
           </StyledDiv>
 
-          <StyledButton onClick={() => openPopup()}>
+          <StyledButton onClick={/* () => openPopup() */ onLoginHandler}>
             <Image
               alt="metamask"
-              src={popupState ? MetamaskActive : Metamask}
+              src={isConnected ? MetamaskActive : Metamask}
               width="100px"
               height="100px"
             ></Image>

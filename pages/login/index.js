@@ -1,33 +1,14 @@
 import styled from "styled-components";
 import Link from "next/link";
-import Image from "next/image";
+/* import Image from "next/image"; */
 /* import {useAccount, useConnect, useSignMessage, useDisconnect} from "wagmi";
 import {MetaMaskConnector} from "wagmi/connectors/metaMask";
 import {useAuthRequestChallengeEvm} from "@moralisweb3/next";
 import {signIn} from "next-auth/react";
 import {useRouter} from "next/router"; */
-import MetaMask from "../../public/images/logos_metamask.svg";
-import {ethers} from "ethers";
-import {useState} from "react";
+/* import MetaMask from "../../public/images/logos_metamask.svg"; */
 
 export default function Login() {
-  const [defaultAccount, setDefaultAccount] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
-
-  const connectWallet = () => {
-    if (window.ethereum) {
-      window.ethereum.request({method: "eth_requestAccounts"}).then(result => {
-        accountChanged([result[0]]);
-      });
-    } else {
-      setErrorMessage("Install Metamask!");
-    }
-  };
-
-  const accountChanged = accountName => {
-    setDefaultAccount(accountName);
-  };
-
   /*   const {connectAsync} = useConnect();
   const {disconnectAsync} = useDisconnect();
   const {isConnected} = useAccount();
@@ -68,9 +49,9 @@ export default function Login() {
           <StyledButton>LOGIN </StyledButton>
         </Link>
         <p>Login via </p>
-        <StyledMetaButton onClick={/* handleAuth */ connectWallet()}>
+        {/*    <StyledMetaButton onClick={handleAuth }>
           <StyledImage alt="signin button" src={MetaMask}></StyledImage>
-        </StyledMetaButton>
+        </StyledMetaButton> */}
       </StyledSection>
     </>
   );
@@ -97,7 +78,7 @@ const StyledButton = styled.button`
   border-color: white;
 `;
 
-const StyledMetaButton = styled.button`
+/* const StyledMetaButton = styled.button`
   background-color: transparent;
   border: 2px solid black;
   border-radius: 5px;
@@ -107,4 +88,4 @@ const StyledMetaButton = styled.button`
 const StyledImage = styled(Image)`
   text-align: center;
   margin-right: 10px;
-`;
+`; */
