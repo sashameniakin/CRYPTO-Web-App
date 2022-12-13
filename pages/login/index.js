@@ -9,14 +9,14 @@ import {useRouter} from "next/router";
 import MetaMask from "../../public/images/logos_metamask.svg";
 
 export default function Login() {
-  const {connectAsync} = useConnect();
+  /*   const {connectAsync} = useConnect();
   const {disconnectAsync} = useDisconnect();
   const {isConnected} = useAccount();
   const {signMessageAsync} = useSignMessage();
   const {requestChallengeAsync} = useAuthRequestChallengeEvm();
-  const {push} = useRouter();
+  const {push} = useRouter(); */
 
-  const handleAuth = async () => {
+  /*   const handleAuth = async () => {
     if (isConnected) {
       await disconnectAsync();
     }
@@ -40,7 +40,7 @@ export default function Login() {
     });
 
     push(url);
-  };
+  }; */
 
   return (
     <>
@@ -49,9 +49,9 @@ export default function Login() {
           <StyledButton>LOGIN </StyledButton>
         </Link>
         <p>Login via </p>
-        <StyledMetaButton onClick={handleAuth}>
+        {/*    <StyledMetaButton onClick={handleAuth}>
           <StyledImage alt="signin button" src={MetaMask}></StyledImage>
-        </StyledMetaButton>
+        </StyledMetaButton> */}
       </StyledSection>
     </>
   );

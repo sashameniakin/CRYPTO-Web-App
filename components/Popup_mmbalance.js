@@ -3,12 +3,22 @@ import Image from "next/image";
 import Close from "../public/images/close.svg";
 import {setGlobalState, useGlobalState} from "../state";
 import {useState, useEffect} from "react";
+import {jsonRpcProvider} from "wagmi/providers/jsonRpc";
+import {chain, configureChains} from "wagmi";
 
 function PopupMM(props) {
-  const [error, setError] = useState();
+  /*   const [error, setError] = useState();
   const [user] = useGlobalState("user");
-
-  const networks = {
+  const {chains, provider} = configureChains(
+    [chain.mainnet, chain.polygon],
+    [
+      jsonRpcProvider({
+        rpc: chain => ({}),
+      }),
+    ]
+  );
+ */
+  /*   const networks = {
     polygon: {
       chainId: `0x${Number(137).toString(16)}`,
       chainName: "Polygon Mainnet",
@@ -89,8 +99,8 @@ function PopupMM(props) {
       rpcUrls: ["https://rpc.builder0x69.io"],
       blockExplorerUrls: ["https://ftmscan.com/"],
     },
-  };
-  const changeNetwork = async ({networkName, setError}) => {
+  }; */
+  /*   const changeNetwork = async ({networkName, setError}) => {
     try {
       if (!window.ethereum) throw new Error("No crypto wallet found");
       if (networkName === "ethereum") {
@@ -116,15 +126,15 @@ function PopupMM(props) {
       setError(err.message);
       console.log(error);
     }
-  };
+  }; */
 
-  const handleNetworkSwitch = async networkName => {
+  /*   const handleNetworkSwitch = async networkName => {
     setError();
     await changeNetwork({networkName, setError});
     user.chainId = networkName;
-  };
+  }; */
 
-  const networkChanged = chainId => {
+  /*   const networkChanged = chainId => {
     console.log(chainId);
   };
 
@@ -138,12 +148,12 @@ function PopupMM(props) {
 
   function closePopup() {
     setGlobalState("openMMPopup", false);
-  }
+  } */
 
   return props.trigger ? (
     <StyledPopup>
       <StyledPopupInner>
-        <StyledButton onClick={() => closePopup()}>
+        {/*         <StyledButton onClick={() => closePopup()}>
           <Image alt="close" src={Close}></Image>
         </StyledButton>
         <Button onClick={() => handleNetworkSwitch("polygon")}>
@@ -167,7 +177,7 @@ function PopupMM(props) {
         <StyledDiv>
           <h4>User session:</h4>
           <pre>{JSON.stringify(user, null, 2)}</pre>
-        </StyledDiv>
+        </StyledDiv> */}
       </StyledPopupInner>
     </StyledPopup>
   ) : (
