@@ -2,20 +2,24 @@ import Layout from "../components/Layout";
 import GlobalStyles from "../styles/GlobalStyles";
 import {CMProvider} from "../context/context";
 import {useRouter} from "next/router";
-import {publicProvider} from "wagmi/providers/public";
+/* import {publicProvider} from "wagmi/providers/public"; */
 import {SessionProvider} from "next-auth/react";
-import {createClient, configureChains, defaultChains, WagmiConfig} from "wagmi";
+import {
+  createClient,
+  /* configureChains, defaultChains,*/ WagmiConfig,
+} from "wagmi";
 import Popup from "../components/Popup_mmbalance";
 import {useGlobalState} from "../state";
 import {ActivityProvider} from "../context/context";
+import {getDefaultProvider} from "ethers";
 
-const {provider, webSocketProvider} = configureChains(defaultChains, [
+/* const {provider, webSocketProvider} = configureChains(defaultChains, [
   publicProvider(),
-]);
+]); */
 
 const client = createClient({
-  provider,
-  webSocketProvider,
+  provider: getDefaultProvider,
+  /*  webSocketProvider, */
   autoConnect: true,
 });
 
