@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import Image from "next/image";
+/* import Image from "next/image";
 import Close from "../public/images/close.svg";
 import {setGlobalState, useGlobalState} from "../state";
 import {useState, useEffect} from "react";
 import {jsonRpcProvider} from "wagmi/providers/jsonRpc";
-import {chain, configureChains} from "wagmi";
+import {chain, configureChains} from "wagmi"; */
 
 function PopupMM(props) {
   /*   const [error, setError] = useState();
@@ -208,7 +208,7 @@ const StyledPopupInner = styled.div`
 
   margin-top: 100px;
 `;
-const StyledButton = styled.button`
+/* const StyledButton = styled.button`
   position: absolute;
   top: 16px;
   right: 16px;
@@ -226,4 +226,4 @@ const Button = styled.button`
   border-radius: 5px;
   background-color: white;
   border: 2px solid rgba(255, 123, 137);
-`;
+`; */

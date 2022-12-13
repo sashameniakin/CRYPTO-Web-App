@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import Link from "next/link";
-import Image from "next/image";
+/* import Image from "next/image";
 import {useAccount, useConnect, useSignMessage, useDisconnect} from "wagmi";
 import {MetaMaskConnector} from "wagmi/connectors/metaMask";
 import {useAuthRequestChallengeEvm} from "@moralisweb3/next";
 import {signIn} from "next-auth/react";
 import {useRouter} from "next/router";
-import MetaMask from "../../public/images/logos_metamask.svg";
+import MetaMask from "../../public/images/logos_metamask.svg"; */
 
 export default function Login() {
   /*   const {connectAsync} = useConnect();
@@ -78,7 +78,7 @@ const StyledButton = styled.button`
   border-color: white;
 `;
 
-const StyledMetaButton = styled.button`
+/* const StyledMetaButton = styled.button`
   background-color: transparent;
   border: 2px solid black;
   border-radius: 5px;
@@ -89,3 +89,4 @@ const StyledImage = styled(Image)`
   text-align: center;
   margin-right: 10px;
 `;
+ */
