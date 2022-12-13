@@ -1,8 +1,8 @@
 import NextAuth from "next-auth";
-/* import {MoralisNextAuthProvider} from "@moralisweb3/next"; */
+import {MoralisNextAuthProvider} from "@moralisweb3/next";
 
 export default NextAuth({
-  /*   providers: [MoralisNextAuthProvider()],
+  providers: [MoralisNextAuthProvider()],
   callbacks: {
     async jwt({token, user}) {
       if (user) {
@@ -14,5 +14,5 @@ export default NextAuth({
       session.user = token.user;
       return session;
     },
-  }, */
+  },
 });
