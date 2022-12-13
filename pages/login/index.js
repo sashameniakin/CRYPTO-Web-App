@@ -1,15 +1,15 @@
 import styled from "styled-components";
 import Link from "next/link";
-import Image from "next/image";
-import {useAccount, useConnect, useSignMessage, useDisconnect} from "wagmi";
+/* import Image from "next/image"; */
+/* import {useAccount, useConnect, useSignMessage, useDisconnect} from "wagmi";
 import {MetaMaskConnector} from "wagmi/connectors/metaMask";
 import {useAuthRequestChallengeEvm} from "@moralisweb3/next";
 import {signIn} from "next-auth/react";
 import {useRouter} from "next/router";
-import MetaMask from "../../public/images/logos_metamask.svg";
+import MetaMask from "../../public/images/logos_metamask.svg";  */
 
 export default function Login() {
-  const {connectAsync} = useConnect();
+  /*  const {connectAsync} = useConnect();
   const {disconnectAsync} = useDisconnect();
   const {isConnected} = useAccount();
   const {signMessageAsync} = useSignMessage();
@@ -40,7 +40,7 @@ export default function Login() {
     });
 
     push(url);
-  };
+  }; */
 
   return (
     <>
@@ -49,9 +49,9 @@ export default function Login() {
           <StyledButton>LOGIN </StyledButton>
         </Link>
         <p>Login via </p>
-        <StyledMetaButton onClick={handleAuth}>
+        {/*      <StyledMetaButton onClick={handleAuth}>
           <StyledImage alt="signin button" src={MetaMask}></StyledImage>
-        </StyledMetaButton>
+        </StyledMetaButton> */}
       </StyledSection>
     </>
   );
@@ -78,7 +78,7 @@ const StyledButton = styled.button`
   border-color: white;
 `;
 
-const StyledMetaButton = styled.button`
+/* const StyledMetaButton = styled.button`
   background-color: transparent;
   border: 2px solid black;
   border-radius: 5px;
@@ -88,4 +88,4 @@ const StyledMetaButton = styled.button`
 const StyledImage = styled(Image)`
   text-align: center;
   margin-right: 10px;
-`;
+`; */

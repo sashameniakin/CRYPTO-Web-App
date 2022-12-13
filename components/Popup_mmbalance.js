@@ -1,15 +1,15 @@
-import styled from "styled-components";
+/* import styled from "styled-components";
 import Image from "next/image";
 import Close from "../public/images/close.svg";
 import {setGlobalState, useGlobalState} from "../state";
-import {useState, useEffect} from "react";
+import {useState, useEffect} from "react"; */
 /* import {jsonRpcProvider} from "wagmi/providers/jsonRpc";
 import {chain, configureChains} from "wagmi"; */
 
-function PopupMM(props) {
+/* function PopupMM(props) {
   const [error, setError] = useState();
-  const [user] = useGlobalState("user");
-  /*  const {chains, provider} = configureChains(
+  const [user] = useGlobalState("user"); */
+/*  const {chains, provider} = configureChains(
     [chain.mainnet, chain.polygon],
     [
       jsonRpcProvider({
@@ -18,7 +18,7 @@ function PopupMM(props) {
     ]
   ); */
 
-  const networks = {
+/*   const networks = {
     polygon: {
       chainId: `0x${Number(137).toString(16)}`,
       chainName: "Polygon Mainnet",
@@ -126,9 +126,9 @@ function PopupMM(props) {
       setError(err.message);
       console.log(error);
     }
-  };
+  }; */
 
-  const handleNetworkSwitch = async networkName => {
+/*   const handleNetworkSwitch = async networkName => {
     setError();
     await changeNetwork({networkName, setError});
     user.chainId = networkName;
@@ -148,9 +148,9 @@ function PopupMM(props) {
 
   function closePopup() {
     setGlobalState("openMMPopup", false);
-  }
+  } */
 
-  return props.trigger ? (
+/*   return props.trigger ? (
     <StyledPopup>
       <StyledPopupInner>
         <StyledButton onClick={() => closePopup()}>
@@ -185,17 +185,17 @@ function PopupMM(props) {
   );
 }
 
-export default PopupMM;
+export default PopupMM; */
 
-const StyledPopup = styled.div`
+/* const StyledPopup = styled.div`
   position: fixed;
   width: 100%;
   background-color: rgba (0, 0, 0, 0.2);
   display: flex;
   justify-content: center;
-  align-items: center;
-  /* filter: blur(5px); */
-`;
+  align-items: center; */
+/* filter: blur(5px); */
+/* `;
 const StyledPopupInner = styled.div`
   position: relative;
 
@@ -207,8 +207,8 @@ const StyledPopupInner = styled.div`
   overflow-y: scroll;
 
   margin-top: 100px;
-`;
-const StyledButton = styled.button`
+`; */
+/* const StyledButton = styled.button`
   position: absolute;
   top: 16px;
   right: 16px;
@@ -220,10 +220,10 @@ const StyledDiv = styled.div`
   padding: 8px;
   background-color: rgba(165, 202, 210, 0.3);
   box-shadow: 10px 5px 5px rgba(165, 202, 210, 0.3);
-`;
+`; */
 
-const Button = styled.button`
+/* const Button = styled.button`
   border-radius: 5px;
   background-color: white;
   border: 2px solid rgba(255, 123, 137);
-`;
+`; */
