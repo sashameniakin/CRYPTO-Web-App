@@ -3,20 +3,20 @@ import Image from "next/image";
 import Close from "../public/images/close.svg";
 import {setGlobalState, useGlobalState} from "../state";
 import {useState, useEffect} from "react";
-import {jsonRpcProvider} from "wagmi/providers/jsonRpc";
-import {chain, configureChains} from "wagmi";
+/* import {jsonRpcProvider} from "wagmi/providers/jsonRpc";
+import {chain, configureChains} from "wagmi"; */
 
 function PopupMM(props) {
   const [error, setError] = useState();
   const [user] = useGlobalState("user");
-  const {chains, provider} = configureChains(
+  /*  const {chains, provider} = configureChains(
     [chain.mainnet, chain.polygon],
     [
       jsonRpcProvider({
         rpc: chain => ({}),
       }),
     ]
-  );
+  ); */
 
   const networks = {
     polygon: {
