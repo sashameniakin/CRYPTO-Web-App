@@ -1,10 +1,10 @@
-import {getSession} from "next-auth/react";
-import {setGlobalState} from "../../state";
+/* import {getSession} from "next-auth/react"; */
+/* import {setGlobalState} from "../../state"; */
 import styled from "styled-components";
 
-export default function Profile({user}) {
-  setGlobalState("metamaskAddress", user.address);
-  setGlobalState("user", user);
+export default function Profile(/* {user} */) {
+  /*   setGlobalState("metamaskAddress", user.address);
+  setGlobalState("user", user); */
 
   return (
     <>
@@ -15,7 +15,7 @@ export default function Profile({user}) {
   );
 }
 
-export async function getServerSideProps(context) {
+/* export async function getServerSideProps(context) {
   const session = await getSession(context);
 
   if (!session) {
@@ -30,7 +30,7 @@ export async function getServerSideProps(context) {
   return {
     props: {user: session.user},
   };
-}
+} */
 const StyledBody = styled.div`
   margin-top: 8%;
 `;

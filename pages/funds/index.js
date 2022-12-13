@@ -1,4 +1,4 @@
-import {getSession} from "next-auth/react";
+/* import {getSession} from "next-auth/react"; */
 
 export default function Funds() {
   return (
@@ -8,7 +8,7 @@ export default function Funds() {
   );
 }
 
-export async function getServerSideProps(context) {
+/* export async function getServerSideProps(context) {
   const session = await getSession(context);
 
   if (!session) {
@@ -23,4 +23,4 @@ export async function getServerSideProps(context) {
   return {
     props: {user: session.user},
   };
-}
+} */

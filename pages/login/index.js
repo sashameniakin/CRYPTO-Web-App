@@ -45,7 +45,7 @@ export default function Login() {
   return (
     <>
       <StyledSection>
-        <Link href="/home">
+        <Link href="/profile">
           <StyledButton>LOGIN </StyledButton>
         </Link>
         <p>Login via </p>
