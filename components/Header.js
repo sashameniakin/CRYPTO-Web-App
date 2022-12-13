@@ -30,7 +30,7 @@ export default function Header() {
         <StyledAddress>
           {Connecting ? "...Loading" : isConnected ? metamaskAddress : ""}
         </StyledAddress>
-        <StyledButtonSignOut onClick={() => signOut({redirect: "/login"})}>
+        <StyledButtonSignOut onClick={() => signOut()}>
           <StyledImage alt="signout button" src={SignOut} />
         </StyledButtonSignOut>
         <StyledButtonOpen onClick={() => openPopup()}>
