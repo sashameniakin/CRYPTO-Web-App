@@ -13,20 +13,6 @@ export const CMProvider = ({children}) => {
       console.log(error.message);
     }
   };
-  const getNews = async () => {
-    try {
-      const res = await fetch("/api/bind-api");
-      const data = await res.json();
 
-      return data.data.value;
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  return (
-    <CMContext.Provider value={{getCoins, getNews}}>
-      {children}
-    </CMContext.Provider>
-  );
+  return <CMContext.Provider value={{getCoins}}>{children}</CMContext.Provider>;
 };

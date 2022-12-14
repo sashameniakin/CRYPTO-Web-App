@@ -17,40 +17,38 @@ export default function NewsCard({
     "https://www.bing.com/th?id=OVFT.mpzuVZnv8dwIMRfQGPbOPC&pid=News";
 
   return (
-    <>
-      <Card>
-        <StyledA href={urlLink} target="_blank" rel="noreferrer">
-          <StyledContainer>
-            <Titel>{name}</Titel>
+    <Card>
+      <StyledA href={urlLink} target="_blank" rel="noreferrer">
+        <StyledContainer>
+          <Titel>{name}</Titel>
+          <Image
+            alt=""
+            loader={() => url || demoImage}
+            src={src}
+            width={100}
+            height={100}
+          />
+        </StyledContainer>
+        <StyledP primary>
+          {description.length > 100
+            ? `${description.substring(0, 100)}...`
+            : description}
+        </StyledP>
+        <StyledContainer primary>
+          <StyledDiv>
             <Image
               alt=""
-              loader={() => url || demoImage}
-              src={src}
-              width={100}
-              height={100}
-            ></Image>
-          </StyledContainer>
-          <StyledP>
-            {description.length > 100
-              ? `${description.substring(0, 100)}...`
-              : description}
-          </StyledP>
-          <StyledProvider>
-            <StyledDiv>
-              <Image
-                alt=""
-                loader={() => providerUrl || demoImage}
-                src={providerUrl || demoImage}
-                width={50}
-                height={50}
-              ></Image>
-              <StyledProviderName>{providerName}</StyledProviderName>
-            </StyledDiv>
-            <p>{moment(datePublished).startOf("ss").fromNow()}</p>
-          </StyledProvider>
-        </StyledA>
-      </Card>
-    </>
+              loader={() => providerUrl || demoImage}
+              src={providerUrl || demoImage}
+              width={50}
+              height={50}
+            />
+            <StyledP>{providerName}</StyledP>
+          </StyledDiv>
+          <p>{moment(datePublished).startOf("ss").fromNow()}</p>
+        </StyledContainer>
+      </StyledA>
+    </Card>
   );
 }
 
@@ -62,6 +60,7 @@ const StyledDiv = styled.div`
 const StyledContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  margin: ${props => (props.primary ? "10px" : "")};
 `;
 
 const Card = styled.div`
@@ -88,18 +87,8 @@ const Titel = styled.div`
   font-weight: bold;
 `;
 
-const StyledProvider = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin: 10px;
-`;
-
 const StyledP = styled.p`
-  color: black;
-  margin-left: 10px;
-  margin-right: 10px;
-`;
-const StyledProviderName = styled.p`
+  color: ${props => (props.primary ? "black" : "")};
   margin-left: 10px;
   margin-right: 10px;
 `;

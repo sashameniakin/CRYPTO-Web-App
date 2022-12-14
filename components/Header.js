@@ -1,43 +1,44 @@
 import styled from "styled-components";
 import {useGlobalState, setGlobalState} from "../state/index";
 import Bookmark from "../public/images/bookmark.svg";
+import BookmarkBlack from "../public/images/Star_black.svg";
 import Image from "next/image";
-import {signOut, getSession} from "next-auth/react";
 import SignOut from "../public/images/signout.svg";
+import {useRouter} from "next/router";
 
 export default function Header() {
   const [metamaskAddress] = useGlobalState("metamaskAddress");
+  const [chain] = useGlobalState("chainId");
+  const [popupState] = useGlobalState("openPopup");
+  const [Connecting] = useGlobalState("isConnecting");
+  const path = useRouter().asPath;
+  const [isConnected] = useGlobalState("isConnected");
 
   function openPopup() {
-    setGlobalState("openPopup", true);
+    if (path === "/home") {
+      setGlobalState("openPopup", true);
+    }
   }
 
   return (
-    <>
-      <StyledHeader>
-        <StyledAddress>{metamaskAddress}</StyledAddress>
-        <StyledButton onClick={() => signOut({redirect: "/login"})}>
-          <StyledImage alt="signout button" src={SignOut} />
-        </StyledButton>
-        <StyledButton onClick={() => openPopup()}>
-          <StyledImage alt="bookmark" src={Bookmark} />
-        </StyledButton>
-      </StyledHeader>
-    </>
+    <StyledHeader>
+      <StyledAddress>
+        {Connecting ? "...Loading" : isConnected ? chain : ""}
+      </StyledAddress>
+      <StyledAddress>
+        {Connecting ? "...Loading" : isConnected ? metamaskAddress : ""}
+      </StyledAddress>
+      <StyledButton>
+        <StyledImage alt="signout button" src={SignOut} />
+      </StyledButton>
+      <StyledButton onClick={() => openPopup()}>
+        <StyledImage
+          alt="bookmark"
+          src={popupState === true ? Bookmark : BookmarkBlack}
+        />
+      </StyledButton>
+    </StyledHeader>
   );
-}
-
-export async function getServerSideProps(context) {
-  const session = await getSession(context);
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
 }
 
 const StyledHeader = styled.header`
@@ -52,15 +53,15 @@ const StyledHeader = styled.header`
   align-items: center;
 `;
 
-const StyledButton = styled.button`
+export const StyledButton = styled.button`
   background-color: transparent;
   border: none;
 `;
 const StyledImage = styled(Image)`
   text-align: center;
-  margin-right: 10px;
 `;
 const StyledAddress = styled.div`
   margin-right: 20px;
   color: white;
+  font-size: small;
 `;

@@ -6,14 +6,15 @@ import NewsCard from "../../components/NewsCard";
 import styled from "styled-components";
 import Popup from "../../components/Popup_bookmarked";
 import {useGlobalState} from "../../state";
-import {getSession} from "next-auth/react";
+/* import {getSession} from "next-auth/react"; */
 
 export default function Home() {
   let [coinNews, setCoinNews] = useState();
   let [coinData, setCoinData] = useState(null);
-  let {getCoins, getNews} = useContext(CMContext);
+  let {getCoins} = useContext(CMContext);
   const [newCoins, setNewCoins] = useState();
   const [buttonPopup] = useGlobalState("openPopup");
+  const [newsCategory, setNewsCategory] = useState("Cryptocurrency");
 
   const toggleBookmark = ID => {
     setNewCoins(
@@ -33,20 +34,6 @@ export default function Home() {
   useEffect(() => {
     const setData = async () => {
       try {
-        let apiResponse = await getNews();
-
-        setCoinNews(apiResponse);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-
-    setData();
-  }, [getNews]);
-
-  useEffect(() => {
-    const setData = async () => {
-      try {
         let apiResponse = await getCoins();
         setCoinData(apiResponse);
         setNewCoins(apiResponse);
@@ -58,77 +45,106 @@ export default function Home() {
     setData();
   }, [getCoins]);
 
+  useEffect(() => {
+    const callAPI = async () => {
+      try {
+        const res = await fetch(
+          `https://bing-news-search1.p.rapidapi.com/news/search?q="${newsCategory}"`,
+          {
+            method: "GET",
+            headers: {
+              "X-BingApis-SDK": "true",
+              "X-RapidAPI-Key":
+                "b1f05b99c9msh84c7f8928e12780p194411jsn85165cd63758",
+              "X-RapidAPI-Host": "bing-news-search1.p.rapidapi.com",
+              category: "Cryptocurrency",
+            },
+          }
+        );
+        const data = await res.json();
+
+        setCoinNews(data.value);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    callAPI();
+  }, [newsCategory]);
+
   return (
     <>
-      <Popup
-        newCoins={newCoins}
-        trigger={buttonPopup}
-        toggleBookmark={toggleBookmark}
-      ></Popup>
-
-      <StyledContainer>
-        {coinNews &&
-          coinNews.map((news, i) => (
-            <div key={i}>
-              <NewsCard
-                urlLink={news.url}
-                name={news.name}
-                url={news?.image?.thumbnail?.contentUrl}
-                description={news.description}
-                datePublished={news.datePublished}
-                providerName={news.provider[0]?.name}
-                providerUrl={news.provider[0]?.image?.thumbnail?.contentUrl}
-              />
-            </div>
-          ))}
-      </StyledContainer>
-      <StyledHead>
-        <StyledDiv>#</StyledDiv>
-        <StyledDiv>Name</StyledDiv>
-        <StyledDiv>Price</StyledDiv>
-        <StyledDiv>Market Cap</StyledDiv>
-        <StyledDiv>Volume (24h)</StyledDiv>
-      </StyledHead>
-      <StyledSection>
-        {coinData ? (
-          newCoins.map((coin, i) => (
-            <div key={i}>
-              <CoinCard
-                id={coin.id}
-                rank={coin.cmc_rank}
-                name={coin.name}
-                price={coin.quote.USD.price}
-                market_cap={coin.quote.USD.market_cap}
-                volume={coin.quote.USD.volume_24h}
-                isBookmarked={coin.isBookmarked}
-                toggleBookmark={toggleBookmark}
-              />
-            </div>
-          ))
-        ) : (
-          <></>
-        )}
-      </StyledSection>
+      <StyledBody>
+        <StyledSelect>
+          News Category:
+          <Select onChange={e => setNewsCategory(e.target.value)}>
+            <option value="cryptocurrency">cryptocurrency</option>
+            {coinData
+              ? newCoins.map((coin, i) => {
+                  return (
+                    <option key={i} value={coin.name}>
+                      {coin.name}
+                    </option>
+                  );
+                })
+              : ""}
+          </Select>
+        </StyledSelect>
+        <Popup
+          newCoins={newCoins}
+          trigger={buttonPopup}
+          toggleBookmark={toggleBookmark}
+        ></Popup>
+        <StyledContainer>
+          {coinNews &&
+            coinNews.map((news, i) => (
+              <div key={i}>
+                <NewsCard
+                  urlLink={news.url}
+                  name={news.name}
+                  url={news?.image?.thumbnail?.contentUrl}
+                  description={news.description}
+                  datePublished={news.datePublished}
+                  providerName={news.provider[0]?.name}
+                  providerUrl={news.provider[0]?.image?.thumbnail?.contentUrl}
+                />
+              </div>
+            ))}
+        </StyledContainer>
+        <StyledHead active={buttonPopup}>
+          <StyledDiv>#</StyledDiv>
+          <StyledDiv>Name</StyledDiv>
+          <StyledDiv>Price</StyledDiv>
+          <StyledDiv>Market Cap</StyledDiv>
+          <StyledDiv>Volume (24h)</StyledDiv>
+        </StyledHead>
+        <StyledSection active={buttonPopup}>
+          {coinData ? (
+            newCoins.map((coin, i) => (
+              <div key={i}>
+                <CoinCard
+                  id={coin.id}
+                  rank={coin.cmc_rank}
+                  name={coin.name}
+                  price={coin.quote.USD.price}
+                  market_cap={coin.quote.USD.market_cap}
+                  volume={coin.quote.USD.volume_24h}
+                  isBookmarked={coin.isBookmarked}
+                  toggleBookmark={toggleBookmark}
+                />
+              </div>
+            ))
+          ) : (
+            <></>
+          )}
+        </StyledSection>
+      </StyledBody>
     </>
   );
 }
 
-export async function getServerSideProps(context) {
-  const session = await getSession(context);
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {user: session.user},
-  };
-}
+const StyledBody = styled.div`
+  margin-top: 8%;
+`;
 
 const StyledContainer = styled.div`
   display: flex;
@@ -148,6 +164,7 @@ const StyledHead = styled.div`
   justify-content: space-around;
   align-items: center;
   padding-left: 30px;
+  filter: ${props => (props.active === true ? "blur(5px)" : "")};
 `;
 
 const StyledDiv = styled.div`
@@ -168,4 +185,13 @@ const StyledSection = styled.section`
   margin-left: 20px;
   margin-right: 20px;
   gap: 3px;
+  filter: ${props => (props.active === true ? "blur(5px)" : "")};
+`;
+const Select = styled.select`
+  margin-left: 10px;
+  margin-bottom: 30px;
+`;
+
+const StyledSelect = styled.div`
+  margin-left: 10px;
 `;
