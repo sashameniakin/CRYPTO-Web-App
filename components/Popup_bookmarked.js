@@ -57,7 +57,6 @@ const StyledPopup = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba (0, 0, 0, 0.2);
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -65,12 +64,10 @@ const StyledPopup = styled.div`
 
 const StyledPopupInner = styled.div`
   position: relative;
-
   padding: 32px;
   width: 100%;
   height: 90%;
   max-width: 940px;
-
   background-color: #d3e4e8;
   border-radius: 20px;
   overflow-y: scroll;
@@ -78,12 +75,13 @@ const StyledPopupInner = styled.div`
   margin-top: 100px;
 `;
 
-const StyledButton = styled.button`
+export const StyledButton = styled.button`
   position: absolute;
   top: 16px;
   right: 16px;
   background-color: transparent;
   border: none;
+  z-index: 2;
 `;
 const StyledHead = styled.div`
   background-color: rgba(165, 202, 210);

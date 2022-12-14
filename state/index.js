@@ -11,6 +11,8 @@ const {setGlobalState, useGlobalState} = createGlobalState({
   openMMPopup: false,
   chainId: "",
   isConnected: false,
+  web3account: "",
+  chain: "",
 });
 
 export {useGlobalState, setGlobalState};

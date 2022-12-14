@@ -3,6 +3,7 @@ import Close from "../public/images/close.svg";
 import Image from "next/image";
 import {setGlobalState} from "../state";
 import {useState} from "react";
+import {StyledButton} from "./Popup_bookmarked";
 
 export default function PopupAddBlockchain({trigger, passData = () => {}}) {
   let [options, setOptions] = useState([
@@ -72,21 +73,15 @@ const FormContainer = styled.form`
   }
 `;
 
-const StyledButton = styled.button`
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background-color: transparent;
-  border: none;
-  z-index: 2;
-`;
-const StyledPopup = styled.div`
+export const StyledPopup = styled.div`
   position: fixed;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 2;
+  z-index: ${props => (props.primary ? "1" : "2")};
+  margin-top: ${props => (props.mm ? "200px" : "")};
+  background-color: ${props => (props.mm ? "rgba (0, 0, 0, 0.2)" : "")};
 `;
 const StyledPopupInner = styled.div`
   position: relative;

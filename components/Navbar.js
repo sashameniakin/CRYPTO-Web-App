@@ -12,18 +12,30 @@ import {setGlobalState} from "../state";
 import {useState} from "react";
 import Web3 from "web3";
 import {useEffect} from "react";
+import {StyledButton} from "./Header";
 
 export default function Navbar() {
   const {pathname} = useRouter();
 
   const [isConnected, setIsConnected] = useState(false);
   const [currentAccount, setCurrentAccount] = useState(null);
-  const [provider, setProvider] = useState(/* window.ethereum */);
+  const [provider, setProvider] = useState();
   const [web3, setWeb3] = useState(null);
   const [chainId, setChainId] = useState(null);
   setGlobalState("metamaskAddress", currentAccount);
-  setGlobalState("chainId", chainId);
   setGlobalState("isConnected", isConnected);
+
+  const NETWORKS = {
+    1: "Ethereum Main Network",
+    3: "Ropsten Tesst Network",
+    4: "Rinkeby Test Network",
+    5: "Goerli Test Network",
+    42: "Kovan Test Network",
+    137: "Polygon Mainnet",
+    56: "BSC Mainnet",
+    10: "Optimism",
+    250: "Fantom Opera",
+  };
 
   useEffect(() => {
     setProvider(detectProvider());
@@ -66,12 +78,12 @@ export default function Navbar() {
       } else if (accounts[0] !== currentAccount) {
         setCurrentAccount(accounts[0]);
       }
-      console.log(web3Accounts);
+      setGlobalState("web3account", web3Accounts);
     };
     const handleChainChanged = async chainId => {
       const web3ChainId = await web3.eth.getChainId();
       setChainId(web3ChainId);
-      console.log(chainId);
+      setGlobalState("chain", chainId);
     };
 
     if (isConnected) {
@@ -85,7 +97,7 @@ export default function Navbar() {
         provider.removeListener("chainChanged", handleChainChanged);
       }
     };
-  }, [isConnected]);
+  });
 
   const onLogout = () => {
     setIsConnected(false);
@@ -114,6 +126,12 @@ export default function Navbar() {
     setGlobalState("isConnecting", false);
     onLogin(provider);
   };
+
+  const getCurrentNetwork = chainId => {
+    return NETWORKS[chainId];
+  };
+
+  setGlobalState("chainId", getCurrentNetwork(chainId));
 
   return (
     <>
@@ -189,9 +207,4 @@ const StyledDiv = styled.div`
   height: 35px;
   background-color: ${props =>
     props.active === true ? "rgba(255, 123, 137)" : ""};
-`;
-
-const StyledButton = styled.button`
-  background-color: transparent;
-  border: none;
 `;

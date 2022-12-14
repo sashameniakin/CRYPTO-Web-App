@@ -3,7 +3,6 @@ import {useGlobalState, setGlobalState} from "../state/index";
 import Bookmark from "../public/images/bookmark.svg";
 import BookmarkBlack from "../public/images/Star_black.svg";
 import Image from "next/image";
-import {signOut, getSession} from "next-auth/react";
 import SignOut from "../public/images/signout.svg";
 import {useRouter} from "next/router";
 
@@ -30,31 +29,18 @@ export default function Header() {
         <StyledAddress>
           {Connecting ? "...Loading" : isConnected ? metamaskAddress : ""}
         </StyledAddress>
-        <StyledButtonSignOut onClick={() => signOut()}>
+        <StyledButton>
           <StyledImage alt="signout button" src={SignOut} />
-        </StyledButtonSignOut>
-        <StyledButtonOpen onClick={() => openPopup()}>
+        </StyledButton>
+        <StyledButton onClick={() => openPopup()}>
           <StyledImage
             alt="bookmark"
             src={popupState === true ? Bookmark : BookmarkBlack}
           />
-        </StyledButtonOpen>
+        </StyledButton>
       </StyledHeader>
     </>
   );
-}
-
-export async function getServerSideProps(context) {
-  const session = await getSession(context);
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
 }
 
 const StyledHeader = styled.header`
@@ -69,14 +55,9 @@ const StyledHeader = styled.header`
   align-items: center;
 `;
 
-const StyledButtonOpen = styled.button`
+export const StyledButton = styled.button`
   background-color: transparent;
   border: none;
-`;
-const StyledButtonSignOut = styled.button`
-  background-color: transparent;
-  border: none;
-  margin-top: 3px;
 `;
 const StyledImage = styled(Image)`
   text-align: center;

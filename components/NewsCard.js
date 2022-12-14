@@ -30,12 +30,12 @@ export default function NewsCard({
               height={100}
             ></Image>
           </StyledContainer>
-          <StyledP>
+          <StyledP primary>
             {description.length > 100
               ? `${description.substring(0, 100)}...`
               : description}
           </StyledP>
-          <StyledProvider>
+          <StyledContainer primary>
             <StyledDiv>
               <Image
                 alt=""
@@ -44,10 +44,10 @@ export default function NewsCard({
                 width={50}
                 height={50}
               ></Image>
-              <StyledProviderName>{providerName}</StyledProviderName>
+              <StyledP>{providerName}</StyledP>
             </StyledDiv>
             <p>{moment(datePublished).startOf("ss").fromNow()}</p>
-          </StyledProvider>
+          </StyledContainer>
         </StyledA>
       </Card>
     </>
@@ -62,6 +62,7 @@ const StyledDiv = styled.div`
 const StyledContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  margin: ${props => (props.primary ? "10px" : "")};
 `;
 
 const Card = styled.div`
@@ -88,18 +89,8 @@ const Titel = styled.div`
   font-weight: bold;
 `;
 
-const StyledProvider = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin: 10px;
-`;
-
 const StyledP = styled.p`
-  color: black;
-  margin-left: 10px;
-  margin-right: 10px;
-`;
-const StyledProviderName = styled.p`
+  color: ${props => (props.primary ? "black" : "")};
   margin-left: 10px;
   margin-right: 10px;
 `;

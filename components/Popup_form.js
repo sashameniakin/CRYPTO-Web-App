@@ -5,12 +5,13 @@ import {setGlobalState, useGlobalState} from "../state";
 import PopupAddBlockchain from "./Popup_addblockchain";
 import AddBlockchain from "../public/images/addBlockchain.svg";
 import {useState} from "react";
-import {useActivities} from "../context/context";
+import {StyledButton} from "./Popup_bookmarked";
+import {StyledPopup} from "./Popup_addblockchain";
 
 function PopupForm(props) {
   const [openAddBlockchain] = useGlobalState("openPopupAddBlockchain");
-  const {handleSubmit} = useActivities();
   const [options, setOptions] = useState();
+  const [activities, setActivities] = useState([]);
 
   function closePopup() {
     setGlobalState("openForm", false);
@@ -23,13 +24,34 @@ function PopupForm(props) {
     setOptions(options);
   }
 
+  function handleSubmit(event) {
+    event.preventDefault();
+    const form = event.target;
+    const {titel, link, blockchain, date, description} = form.elements;
+    const newActivity = {
+      id: activities.length + 1,
+      titel: titel,
+      link: link.value,
+      blockchain: blockchain.value,
+      date: date.value,
+      description: description.value,
+    };
+    setActivities(activities => {
+      return [newActivity, ...activities];
+    });
+    form.reset();
+    titel.focus();
+    console.log(titel.value);
+  }
+  console.log(activities);
+
   return props.trigger ? (
     <>
       <PopupAddBlockchain
         trigger={openAddBlockchain}
         passData={handlePassData}
       ></PopupAddBlockchain>
-      <StyledPopup>
+      <StyledPopup primary>
         <StyledPopupInner active={openAddBlockchain}>
           <StyledButton onClick={() => closePopup()}>
             <Image alt="close" src={Close}></Image>
@@ -91,20 +113,6 @@ const FormContainer = styled.form`
   }
 `;
 
-const StyledButton = styled.button`
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background-color: transparent;
-  border: none;
-`;
-const StyledPopup = styled.div`
-  position: fixed;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
 const StyledPopupInner = styled.div`
   position: relative;
   padding: 32px;
@@ -112,7 +120,6 @@ const StyledPopupInner = styled.div`
   border-left: 14px solid #ccd;
   background-color: #d3e4e8;
   border-radius: 20px;
-  overflow-y: scroll;
   margin-top: 60px;
   filter: ${props => (props.active === true ? "blur(3px)" : "")};
 `;
