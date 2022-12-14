@@ -19,7 +19,7 @@ export default function Navbar() {
 
   const [isConnected, setIsConnected] = useState(false);
   const [currentAccount, setCurrentAccount] = useState(null);
-  const [provider, setProvider] = useState();
+  const [provider, setProvider] = useState(null);
   const [web3, setWeb3] = useState(null);
   const [chainId, setChainId] = useState(null);
   setGlobalState("metamaskAddress", currentAccount);
@@ -134,49 +134,45 @@ export default function Navbar() {
   setGlobalState("chainId", getCurrentNetwork(chainId));
 
   return (
-    <>
-      <StyledSection></StyledSection>
+    <footer>
+      <StyledList>
+        <StyledDiv active={pathname === "/home" ? true : false}>
+          <StyledLink href="/home">
+            <Image alt="home" src={Home} width="50px" height="50px" />
+          </StyledLink>
+        </StyledDiv>
+        <StyledDiv active={pathname === "/funds" ? true : false}>
+          <StyledLink href="/funds">
+            <Image alt="funds" src={Funds} width="50px" height="50px" />
+          </StyledLink>
+        </StyledDiv>
 
-      <footer>
-        <StyledList>
-          <StyledDiv active={pathname === "/home" ? true : false}>
-            <StyledLink href="/home">
-              <Image alt="home" src={Home} width="50px" height="50px"></Image>
-            </StyledLink>
-          </StyledDiv>
-          <StyledDiv active={pathname === "/funds" ? true : false}>
-            <StyledLink href="/funds">
-              <Image alt="funds" src={Funds} width="50px" height="50px"></Image>
-            </StyledLink>
-          </StyledDiv>
+        <StyledButton onClick={onLoginHandler}>
+          <Image
+            alt="metamask"
+            src={isConnected ? MetamaskActive : Metamask}
+            width="100px"
+            height="100px"
+          />
+        </StyledButton>
 
-          <StyledButton onClick={onLoginHandler}>
+        <StyledDiv active={pathname === "/tasks" ? true : false}>
+          <StyledLink href="/tasks">
+            <Image alt="tasks" src={Tasks} width="50px" height="50px" />
+          </StyledLink>
+        </StyledDiv>
+        <StyledDiv active={pathname === "/profile" ? true : false}>
+          <StyledLink href="/profile">
             <Image
-              alt="metamask"
-              src={isConnected ? MetamaskActive : Metamask}
-              width="100px"
-              height="100px"
-            ></Image>
-          </StyledButton>
-
-          <StyledDiv active={pathname === "/tasks" ? true : false}>
-            <StyledLink href="/tasks">
-              <Image alt="tasks" src={Tasks} width="50px" height="50px"></Image>
-            </StyledLink>
-          </StyledDiv>
-          <StyledDiv active={pathname === "/profile" ? true : false}>
-            <StyledLink href="/profile">
-              <Image
-                alt="personal profile"
-                src={Profile}
-                width="50px"
-                height="50px"
-              ></Image>
-            </StyledLink>
-          </StyledDiv>
-        </StyledList>
-      </footer>
-    </>
+              alt="personal profile"
+              src={Profile}
+              width="50px"
+              height="50px"
+            />
+          </StyledLink>
+        </StyledDiv>
+      </StyledList>
+    </footer>
   );
 }
 
@@ -193,9 +189,6 @@ const StyledList = styled.ul`
   margin: 0;
   padding: 0;
   background-color: rgba(165, 202, 210);
-`;
-const StyledSection = styled.section`
-  margin-bottom: 20%;
 `;
 
 const StyledDiv = styled.div`

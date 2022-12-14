@@ -9,41 +9,41 @@ function Popup(props) {
     setGlobalState("openPopup", false);
   }
 
-  return props.trigger ? (
-    <StyledPopup>
-      <StyledPopupInner>
-        <StyledButton onClick={() => closePopup()}>
-          <Image alt="close" src={Close}></Image>
-        </StyledButton>
-        <StyledHead>
-          <StyledDiv>#</StyledDiv>
-          <StyledDiv>Name</StyledDiv>
-          <StyledDiv>Price</StyledDiv>
-          <StyledDiv>Market Cap</StyledDiv>
-          <StyledDiv>Volume (24h)</StyledDiv>
-        </StyledHead>
-        {props.newCoins.map((coins, i) => {
-          return coins.isBookmarked ? (
-            <CoinCard
-              key={i}
-              id={coins.id}
-              rank={coins.cmc_rank}
-              name={coins.name}
-              price={coins.quote.USD.price}
-              market_cap={coins.quote.USD.market_cap}
-              volume={coins.quote.USD.volume_24h}
-              isBookmarked={coins.isBookmarked}
-              toggleBookmark={props.toggleBookmark}
-            />
-          ) : (
-            ""
-          );
-        })}
-        {props.children}
-      </StyledPopupInner>
-    </StyledPopup>
-  ) : (
-    ""
+  return (
+    props.trigger && (
+      <StyledPopup>
+        <StyledPopupInner>
+          <StyledButton onClick={() => closePopup()}>
+            <Image alt="close" src={Close} />
+          </StyledButton>
+          <StyledHead>
+            <StyledP>#</StyledP>
+            <StyledP>Name</StyledP>
+            <StyledP>Price</StyledP>
+            <StyledP>Market Cap</StyledP>
+            <StyledP>Volume (24h)</StyledP>
+          </StyledHead>
+          {props.newCoins.map((coins, i) => {
+            return coins.isBookmarked ? (
+              <CoinCard
+                key={i}
+                id={coins.id}
+                rank={coins.cmc_rank}
+                name={coins.name}
+                price={coins.quote.USD.price}
+                market_cap={coins.quote.USD.market_cap}
+                volume={coins.quote.USD.volume_24h}
+                isBookmarked={coins.isBookmarked}
+                toggleBookmark={props.toggleBookmark}
+              />
+            ) : (
+              ""
+            );
+          })}
+          {props.children}
+        </StyledPopupInner>
+      </StyledPopup>
+    )
   );
 }
 
@@ -96,7 +96,7 @@ const StyledHead = styled.div`
   border-radius: 8px;
 `;
 
-const StyledDiv = styled.div`
+const StyledP = styled.p`
   border-radius: 12px;
   color: white;
   width: 120px;

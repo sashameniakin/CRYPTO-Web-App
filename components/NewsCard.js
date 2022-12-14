@@ -17,40 +17,38 @@ export default function NewsCard({
     "https://www.bing.com/th?id=OVFT.mpzuVZnv8dwIMRfQGPbOPC&pid=News";
 
   return (
-    <>
-      <Card>
-        <StyledA href={urlLink} target="_blank" rel="noreferrer">
-          <StyledContainer>
-            <Titel>{name}</Titel>
+    <Card>
+      <StyledA href={urlLink} target="_blank" rel="noreferrer">
+        <StyledContainer>
+          <Titel>{name}</Titel>
+          <Image
+            alt=""
+            loader={() => url || demoImage}
+            src={src}
+            width={100}
+            height={100}
+          />
+        </StyledContainer>
+        <StyledP primary>
+          {description.length > 100
+            ? `${description.substring(0, 100)}...`
+            : description}
+        </StyledP>
+        <StyledContainer primary>
+          <StyledDiv>
             <Image
               alt=""
-              loader={() => url || demoImage}
-              src={src}
-              width={100}
-              height={100}
-            ></Image>
-          </StyledContainer>
-          <StyledP primary>
-            {description.length > 100
-              ? `${description.substring(0, 100)}...`
-              : description}
-          </StyledP>
-          <StyledContainer primary>
-            <StyledDiv>
-              <Image
-                alt=""
-                loader={() => providerUrl || demoImage}
-                src={providerUrl || demoImage}
-                width={50}
-                height={50}
-              ></Image>
-              <StyledP>{providerName}</StyledP>
-            </StyledDiv>
-            <p>{moment(datePublished).startOf("ss").fromNow()}</p>
-          </StyledContainer>
-        </StyledA>
-      </Card>
-    </>
+              loader={() => providerUrl || demoImage}
+              src={providerUrl || demoImage}
+              width={50}
+              height={50}
+            />
+            <StyledP>{providerName}</StyledP>
+          </StyledDiv>
+          <p>{moment(datePublished).startOf("ss").fromNow()}</p>
+        </StyledContainer>
+      </StyledA>
+    </Card>
   );
 }
 

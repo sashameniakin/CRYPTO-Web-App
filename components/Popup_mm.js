@@ -10,21 +10,21 @@ function PopupMM(props) {
     setGlobalState("openMMPopup", false);
   }
 
-  return props.trigger ? (
-    <StyledPopup mm>
-      <StyledPopupInner>
-        <StyledButton onClick={() => closePopup()}>
-          <Image alt="close" src={Close}></Image>
-        </StyledButton>
-        <StyledDiv>
-          <p>
-            <a href="https://metamask.io/">Install Metamask</a>
-          </p>
-        </StyledDiv>
-      </StyledPopupInner>
-    </StyledPopup>
-  ) : (
-    ""
+  return (
+    props.trigger && (
+      <StyledPopup metamask>
+        <StyledPopupInner>
+          <StyledButton onClick={() => closePopup()}>
+            <Image alt="close" src={Close}></Image>
+          </StyledButton>
+          <StyledDiv>
+            <p>
+              <a href="https://metamask.io/">Install Metamask</a>
+            </p>
+          </StyledDiv>
+        </StyledPopupInner>
+      </StyledPopup>
+    )
   );
 }
 

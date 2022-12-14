@@ -41,47 +41,45 @@ function PopupForm(props) {
     });
     form.reset();
     titel.focus();
-    console.log(titel.value);
   }
-  console.log(activities);
 
-  return props.trigger ? (
-    <>
-      <PopupAddBlockchain
-        trigger={openAddBlockchain}
-        passData={handlePassData}
-      ></PopupAddBlockchain>
-      <StyledPopup primary>
-        <StyledPopupInner active={openAddBlockchain}>
-          <StyledButton onClick={() => closePopup()}>
-            <Image alt="close" src={Close}></Image>
-          </StyledButton>
+  return (
+    props.trigger && (
+      <>
+        <PopupAddBlockchain
+          trigger={openAddBlockchain}
+          passData={handlePassData}
+        ></PopupAddBlockchain>
+        <StyledPopup primary>
+          <StyledPopupInner active={openAddBlockchain}>
+            <StyledButton onClick={() => closePopup()}>
+              <Image alt="close" src={Close}></Image>
+            </StyledButton>
 
-          <StyledButtoAddBlockchain onClick={openPopupAddBlockchain}>
-            <StyledImage alt="add blockchain button" src={AddBlockchain} />
-          </StyledButtoAddBlockchain>
-          <FormContainer onSubmit={handleSubmit}>
-            <label htmlFor="titel">Titel:</label>
-            <input placeholder="e.g. NFT claim" type="text" name="titel" />
-            <label htmlFor="link">Link:</label>
-            <input placeholder="https://test.de" type="text" name="link" />
-            <label htmlFor="question">Blockchain:</label>
-            <select name="blockchain">
-              {options?.map((options, i) => {
-                return <option key={i}>{options.blockchain}</option>;
-              })}
-            </select>
-            <label htmlFor="date">Date:</label>
-            <input type="date" name="date" />
-            <label htmlFor="description">Description:</label>
-            <input type="text" name="description" />
-            <button type="submit">Add activity!</button>
-          </FormContainer>
-        </StyledPopupInner>
-      </StyledPopup>
-    </>
-  ) : (
-    ""
+            <StyledButtoAddBlockchain onClick={openPopupAddBlockchain}>
+              <StyledImage alt="add blockchain button" src={AddBlockchain} />
+            </StyledButtoAddBlockchain>
+            <FormContainer onSubmit={handleSubmit}>
+              <label htmlFor="titel">Titel:</label>
+              <input placeholder="e.g. NFT claim" type="text" name="titel" />
+              <label htmlFor="link">Link:</label>
+              <input placeholder="https://test.de" type="text" name="link" />
+              <label htmlFor="question">Blockchain:</label>
+              <select name="blockchain">
+                {options?.map((options, i) => {
+                  return <option key={i}>{options.blockchain}</option>;
+                })}
+              </select>
+              <label htmlFor="date">Date:</label>
+              <input type="date" name="date" />
+              <label htmlFor="description">Description:</label>
+              <input type="text" name="description" />
+              <button type="submit">Add activity!</button>
+            </FormContainer>
+          </StyledPopupInner>
+        </StyledPopup>
+      </>
+    )
   );
 }
 

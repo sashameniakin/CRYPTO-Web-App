@@ -21,25 +21,23 @@ export default function Header() {
   }
 
   return (
-    <>
-      <StyledHeader>
-        <StyledAddress>
-          {Connecting ? "...Loading" : isConnected ? chain : ""}
-        </StyledAddress>
-        <StyledAddress>
-          {Connecting ? "...Loading" : isConnected ? metamaskAddress : ""}
-        </StyledAddress>
-        <StyledButton>
-          <StyledImage alt="signout button" src={SignOut} />
-        </StyledButton>
-        <StyledButton onClick={() => openPopup()}>
-          <StyledImage
-            alt="bookmark"
-            src={popupState === true ? Bookmark : BookmarkBlack}
-          />
-        </StyledButton>
-      </StyledHeader>
-    </>
+    <StyledHeader>
+      <StyledAddress>
+        {Connecting ? "...Loading" : isConnected ? chain : ""}
+      </StyledAddress>
+      <StyledAddress>
+        {Connecting ? "...Loading" : isConnected ? metamaskAddress : ""}
+      </StyledAddress>
+      <StyledButton>
+        <StyledImage alt="signout button" src={SignOut} />
+      </StyledButton>
+      <StyledButton onClick={() => openPopup()}>
+        <StyledImage
+          alt="bookmark"
+          src={popupState === true ? Bookmark : BookmarkBlack}
+        />
+      </StyledButton>
+    </StyledHeader>
   );
 }
 

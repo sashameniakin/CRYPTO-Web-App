@@ -33,13 +33,13 @@ export default function PopupAddBlockchain({trigger, passData = () => {}}) {
   }
   passData(options);
 
-  return trigger ? (
-    <>
+  return (
+    trigger && (
       <StyledPopup>
         <StyledPopupInner>
           <FormContainer onSubmit={handleSubmit}>
             <StyledButton onClick={() => closePopupAdd()}>
-              <Image alt="close" src={Close}></Image>
+              <Image alt="close" src={Close} />
             </StyledButton>
             <label htmlFor="blockchain">Blockchain:</label>
             <input placeholder="e.g. Optimism" type="text" name="blockchain" />
@@ -47,9 +47,7 @@ export default function PopupAddBlockchain({trigger, passData = () => {}}) {
           </FormContainer>
         </StyledPopupInner>
       </StyledPopup>
-    </>
-  ) : (
-    ""
+    )
   );
 }
 
@@ -80,8 +78,8 @@ export const StyledPopup = styled.div`
   justify-content: center;
   align-items: center;
   z-index: ${props => (props.primary ? "1" : "2")};
-  margin-top: ${props => (props.mm ? "200px" : "")};
-  background-color: ${props => (props.mm ? "rgba (0, 0, 0, 0.2)" : "")};
+  margin-top: ${props => (props.metamask ? "200px" : "")};
+  background-color: ${props => (props.metamask ? "rgba (0, 0, 0, 0.2)" : "")};
 `;
 const StyledPopupInner = styled.div`
   position: relative;
