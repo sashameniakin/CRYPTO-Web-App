@@ -82,7 +82,7 @@ export function ActivitiesProvider({children}) {
     form.reset();
     titel.focus();
   }
-  /*   function handleSubmitBlockchain(event) {
+  function handleSubmitBlockchain(event) {
     event.preventDefault();
     const form = event.target;
     const {blockchain} = form.elements;
@@ -97,9 +97,9 @@ export function ActivitiesProvider({children}) {
 
     form.reset();
     blockchain.focus();
-  } */
+  }
 
-  /*   function setUpdate(updatedValue, idToEdit) {
+  function setUpdate(updatedValue, idToEdit) {
     setActivities(activities =>
       activities.map(activity => {
         if (activity.id === idToEdit) {
@@ -109,9 +109,9 @@ export function ActivitiesProvider({children}) {
         }
       })
     );
-  } */
+  }
 
-  /*   let [options, setOptions] = useState(() => {
+  let [options, setOptions] = useState(() => {
     if (typeof window !== "undefined") {
       const localData = JSON.parse(localStorage.getItem("blockchains"));
       return (
@@ -127,7 +127,7 @@ export function ActivitiesProvider({children}) {
 
   useEffect(() => {
     localStorage.setItem("blockchains", JSON.stringify(options));
-  }, [options]); */
+  }, [options]);
 
   return (
     <ActivitiesContext.Provider
@@ -138,9 +138,9 @@ export function ActivitiesProvider({children}) {
         handleDetails,
         handleDelete,
         handleClick,
-        /*   handleSubmitBlockchain, */
-        /*    options,
-        setUpdate, */
+        handleSubmitBlockchain,
+        options,
+        setUpdate,
       }}
     >
       {children}

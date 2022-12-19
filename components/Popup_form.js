@@ -2,21 +2,21 @@ import styled from "styled-components";
 import Close from "../public/images/close.svg";
 import Image from "next/image";
 import {setGlobalState, useGlobalState} from "../state";
-/* import PopupAddBlockchain from "./Popup_addblockchain"; */
+import PopupAddBlockchain from "./Popup_addblockchain";
 import AddBlockchain from "../public/images/addBlockchain.svg";
-/* import {useState, useEffect} from "react"; */
+import {useState, useEffect} from "react";
 import {StyledButton} from "./Popup_bookmarked";
 import {StyledPopup} from "./Popup_addblockchain";
-/* import {useActivities} from "../context/context"; */
+import {useActivities} from "../context/context";
 
 function PopupForm({trigger}) {
-  /*  const {handleSubmit, options} = useActivities(); */
+  const {handleSubmit, options} = useActivities();
   const [openAddBlockchain] = useGlobalState("openPopupAddBlockchain");
-  /*   const [winReady, setWinReady] = useState(false); */
+  const [winReady, setWinReady] = useState(false);
 
-  /*   useEffect(() => {
+  useEffect(() => {
     setWinReady(true);
-  }, []); */
+  }, []);
 
   function closePopup() {
     setGlobalState("openForm", false);
@@ -29,9 +29,9 @@ function PopupForm({trigger}) {
   return (
     trigger && (
       <>
-        {/*   {winReady && (
+        {winReady && (
           <PopupAddBlockchain trigger={openAddBlockchain}></PopupAddBlockchain>
-        )} */}
+        )}
 
         <StyledPopup primary>
           <StyledPopupInner active={openAddBlockchain}>
@@ -42,7 +42,7 @@ function PopupForm({trigger}) {
             <StyledButtoAddBlockchain onClick={openPopupAddBlockchain}>
               <StyledImage alt="add blockchain button" src={AddBlockchain} />
             </StyledButtoAddBlockchain>
-            {/*          <FormContainer onSubmit={handleSubmit}>
+            <FormContainer onSubmit={handleSubmit}>
               <label htmlFor="titel">Titel:</label>
               <input placeholder="e.g. NFT claim" type="text" name="titel" />
               <label htmlFor="link">Link:</label>
@@ -58,7 +58,7 @@ function PopupForm({trigger}) {
               <label htmlFor="description">Description:</label>
               <input type="text" name="description" />
               <button type="submit">Add activity!</button>
-            </FormContainer> */}
+            </FormContainer>
           </StyledPopupInner>
         </StyledPopup>
       </>
@@ -68,7 +68,7 @@ function PopupForm({trigger}) {
 
 export default PopupForm;
 
-/* const FormContainer = styled.form`
+const FormContainer = styled.form`
   display: flex;
   gap: 10px;
   flex-direction: column;
@@ -92,7 +92,7 @@ export default PopupForm;
     width: 94%;
     align-self: flex-start;
   }
-`; */
+`;
 
 const StyledPopupInner = styled.div`
   position: relative;

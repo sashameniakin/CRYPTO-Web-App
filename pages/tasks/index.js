@@ -1,20 +1,20 @@
 import styled from "styled-components";
-/* import {setGlobalState, useGlobalState} from "../../state";
+import {setGlobalState, useGlobalState} from "../../state";
 import PopupForm from "../../components/Popup_form";
 import Task from "../../components/Task";
-import {StyledSection} from "../home"; */
+import {StyledSection} from "../home";
 import {useActivities} from "../../context/context";
-/* import {DragDropContext, Droppable, Draggable} from "react-beautiful-dnd"; */
+import {DragDropContext, Droppable, Draggable} from "react-beautiful-dnd";
 import {useState, useEffect} from "react";
-/* import ProgressBar from "../../components/Progress-bar";
-import {StyledContainerDetails} from "../../components/Task"; */
+import ProgressBar from "../../components/Progress-bar";
+import {StyledContainerDetails} from "../../components/Task";
 
 export default function Tasks() {
-  /*  const [openForm] = useGlobalState("openForm"); */
+  const [openForm] = useGlobalState("openForm");
   const {activities, setActivities} = useActivities();
   const [tasks, updateTasks] = useState(activities);
-  /*   const [winReady, setWinReady] = useState(false);
-  const [length, setLength] = useState(null); */
+  const [winReady, setWinReady] = useState(false);
+  const [length, setLength] = useState(null);
 
   useEffect(() => {
     updateTasks(activities);
@@ -24,19 +24,19 @@ export default function Tasks() {
     setActivities(tasks);
   }, [tasks]);
 
-  /*   useEffect(() => {
+  useEffect(() => {
     setLength(activities.length);
-  }, [activities]); */
+  }, [activities]);
 
-  /*  useEffect(() => {
+  useEffect(() => {
     setWinReady(true);
-  }, []); */
+  }, []);
 
-  /*  function openFormPopup() {
+  function openFormPopup() {
     setGlobalState("openForm", true);
-  } */
+  }
 
-  /*   function handleOnDragEnd(result) {
+  function handleOnDragEnd(result) {
     if (!result.destination) return;
 
     if (
@@ -50,16 +50,16 @@ export default function Tasks() {
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
     updateTasks(items);
-  } */
+  }
 
-  /*  const tasksDone = activities?.filter(
+  const tasksDone = activities?.filter(
     selected => selected?.selected === true
-  ).length; */
+  ).length;
 
   return (
     <>
       <StyledBody>
-        {/*     <PopupForm trigger={openForm}></PopupForm>
+        <PopupForm trigger={openForm}></PopupForm>
         <StyledContainerDetails active={openForm}>
           <StyledButton onClick={() => openFormPopup()}>
             Add activity
@@ -124,7 +124,7 @@ export default function Tasks() {
               )}
             </Droppable>
           </DragDropContext>
-        )} */}
+        )}
       </StyledBody>
     </>
   );
@@ -135,7 +135,7 @@ const StyledBody = styled.main`
   margin-bottom: 9%;
 `;
 
-/* const StyledButton = styled.button`
+const StyledButton = styled.button`
   width: 228px;
   height: 44px;
   margin-left: 10px;
@@ -155,4 +155,4 @@ const StyledBar = styled.div`
   margin-bottom: 10px;
   align-items: flex-end;
   justify-content: end;
-`; */
+`;
