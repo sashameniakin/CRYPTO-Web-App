@@ -57,7 +57,7 @@ export const StyledButton = styled.button`
   background-color: transparent;
   border: none;
 `;
-const StyledImage = styled(Image)`
+export const StyledImage = styled(Image)`
   text-align: center;
 `;
 const StyledAddress = styled.div`

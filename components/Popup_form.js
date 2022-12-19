@@ -4,14 +4,19 @@ import Image from "next/image";
 import {setGlobalState, useGlobalState} from "../state";
 import PopupAddBlockchain from "./Popup_addblockchain";
 import AddBlockchain from "../public/images/addBlockchain.svg";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {StyledButton} from "./Popup_bookmarked";
 import {StyledPopup} from "./Popup_addblockchain";
+import {useActivities} from "../context/context";
 
-function PopupForm(props) {
+function PopupForm({trigger}) {
+  const {handleSubmit, options} = useActivities();
   const [openAddBlockchain] = useGlobalState("openPopupAddBlockchain");
-  const [options, setOptions] = useState();
-  const [activities, setActivities] = useState([]);
+  const [winReady, setWinReady] = useState(false);
+
+  useEffect(() => {
+    setWinReady(true);
+  }, []);
 
   function closePopup() {
     setGlobalState("openForm", false);
@@ -20,36 +25,14 @@ function PopupForm(props) {
   function openPopupAddBlockchain() {
     setGlobalState("openPopupAddBlockchain", true);
   }
-  function handlePassData(options) {
-    setOptions(options);
-  }
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    const form = event.target;
-    const {titel, link, blockchain, date, description} = form.elements;
-    const newActivity = {
-      id: activities.length + 1,
-      titel: titel,
-      link: link.value,
-      blockchain: blockchain.value,
-      date: date.value,
-      description: description.value,
-    };
-    setActivities(activities => {
-      return [newActivity, ...activities];
-    });
-    form.reset();
-    titel.focus();
-  }
 
   return (
-    props.trigger && (
+    trigger && (
       <>
-        <PopupAddBlockchain
-          trigger={openAddBlockchain}
-          passData={handlePassData}
-        ></PopupAddBlockchain>
+        {winReady && (
+          <PopupAddBlockchain trigger={openAddBlockchain}></PopupAddBlockchain>
+        )}
+
         <StyledPopup primary>
           <StyledPopupInner active={openAddBlockchain}>
             <StyledButton onClick={() => closePopup()}>
@@ -63,7 +46,7 @@ function PopupForm(props) {
               <label htmlFor="titel">Titel:</label>
               <input placeholder="e.g. NFT claim" type="text" name="titel" />
               <label htmlFor="link">Link:</label>
-              <input placeholder="https://test.de" type="text" name="link" />
+              <input placeholder="https://test.de" type="url" name="link" />
               <label htmlFor="question">Blockchain:</label>
               <select name="blockchain">
                 {options?.map((options, i) => {
@@ -119,7 +102,8 @@ const StyledPopupInner = styled.div`
   background-color: #d3e4e8;
   border-radius: 20px;
   margin-top: 60px;
-  filter: ${props => (props.active === true ? "blur(3px)" : "")};
+  border: 1px solid #575757;
+  filter: ${props => (props.active === true ? "blur(2px)" : "")};
 `;
 const StyledImage = styled(Image)`
   text-align: center;
