@@ -5,6 +5,7 @@ import BookmarkBlack from "../public/images/Star_black.svg";
 import Image from "next/image";
 import SignOut from "../public/images/signout.svg";
 import {useRouter} from "next/router";
+import {useState, useEffect} from "react";
 
 export default function Header() {
   const [metamaskAddress] = useGlobalState("metamaskAddress");
@@ -14,6 +15,12 @@ export default function Header() {
   const path = useRouter().asPath;
   const [isConnected] = useGlobalState("isConnected");
 
+  const [winReady, setWinReady] = useState(false);
+
+  useEffect(() => {
+    setWinReady(true);
+  }, []);
+
   function openPopup() {
     if (path === "/home") {
       setGlobalState("openPopup", true);
@@ -21,23 +28,25 @@ export default function Header() {
   }
 
   return (
-    <StyledHeader>
-      <StyledAddress>
-        {Connecting ? "...Loading" : isConnected ? chain : ""}
-      </StyledAddress>
-      <StyledAddress>
-        {Connecting ? "...Loading" : isConnected ? metamaskAddress : ""}
-      </StyledAddress>
-      <StyledButton>
-        <StyledImage alt="signout button" src={SignOut} />
-      </StyledButton>
-      <StyledButton onClick={() => openPopup()}>
-        <StyledImage
-          alt="bookmark"
-          src={popupState === true ? Bookmark : BookmarkBlack}
-        />
-      </StyledButton>
-    </StyledHeader>
+    winReady && (
+      <StyledHeader>
+        <StyledAddress>
+          {Connecting ? "...Loading" : isConnected ? chain : ""}
+        </StyledAddress>
+        <StyledAddress>
+          {Connecting ? "...Loading" : isConnected ? metamaskAddress : ""}
+        </StyledAddress>
+        <StyledButton>
+          <StyledImage alt="signout button" src={SignOut} />
+        </StyledButton>
+        <StyledButton onClick={() => openPopup()}>
+          <StyledImage
+            alt="bookmark"
+            src={popupState === true ? Bookmark : BookmarkBlack}
+          />
+        </StyledButton>
+      </StyledHeader>
+    )
   );
 }
 

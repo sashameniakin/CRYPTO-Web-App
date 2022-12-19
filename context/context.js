@@ -25,7 +25,20 @@ export function ActivitiesProvider({children}) {
   const [activities, setActivities] = useState(() => {
     if (typeof window !== "undefined") {
       const localData = JSON.parse(localStorage.getItem("tasks"));
-      return localData ?? activities;
+      return (
+        localData ?? [
+          {
+            id: 0,
+            link: "nft.de",
+            description: "example",
+          },
+          {
+            id: 1,
+            link: "nft.de",
+            description: "example",
+          },
+        ]
+      );
     }
   });
   useEffect(() => {

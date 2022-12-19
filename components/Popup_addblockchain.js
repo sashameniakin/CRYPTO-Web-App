@@ -2,21 +2,12 @@ import styled from "styled-components";
 import Close from "../public/images/close.svg";
 import Image from "next/image";
 import {setGlobalState} from "../state";
-import {useState, useEffect} from "react";
+/* import {useState, useEffect} from "react"; */
 import {StyledButton} from "./Popup_bookmarked";
 import {useActivities} from "../context/context";
 
 export default function PopupAddBlockchain({trigger}) {
   const {handleSubmitBlockchain} = useActivities();
-
-  const [hydrated, setHydrated] = useState(false);
-
-  useEffect(() => {
-    setHydrated(true);
-  }, []);
-  if (!hydrated) {
-    return null;
-  }
 
   function closePopupAdd() {
     setGlobalState("openPopupAddBlockchain", false);
