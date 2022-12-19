@@ -29,12 +29,18 @@ export function ActivitiesProvider({children}) {
         localData ?? [
           {
             id: 0,
+            titel: "Example",
             link: "nft.de",
+            blockchain: "BSC",
+            date: "",
             description: "example",
           },
           {
             id: 1,
+            titel: "Example",
             link: "nft.de",
+            blockchain: "BSC",
+            date: "",
             description: "example",
           },
         ]

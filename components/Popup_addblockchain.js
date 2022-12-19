@@ -2,7 +2,6 @@ import styled from "styled-components";
 import Close from "../public/images/close.svg";
 import Image from "next/image";
 import {setGlobalState} from "../state";
-/* import {useState, useEffect} from "react"; */
 import {StyledButton} from "./Popup_bookmarked";
 import {useActivities} from "../context/context";
 

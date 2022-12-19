@@ -4,7 +4,6 @@ import Image from "next/image";
 import {setGlobalState, useGlobalState} from "../state";
 import PopupAddBlockchain from "./Popup_addblockchain";
 import AddBlockchain from "../public/images/addBlockchain.svg";
-/* import {useState, useEffect} from "react"; */
 import {StyledButton} from "./Popup_bookmarked";
 import {StyledPopup} from "./Popup_addblockchain";
 import {useActivities} from "../context/context";
@@ -12,11 +11,6 @@ import {useActivities} from "../context/context";
 function PopupForm({trigger}) {
   const {handleSubmit, options} = useActivities();
   const [openAddBlockchain] = useGlobalState("openPopupAddBlockchain");
-  /*   const [winReady, setWinReady] = useState(false);
-
-  useEffect(() => {
-    setWinReady(true);
-  }, []); */
 
   function closePopup() {
     setGlobalState("openForm", false);
@@ -29,10 +23,7 @@ function PopupForm({trigger}) {
   return (
     trigger && (
       <>
-        {/*  {winReady && ( */}
         <PopupAddBlockchain trigger={openAddBlockchain}></PopupAddBlockchain>
-        {/*  )} */}
-
         <StyledPopup primary>
           <StyledPopupInner active={openAddBlockchain}>
             <StyledButton onClick={() => closePopup()}>
