@@ -19,13 +19,13 @@ export default function Task(props) {
     props;
   const {activities, handleDelete, handleDetails, handleClick, setUpdate} =
     useActivities();
+  const [edit, setEdit] = useState(false);
   let isOpen = activities.find(activity => activity.id === id)?.isOpen;
   if (isOpen === undefined) {
     isOpen = false;
   }
 
   const isSelected = activities.find(activity => activity.id === id);
-  const [edit, setEdit] = useState(false);
 
   function handleEdit() {
     setEdit(true);
