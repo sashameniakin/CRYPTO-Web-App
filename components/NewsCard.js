@@ -71,7 +71,7 @@ const Card = styled.div`
   margin-left: 10px;
   border-left: 10px solid pink;
   &:hover {
-    transform: scale(1.05);
+    transform: scale(1.02);
     transition: 0.5s ease;
   }
 `;

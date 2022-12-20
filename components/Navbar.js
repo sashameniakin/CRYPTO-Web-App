@@ -12,7 +12,6 @@ import {setGlobalState} from "../state";
 import {useState} from "react";
 import Web3 from "web3";
 import {useEffect} from "react";
-import {StyledButton} from "./Header";
 
 export default function Navbar() {
   const {pathname} = useRouter();
@@ -24,6 +23,12 @@ export default function Navbar() {
   const [chainId, setChainId] = useState(null);
   setGlobalState("metamaskAddress", currentAccount);
   setGlobalState("isConnected", isConnected);
+
+  const [winReady, setWinReady] = useState(false);
+
+  useEffect(() => {
+    setWinReady(true);
+  }, []);
 
   const NETWORKS = {
     1: "Ethereum Main Network",
@@ -134,45 +139,47 @@ export default function Navbar() {
   setGlobalState("chainId", getCurrentNetwork(chainId));
 
   return (
-    <footer>
-      <StyledList>
-        <StyledDiv active={pathname === "/home" ? true : false}>
-          <StyledLink href="/home">
-            <Image alt="home" src={Home} width="50px" height="50px" />
-          </StyledLink>
-        </StyledDiv>
-        <StyledDiv active={pathname === "/funds" ? true : false}>
-          <StyledLink href="/funds">
-            <Image alt="funds" src={Funds} width="50px" height="50px" />
-          </StyledLink>
-        </StyledDiv>
+    winReady && (
+      <footer>
+        <StyledList>
+          <StyledDiv active={pathname === "/home" ? true : false}>
+            <StyledLink href="/home">
+              <Image alt="home" src={Home} width="50px" height="50px" />
+            </StyledLink>
+          </StyledDiv>
+          <StyledDiv active={pathname === "/funds" ? true : false}>
+            <StyledLink href="/funds">
+              <Image alt="funds" src={Funds} width="50px" height="50px" />
+            </StyledLink>
+          </StyledDiv>
 
-        <StyledButton onClick={onLoginHandler}>
-          <Image
-            alt="metamask"
-            src={isConnected ? MetamaskActive : Metamask}
-            width="100px"
-            height="100px"
-          />
-        </StyledButton>
-
-        <StyledDiv active={pathname === "/tasks" ? true : false}>
-          <StyledLink href="/tasks">
-            <Image alt="tasks" src={Tasks} width="50px" height="50px" />
-          </StyledLink>
-        </StyledDiv>
-        <StyledDiv active={pathname === "/profile" ? true : false}>
-          <StyledLink href="/profile">
+          <StyledButton onClick={onLoginHandler}>
             <Image
-              alt="personal profile"
-              src={Profile}
-              width="50px"
-              height="50px"
+              alt="metamask"
+              src={isConnected ? MetamaskActive : Metamask}
+              width="100px"
+              height="100px"
             />
-          </StyledLink>
-        </StyledDiv>
-      </StyledList>
-    </footer>
+          </StyledButton>
+
+          <StyledDiv active={pathname === "/tasks" ? true : false}>
+            <StyledLink href="/tasks">
+              <Image alt="tasks" src={Tasks} width="50px" height="50px" />
+            </StyledLink>
+          </StyledDiv>
+          <StyledDiv active={pathname === "/profile" ? true : false}>
+            <StyledLink href="/profile">
+              <Image
+                alt="personal profile"
+                src={Profile}
+                width="50px"
+                height="50px"
+              />
+            </StyledLink>
+          </StyledDiv>
+        </StyledList>
+      </footer>
+    )
   );
 }
 
@@ -200,4 +207,9 @@ const StyledDiv = styled.div`
   height: 35px;
   background-color: ${props =>
     props.active === true ? "rgba(255, 123, 137)" : ""};
+`;
+
+const StyledButton = styled.button`
+  background-color: transparent;
+  border: none;
 `;

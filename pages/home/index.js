@@ -6,7 +6,6 @@ import NewsCard from "../../components/NewsCard";
 import styled from "styled-components";
 import Popup from "../../components/Popup_bookmarked";
 import {useGlobalState} from "../../state";
-/* import {getSession} from "next-auth/react"; */
 
 export default function Home() {
   let [coinNews, setCoinNews] = useState();
@@ -64,6 +63,7 @@ export default function Home() {
         const data = await res.json();
 
         setCoinNews(data.value);
+        console.log(data.value);
       } catch (err) {
         console.log(err);
       }
@@ -178,14 +178,14 @@ const StyledDiv = styled.div`
   font-weight: bold;
   font-size: small;
 `;
-const StyledSection = styled.section`
+export const StyledSection = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: stretch;
-  margin-left: 20px;
-  margin-right: 20px;
-  gap: 3px;
-  filter: ${props => (props.active === true ? "blur(5px)" : "")};
+  margin-left: ${props => (props.tasks === true ? "10px" : "20px")};
+  margin-right: ${props => (props.tasks === true ? "10px" : "20px")};
+  gap: ${props => (props.tasks === true ? "" : "3px")};
+  filter: ${props => (props.active === true ? "blur(2px)" : "")};
 `;
 const Select = styled.select`
   margin-left: 10px;

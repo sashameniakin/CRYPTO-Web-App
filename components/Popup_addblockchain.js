@@ -2,42 +2,21 @@ import styled from "styled-components";
 import Close from "../public/images/close.svg";
 import Image from "next/image";
 import {setGlobalState} from "../state";
-import {useState} from "react";
 import {StyledButton} from "./Popup_bookmarked";
+import {useActivities} from "../context/context";
 
-export default function PopupAddBlockchain({trigger, passData = () => {}}) {
-  let [options, setOptions] = useState([
-    {id: 0, blockchain: "Ethereum"},
-    {id: 1, blockchain: "Polygon"},
-    {id: 2, blockchain: "BSC"},
-    {id: 3, blockchain: "Optimism"},
-  ]);
+export default function PopupAddBlockchain({trigger}) {
+  const {handleSubmitBlockchain} = useActivities();
 
   function closePopupAdd() {
     setGlobalState("openPopupAddBlockchain", false);
   }
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    const form = event.target;
-    const {blockchain} = form.elements;
-    const newBlockchain = {
-      id: options.length + 1,
-      blockchain: blockchain.value,
-    };
-    setOptions(options => {
-      return [newBlockchain, ...options];
-    });
-    form.reset();
-    blockchain.focus();
-  }
-  passData(options);
-
   return (
     trigger && (
       <StyledPopup>
         <StyledPopupInner>
-          <FormContainer onSubmit={handleSubmit}>
+          <FormContainer onSubmit={handleSubmitBlockchain}>
             <StyledButton onClick={() => closePopupAdd()}>
               <Image alt="close" src={Close} />
             </StyledButton>
@@ -91,4 +70,5 @@ const StyledPopupInner = styled.div`
   border-radius: 20px;
   overflow-y: scroll;
   margin-top: 200px;
+  border: 1px solid #575757;
 `;
