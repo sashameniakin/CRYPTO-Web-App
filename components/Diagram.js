@@ -25,15 +25,12 @@ const Diagram = ({diagram, coins}) => {
     .map((element, i) => {
       return amountArray[i] * element;
     });
-  /*   actualPriceArray.map((element, i) => {
-return amountArray[i]*element;
-  })  */
+
   console.log(actualPriceArray);
   const colorArray = diagram?.map(() => {
     return "#" + Math.floor(Math.random() * 16777215).toString(16);
   });
-  /*   console.log(amountArray);
-  console.log(colorArray); */
+
   const [data, setData] = useState({
     datasets: [
       {

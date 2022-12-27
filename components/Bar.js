@@ -75,15 +75,24 @@ const BarGrafik = ({diagram, coins}) => {
     scales: {
       y: {
         ticks: {color: "white"},
+        title: {
+          display: true,
+          text: "PROFIT / LOSS IN $",
+          color: "white",
+        },
       },
       x: {
         ticks: {color: "white"},
+        title: {
+          display: true,
+          text: "COINS",
+          color: "white",
+        },
       },
     },
     plugins: {
       legend: {
-        display: true,
-        position: "left",
+        display: false,
 
         labels: {
           color: "white",
