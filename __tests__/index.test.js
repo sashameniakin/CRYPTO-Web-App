@@ -1,13 +1,11 @@
 import {render, screen} from "@testing-library/react";
-import Funds from "../pages/funds";
+import Help from "../components/Help";
 import "@testing-library/jest-dom";
 
-describe("Funds", () => {
+describe("Help", () => {
   it("render text", () => {
-    render(<Funds />);
+    render(<Help />);
 
-    expect(
-      screen.getByText("Page Funds is under construction")
-    ).toBeInTheDocument();
+    expect(screen.getByText("Hey, there!")).toBeInTheDocument();
   });
 });

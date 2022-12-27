@@ -141,7 +141,7 @@ export const StyledContainerDetails = styled.div`
   filter: ${props => (props.active === true ? "blur(2px)" : "")};
 `;
 
-const baseDetailsStyle = css`
+export const baseDetailsStyle = css`
   color: white;
   background-color: #6f5f90;
   opacity: 0.8;

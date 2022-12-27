@@ -59,7 +59,7 @@ function PopupForm({trigger}) {
 
 export default PopupForm;
 
-const FormContainer = styled.form`
+export const FormContainer = styled.form`
   display: flex;
   gap: 10px;
   flex-direction: column;

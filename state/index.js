@@ -13,6 +13,8 @@ const {setGlobalState, useGlobalState} = createGlobalState({
   isConnected: false,
   web3account: "",
   chain: "",
+  coinPrice: "",
+  coinName: "",
 });
 
 export {useGlobalState, setGlobalState};

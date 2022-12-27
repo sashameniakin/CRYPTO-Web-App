@@ -187,7 +187,7 @@ export const StyledSection = styled.section`
   gap: ${props => (props.tasks === true ? "" : "3px")};
   filter: ${props => (props.active === true ? "blur(2px)" : "")};
 `;
-const Select = styled.select`
+export const Select = styled.select`
   margin-left: 10px;
   margin-bottom: 30px;
 `;
