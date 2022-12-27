@@ -1,5 +1,4 @@
 import Diagram from "../../components/Diagram";
-import Dashboard from "../../components/Dashboard";
 import {
   Chart,
   ArcElement,
@@ -43,7 +42,6 @@ export default function Funds() {
   const [coins, setCoins] = useState();
   const [coinsToFind, setCoinToFind] = useState();
 
-  const [selectedCoin, setSelectedCoin] = useState();
   const {handleBuy, handleSell, transactions, diagram} = useFunds();
 
   useEffect(() => {
