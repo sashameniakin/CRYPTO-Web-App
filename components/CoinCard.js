@@ -1,7 +1,7 @@
-import styled from "styled-components";
 import Star from "../public/images/star.svg";
 import Image from "next/image";
 import StarFilled from "../public/images/star_filled.svg";
+import StyledCard from "./styled/StyledCard";
 
 export default function CoinCard({
   id,
@@ -15,31 +15,18 @@ export default function CoinCard({
 }) {
   return (
     <StyledCard>
-      <StyledDiv>
+      <div>
         <Image
           onClick={() => toggleBookmark(id)}
           alt="bookmark"
           src={isBookmarked ? StarFilled : Star}
         ></Image>
-      </StyledDiv>
-      <StyledDiv> {rank}</StyledDiv>
-      <StyledDiv> {name}</StyledDiv>
-      <StyledDiv> {price.toFixed(2)}</StyledDiv>
-      <StyledDiv> {market_cap.toFixed(2)}</StyledDiv>
-      <StyledDiv> {volume.toFixed(2)}</StyledDiv>
+      </div>
+      <div> {rank}</div>
+      <div> {name}</div>
+      <div> {price.toFixed(2)}</div>
+      <div> {(market_cap.toFixed(2) / 1000000).toFixed(2)}</div>
+      <div> {(volume.toFixed(2) / 1000000).toFixed(2)}</div>
     </StyledCard>
   );
 }
-
-const StyledCard = styled.div`
-  display: grid;
-  grid-template-columns: 75px 75px 1fr 1fr 1fr 1fr;
-  align-items: center;
-  height: 50px;
-  background: rgba(238, 237, 237, 0.75);
-  border-radius: 2px;
-`;
-const StyledDiv = styled.div`
-  margin-left: 10px;
-  margin-right: 5px;
-`;

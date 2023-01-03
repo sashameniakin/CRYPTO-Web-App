@@ -17,16 +17,17 @@ const Diagram = ({diagram, coins}) => {
   const costArray = diagram?.map(element => {
     return element.inDollars;
   });
-  const actualPriceArray = diagram
-    ?.map(element => {
-      const object = coins?.filter(coin => coin.name === element.name);
-      return object[0]?.quote?.USD?.price.toFixed(2);
-    })
-    .map((element, i) => {
-      return amountArray[i] * element;
-    });
+  const actualPriceArray =
+    coins &&
+    diagram
+      ?.map(element => {
+        const object = coins?.filter(coin => coin.name === element.name);
+        return object[0]?.quote?.USD?.price.toFixed(2);
+      })
+      .map((element, i) => {
+        return amountArray[i] * element;
+      });
 
-  console.log(actualPriceArray);
   const colorArray = diagram?.map(() => {
     return "#" + Math.floor(Math.random() * 16777215).toString(16);
   });

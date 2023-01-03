@@ -41,6 +41,6 @@ const StyledFiller = styled.div`
 `;
 const StyledP = styled.p`
   font-weight: bold;
-  color: #575757;
+  color: /* #575757; */ white;
   margin-bottom: 3px;
 `;

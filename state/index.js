@@ -15,6 +15,8 @@ const {setGlobalState, useGlobalState} = createGlobalState({
   chain: "",
   coinPrice: "",
   coinName: "",
+  openPopupWellDone: false,
+  openPopupMongo: false,
 });
 
 export {useGlobalState, setGlobalState};

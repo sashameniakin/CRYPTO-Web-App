@@ -1,7 +1,7 @@
 import {useContext} from "react";
 import {createContext} from "react";
 import {useEffect, useState} from "react";
-import {useGlobalState} from "../state";
+import {setGlobalState, useGlobalState} from "../state";
 
 export const CMContext = createContext();
 
@@ -22,6 +22,8 @@ export const CMProvider = ({children}) => {
 
 const ActivitiesContext = createContext(null);
 const FundsContext = createContext(null);
+const ArchiveContext = createContext(null);
+const StatesContext = createContext(null);
 
 export function ActivitiesProvider({children}) {
   const [activities, setActivities] = useState(() => {
@@ -100,6 +102,8 @@ export function ActivitiesProvider({children}) {
     setActivities(activities => {
       return [newActivity, ...activities];
     });
+    setGlobalState("openForm", false);
+    setGlobalState("openPopupWellDone", true);
     form.reset();
     titel.focus();
   }
@@ -116,6 +120,8 @@ export function ActivitiesProvider({children}) {
       return [newBlockchain, ...options];
     });
 
+    setGlobalState("openPopupAddBlockchain", false);
+    setGlobalState("openPopupWellDone", true);
     form.reset();
     blockchain.focus();
   }
@@ -172,19 +178,27 @@ export function ActivitiesProvider({children}) {
 export function FundsProvider({children}) {
   const [coinPrice] = useGlobalState("coinPrice");
   const [coinName] = useGlobalState("coinName");
-  const [transactions, setTransactions] = useState(null); /* useState(() => {
+  const [transactions, setTransactions] = useState(() => {
     if (typeof window !== "undefined") {
       const localData = JSON.parse(localStorage.getItem("transactions"));
       return localData ?? null;
     }
-  }); */
-  /*   useEffect(() => {
+  });
+  useEffect(() => {
     localStorage.setItem("transactions", JSON.stringify(transactions));
-  }, [transactions]); */
+  }, [transactions]);
 
-  const [diagram, setDiagram] = useState(null);
+  const [diagram, setDiagram] = useState(() => {
+    if (typeof window !== "undefined") {
+      const localData = JSON.parse(localStorage.getItem("diagram"));
+      return localData ?? null;
+    }
+  });
+  useEffect(() => {
+    localStorage.setItem("diagram", JSON.stringify(diagram));
+  }, [diagram]);
 
-  function handleBuy(event) {
+  const handleBuy = async event => {
     event.preventDefault();
     const coin = diagram?.filter(coin => coin.name === coinName);
     const form = event.target;
@@ -199,9 +213,17 @@ export function FundsProvider({children}) {
         action: "BUY",
         name: coinName,
         amount: valueFromForm * 1,
-
         inDollars: amount.value * coinPrice,
       };
+
+      const options = {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(diagramValue),
+      };
+
+      const response = await fetch("api/diagramValues", options);
+      const result = await response.json();
 
       setDiagram([diagramValue]);
     } else if (coin.length !== 0) {
@@ -258,7 +280,7 @@ export function FundsProvider({children}) {
 
     form.reset();
     amount.focus();
-  }
+  };
 
   function handleSell(event) {
     event.preventDefault();
@@ -331,6 +353,108 @@ export function FundsProvider({children}) {
       {children}
     </FundsContext.Provider>
   );
+}
+
+export function ArchiveProvider({children}) {
+  const [archive, setArchive] = useState(null);
+  const [shouldReload, setShouldReload] = useState(true);
+  const {activities} = useActivities();
+
+  useEffect(() => {
+    const getArchive = async () => {
+      try {
+        const url = "/api/tasksValues";
+        const response = await fetch(url);
+        if (response.ok) {
+          const data = await response.json();
+          setArchive(data);
+          console.log(archive);
+          setShouldReload(false);
+        } else {
+          throw new Error(
+            `Fetch fehlgeschlagen mit Status: ${response.status}`
+          );
+        }
+      } catch (error) {
+        console.log(error);
+        alert(error.message);
+      }
+    };
+    getArchive();
+  }, [shouldReload]);
+
+  const sendToMongoArchive = async id => {
+    const activityToArchive = activities?.filter(
+      activity => activity.id === id
+    );
+
+    const archiveValue = {
+      title: activityToArchive[0].titel,
+      link: activityToArchive[0].link,
+      blockchain: activityToArchive[0].blockchain,
+      deadline: activityToArchive[0].date,
+      description: activityToArchive[0].description,
+    };
+
+    const options = {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(archiveValue),
+    };
+    const response = await fetch("api/tasksValues", options);
+    const result = await response.json();
+    setShouldReload(true);
+  };
+
+  const handleDelete = async id => {
+    try {
+      const response = await fetch(`/api/tasks/${id}`, {
+        method: "DELETE",
+      });
+      console.log(id);
+      setShouldReload(true);
+    } catch (error) {
+      console.log(error);
+      alert(error.message);
+    }
+  };
+
+  return (
+    <ArchiveContext.Provider
+      value={{
+        archive,
+        sendToMongoArchive,
+        handleDelete,
+      }}
+    >
+      {children}
+    </ArchiveContext.Provider>
+  );
+}
+
+export function StatesProvider({children}) {
+  const [popupMongo, setPopupMongo] = useState(false);
+
+  function closePopupMongo() {
+    setPopupMongo(false);
+  }
+  function openArchive() {
+    setPopupMongo(true);
+  }
+
+  return (
+    <StatesContext.Provider value={{closePopupMongo, openArchive, popupMongo}}>
+      {children}
+    </StatesContext.Provider>
+  );
+}
+
+export function useStates() {
+  return useContext(StatesContext);
+}
+
+export function useArchive() {
+  return useContext(ArchiveContext);
 }
 
 export function useFunds() {

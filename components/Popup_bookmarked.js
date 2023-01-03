@@ -3,6 +3,9 @@ import CoinCard from "./CoinCard";
 import Close from "../public/images/close.svg";
 import Image from "next/image";
 import {setGlobalState} from "../state";
+import StyledCard from "../components/styled/StyledCard";
+import StyledCloseButton from "./styled/StyledCloseButton";
+import StyledPopup from "../components/styled/StyledPopup";
 
 function Popup(props) {
   function closePopup() {
@@ -13,16 +16,19 @@ function Popup(props) {
     props.trigger && (
       <StyledPopup>
         <StyledPopupInner>
-          <StyledButton onClick={() => closePopup()}>
+          <StyledCloseButton onClick={() => closePopup()}>
             <Image alt="close" src={Close} />
-          </StyledButton>
-          <StyledHead>
-            <StyledP>#</StyledP>
-            <StyledP>Name</StyledP>
-            <StyledP>Price</StyledP>
-            <StyledP>Market Cap</StyledP>
-            <StyledP>Volume (24h)</StyledP>
-          </StyledHead>
+          </StyledCloseButton>
+          <StyledH2>YOUR WATCHLIST</StyledH2>
+          <StyledCard header>
+            <div />
+            <div>#</div>
+            <div>NAME</div>
+            <div>PRICE($)</div>
+            <div>MARKET CAP($mln.)</div>
+            <div>VOLUME (24h)($mln.)</div>
+          </StyledCard>
+
           {props.newCoins.map((coins, i) => {
             return coins.isBookmarked ? (
               <CoinCard
@@ -49,61 +55,21 @@ function Popup(props) {
 
 export default Popup;
 
-const StyledPopup = styled.div`
-  position: fixed;
-  top: 10px;
-  left: 0;
-  z-index: 2;
-  width: 100%;
-  height: 100%;
-  background-color: rgba (0, 0, 0, 0.2);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 const StyledPopupInner = styled.div`
   position: relative;
   padding: 32px;
-  width: 100%;
-  height: 90%;
-  max-width: 940px;
-  background-color: #d3e4e8;
+  width: 98%;
+  max-height: 100vh;
+  height: 70vh;
+  border-left: 14px solid #ccd;
+  background-color: lightslategray;
   border-radius: 20px;
   overflow-y: scroll;
-  margin-bottom: 150px;
-  margin-top: 100px;
+  margin-top: 75px;
+  z-index: 100;
 `;
 
-export const StyledButton = styled.button`
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background-color: transparent;
-  border: none;
-  z-index: 2;
-`;
-const StyledHead = styled.div`
-  background-color: rgba(165, 202, 210);
-  width: 100%;
-  height: 40px;
-  margin-bottom: 8px;
-  margin-top: 15px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  border-radius: 8px;
-`;
-
-const StyledP = styled.p`
-  border-radius: 12px;
-  color: white;
-  width: 120px;
-  height: 20px;
-  background-color: rgba(255, 123, 137);
-  padding: 0px;
+const StyledH2 = styled.h2`
   text-align: center;
-  font-weight: bold;
-  font-size: small;
+  color: white;
 `;

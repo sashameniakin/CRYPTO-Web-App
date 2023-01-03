@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import StyledTransaction from "../components/styled/StyledTransaction";
 
 export default function TransactionCard({
   id,
@@ -11,20 +12,17 @@ export default function TransactionCard({
 }) {
   return (
     <StyledTransaction>
-      <div>{id}</div>
-      <div>{action}</div>
-      <div>{name}</div>
-      <div>{amount}</div>
-      <div>{price}</div>
-      <div>{date}</div>
-      <div>{time}</div>
+      <StyledDiv>{id}</StyledDiv>
+      <StyledDiv>{action}</StyledDiv>
+      <StyledDiv>{name}</StyledDiv>
+      <StyledDiv>{amount}</StyledDiv>
+      <StyledDiv>{price}</StyledDiv>
+      <StyledDiv>{date}</StyledDiv>
+      <StyledDiv>{time}</StyledDiv>
     </StyledTransaction>
   );
 }
 
-export const StyledTransaction = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  color: white;
-  margin-bottom: ${props => (props.header ? "30px" : "")};
+const StyledDiv = styled.div`
+  text-align: start;
 `;
