@@ -61,7 +61,7 @@ const StyledPopupInner = styled.div`
   width: 98%;
   max-height: 100vh;
   height: 70vh;
-  border-left: 14px solid #ccd;
+  border-left: 10px solid #ccd;
   background-color: lightslategray;
   border-radius: 20px;
   overflow-y: scroll;
