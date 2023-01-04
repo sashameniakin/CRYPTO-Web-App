@@ -14,6 +14,10 @@ export default function Login() {
 
   const handleSubmit = e => {
     e.preventDefault();
+    const form = e.target;
+    const {email, password} = form.elements;
+    setEmail(email);
+    setPass(password);
   };
 
   function magic(event) {
