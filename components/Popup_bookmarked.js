@@ -6,6 +6,7 @@ import {setGlobalState} from "../state";
 import StyledCard from "../components/styled/StyledCard";
 import StyledCloseButton from "./styled/StyledCloseButton";
 import StyledPopup from "../components/styled/StyledPopup";
+import StyledH2 from "../components/styled/StyledH2";
 
 function Popup(props) {
   function closePopup() {
@@ -67,9 +68,4 @@ const StyledPopupInner = styled.div`
   overflow-y: scroll;
   margin-top: 75px;
   z-index: 100;
-`;
-
-const StyledH2 = styled.h2`
-  text-align: center;
-  color: white;
 `;

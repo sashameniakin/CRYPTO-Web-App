@@ -1,18 +1,24 @@
 import styled from "styled-components";
 
 const FeatureBackground = styled.div`
-  width: ${props => (props.welcome ? "100%" : "98%")};
-  height: ${props => (props.welcome || props.transactions ? "100vh" : "")};
+  width: ${props => (props.welcome || props.login ? "100%" : "98%")};
+  height: ${props =>
+    props.welcome ||
+    props.transactions ||
+    props.login ||
+    props.tasks ||
+    props.profile
+      ? "100vh"
+      : ""};
   opacity: 0.8;
   box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
   z-index: 0;
   overflow-y: ${props => (props.transactions ? "scroll" : "")};
-  height: ${props => (props.tasks || props.profile === true ? "100vh" : "")};
   filter: ${props => (props.active === true ? "blur(2px)" : "")};
-  display: ${props => (props.profile ? "flex" : "")};
-  flex-direction: ${props => (props.profile ? "column" : "")};
-  justify-content: ${props => (props.profile ? "center" : "")};
-  align-items: ${props => (props.profile ? "center" : "")};
+  display: ${props => (props.profile || props.login ? "flex" : "")};
+  flex-direction: ${props => (props.profile || props.login ? "column" : "")};
+  justify-content: ${props => (props.profile || props.login ? "center" : "")};
+  align-items: ${props => (props.profile || props.login ? "center" : "")};
   gap: ${props => (props.profile ? "10px" : "")};
   h2 {
     border-top: solid 5px #ccd;
@@ -21,6 +27,9 @@ const FeatureBackground = styled.div`
     text-align: center;
   }
   h3 {
+    color: white;
+  }
+  p {
     color: white;
   }
 

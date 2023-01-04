@@ -5,7 +5,8 @@ import Close from "../public/images/close.svg";
 import {useArchive, useStates} from "../context/context";
 import ArchiveCard from "./ArchiveCard";
 import StyledArchiveCard from "./styled/StyledArchiveCard";
-import {StyledP} from "./ArchiveCard";
+import StyledH2 from "./styled/StyledH2";
+import StyledP from "./styled/StyledP";
 
 function PopupMongo(props) {
   const {archive} = useArchive();
@@ -18,7 +19,7 @@ function PopupMongo(props) {
           <StyledCloseButton onClick={() => closePopupMongo()}>
             <Image alt="close" src={Close} />
           </StyledCloseButton>
-          <h2>SAVED IN DATABASE</h2>
+          <StyledH2>SAVED IN DATABASE</StyledH2>
           <StyledArchiveCard header>
             <StyledP>ID</StyledP>
             <StyledP>TITLE</StyledP>
@@ -69,7 +70,8 @@ const StyledPopupInner = styled.div`
   width: 98%;
   max-height: 100vh;
   height: 70vh;
-  background-color: /* #0b2559; */ lightslategray;
+  border-left: 10px solid #ccd;
+  background-color: lightslategray;
   border-radius: 20px;
   overflow-y: scroll;
   margin-bottom: 150px;

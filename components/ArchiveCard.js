@@ -1,9 +1,9 @@
 import StyledArchiveCard from "./styled/StyledArchiveCard";
-import styled from "styled-components";
 import StyledImage from "./styled/StyledImage";
 import StyledButton from "./styled/StyledButton";
 import Delete from "../public/images/delete.svg";
 import {useArchive} from "../context/context";
+import StyledP from "./styled/StyledP";
 
 export default function ArchiveCard({
   id,
@@ -30,14 +30,3 @@ export default function ArchiveCard({
     </>
   );
 }
-
-export const StyledP = styled.p`
-  word-break: break-all;
-  white-space: normal;
-  font-size: small;
-  color: white;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 30px;
-  border-radius: 50px;
-`;

@@ -138,8 +138,6 @@ const StyledContainer = styled.section`
   }
 `;
 
-/* "#6f5f90" */
-
 const StyledP = styled.p`
   ${StyledBaseDetails}
   display: ${props => (props.viewmode === true ? "none" : "")};

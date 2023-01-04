@@ -33,8 +33,10 @@ export default PopupMM;
 const StyledPopupInner = styled.div`
   position: relative;
   padding: 50px;
-  background-color: #d3e4e8;
+  background-color: lightslategray;
+  color: white;
   border-radius: 20px;
+  border-left: 10px solid #ccd;
 `;
 
 const StyledDiv = styled.div`

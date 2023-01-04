@@ -35,7 +35,7 @@ export default function PopupAddBlockchain({trigger}) {
 const StyledPopupInner = styled.div`
   position: relative;
   color: white;
-  border-left: 14px solid #ccd;
+  border-left: 10px solid #ccd;
   padding: 32px;
   width: 98%;
   z-index: 2;

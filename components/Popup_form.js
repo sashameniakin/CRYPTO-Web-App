@@ -70,7 +70,7 @@ const StyledPopupInner = styled.div`
   color: white;
   padding: 32px;
   width: 98%;
-  border-left: 14px solid #ccd;
+  border-left: 10px solid #ccd;
   background-color: lightslategray;
   opacity: 0.9;
   border-radius: 20px;
