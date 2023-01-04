@@ -6,7 +6,7 @@ const StyledBackground = styled.section`
   align-items: center;
   justify-content: center;
   background-color: rgba(165, 202, 210, 0.2);
-  padding: 50px;
+  padding: 20px;
   padding-top: 70px;
   padding-bottom: 70px;
   border-radius: 5px;

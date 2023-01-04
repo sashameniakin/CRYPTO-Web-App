@@ -5,7 +5,7 @@ const StyledFormContainer = styled.form`
   gap: 10px;
   flex-direction: column;
   align-items: stretch;
-  padding: 20px;
+  padding: 10px;
   border-radius: 0.8em;
   opacity: 0.8;
   transition: 0.2s;
@@ -23,6 +23,10 @@ const StyledFormContainer = styled.form`
   select {
     width: 94%;
     align-self: flex-start;
+  }
+  input {
+    font-size: small;
+    border-radius: 5px;
   }
 `;
 

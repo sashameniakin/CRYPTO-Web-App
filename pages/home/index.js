@@ -44,6 +44,7 @@ export default function Home() {
         console.log(error.message);
       }
     };
+    console.log(coinData);
 
     setData();
   }, [getCoins]);
@@ -131,25 +132,25 @@ export default function Home() {
             <StyledP>#</StyledP>
             <StyledP>NAME</StyledP>
             <StyledP>PRICE($)</StyledP>
-            <StyledP>MARKET CAP($mln.)</StyledP>
+            <StyledP>MARKET CAP($bln.)</StyledP>
             <StyledP>VOLUME(24h)($mln.)</StyledP>
           </StyledCard>
 
           <StyledTop100>
             {coinData ? (
               newCoins.map((coin, i) => (
-                <div key={i}>
+                <StyledDiv key={i}>
                   <CoinCard
                     id={coin.id}
                     rank={coin.cmc_rank}
-                    name={coin.name}
+                    name={coin.symbol}
                     price={coin.quote.USD.price}
                     market_cap={coin.quote.USD.market_cap}
                     volume={coin.quote.USD.volume_24h}
                     isBookmarked={coin.isBookmarked}
                     toggleBookmark={toggleBookmark}
                   />
-                </div>
+                </StyledDiv>
               ))
             ) : (
               <></>
@@ -160,6 +161,10 @@ export default function Home() {
     </>
   );
 }
+
+const StyledDiv = styled.div`
+  height: 25px;
+`;
 
 const StyledContainer = styled.div`
   display: flex;
@@ -177,6 +182,6 @@ const StyledTop100 = styled.section`
 const StyledP = styled.p`
   word-break: break-all;
   white-space: normal;
-  font-size: small;
+  font-size: smaller;
   color: white;
 `;

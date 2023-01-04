@@ -23,16 +23,16 @@ export default function Profile() {
       <StyledBody>
         <FeatureBackground onPointerMove={magic} profile>
           <StyledBackground>
-            <p>Signed in as {session?.user?.email}</p>
-            {
-              <StyledProfileImage
-                alt="userFoto"
-                loader={() => session?.user?.image || demoImage}
-                src={src}
-                width={200}
-                height={200}
-              />
-            }
+            <StyledProfileImage
+              alt="userFoto"
+              loader={() => session?.user?.image || demoImage}
+              src={src}
+              width={200}
+              height={200}
+            />
+            <p>Signed in as</p>
+            <StyledEmail> {session?.user?.email}</StyledEmail>
+
             <StyledButtonMain
               onClick={() => signOut({callbackUrl: "http://localhost:3000"})}
             >
@@ -47,4 +47,14 @@ export default function Profile() {
 
 const StyledProfileImage = styled(Image)`
   border-radius: 100px;
+`;
+const StyledEmail = styled.p`
+  background: rgba(165, 202, 210, 0.2);
+  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  width: 300px;
+  height: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

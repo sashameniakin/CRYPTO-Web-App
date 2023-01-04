@@ -178,6 +178,7 @@ export function ActivitiesProvider({children}) {
 export function FundsProvider({children}) {
   const [coinPrice] = useGlobalState("coinPrice");
   const [coinName] = useGlobalState("coinName");
+  const [coinSymbol] = useGlobalState("coinSymbol");
   const [transactions, setTransactions] = useState(() => {
     if (typeof window !== "undefined") {
       const localData = JSON.parse(localStorage.getItem("transactions"));
@@ -267,7 +268,7 @@ export function FundsProvider({children}) {
     const newValue = {
       id: values + 1,
       action: "BUY",
-      name: coinName,
+      name: coinSymbol,
       amount: amount.value,
       price: coinPrice,
       date: currDate,
@@ -311,7 +312,6 @@ export function FundsProvider({children}) {
           })
         );
       }
-      console.log(valueFromForm, coin[0].amount);
     } else if (coin.length === 0) {
       alert("You don't have this coin in your portfolio!");
     }
@@ -327,7 +327,7 @@ export function FundsProvider({children}) {
     const newValue = {
       id: values + 1,
       action: "SELL",
-      name: coinName,
+      name: coinSymbol,
       amount: amount.value,
       price: coinPrice,
       date: currDate,

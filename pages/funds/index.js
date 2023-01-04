@@ -66,6 +66,7 @@ export default function Funds() {
     coinsToFind &&
       setGlobalState("coinPrice", selected[0]?.quote?.USD?.price.toFixed(2));
     coinsToFind && setGlobalState("coinName", selected[0]?.name);
+    coinsToFind && setGlobalState("coinSymbol", selected[0]?.symbol);
   }, [handleSell, handleBuy, coinsToFind]);
 
   function magic(event) {
@@ -186,6 +187,7 @@ const StyledRow = styled.div`
   flex-direction: row;
   justify-content: space-around;
   margin-top: 20px;
+  gap: 10px;
 `;
 
 const StyledColumn = styled.div`
@@ -198,5 +200,6 @@ const StyledColumn = styled.div`
 
 const StyledField = styled.div`
   ${StyledBaseDetails}
+  border-radius: 5px;
   margin-top: 10px;
 `;

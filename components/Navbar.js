@@ -13,6 +13,7 @@ import {useState} from "react";
 import Web3 from "web3";
 import {useEffect} from "react";
 import StyledButton from "../components/styled/StyledButton";
+import ProfileBlack from "../public/images/profile_black.svg";
 
 export default function Navbar() {
   const {pathname} = useRouter();
@@ -172,7 +173,7 @@ export default function Navbar() {
             <StyledLink href="/profile">
               <Image
                 alt="personal profile"
-                src={Profile}
+                src={pathname === "/profile" ? ProfileBlack : Profile}
                 width="50px"
                 height="50px"
               />
@@ -213,5 +214,5 @@ const StyledDiv = styled.div`
   width: 35px;
   height: 35px;
   background-color: ${props =>
-    props.active === true ? "rgba(255, 123, 137)" : ""};
+    props.active === true ? "rgba(255, 123, 137, 0.8)" : ""};
 `;
