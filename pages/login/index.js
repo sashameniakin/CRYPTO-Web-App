@@ -7,6 +7,7 @@ import Image from "next/image";
 import FeatureBackground from "../../components/styled/FeatureBackground";
 import {useState} from "react";
 import StyledBackground from "../../components/styled/StyledBackground";
+import StyledButtonMain from "../../components/styled/StyledButtonMain";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -59,7 +60,7 @@ export default function Login() {
           </StyledButtonGitHub>
         </StyledBackground>
         <Link href="/profile">
-          <StyledButton>Ligin with Github</StyledButton>
+          <StyledButtonMain>Go to app (without login)</StyledButtonMain>
         </Link>
       </FeatureBackground>
     </>
