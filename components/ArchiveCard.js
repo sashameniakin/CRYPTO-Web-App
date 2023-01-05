@@ -15,19 +15,17 @@ export default function ArchiveCard({
 }) {
   const {handleDelete} = useArchive();
   return (
-    <>
-      <StyledArchiveCard>
-        <StyledP wordbreak>{id}</StyledP>
-        <StyledP>{title}</StyledP>
-        <StyledP wordbreak>{link}</StyledP>
-        <StyledP align>{blockchain}</StyledP>
-        <StyledP align>{deadline}</StyledP>
-        <StyledP align>{description}</StyledP>
-        <StyledButton onClick={() => handleDelete(id)}>
-          <StyledImage alt="delete" src={Delete} width="25px" height="25px" />
-        </StyledButton>
-      </StyledArchiveCard>
-    </>
+    <StyledArchiveCard>
+      <StyledP wordbreak>{id}</StyledP>
+      <StyledP>{title}</StyledP>
+      <StyledP wordbreak>{link}</StyledP>
+      <StyledP align>{blockchain}</StyledP>
+      <StyledP align>{deadline}</StyledP>
+      <StyledP align>{description}</StyledP>
+      <StyledButton onClick={() => handleDelete(id)}>
+        <StyledImage alt="delete" src={Delete} width="25px" height="25px" />
+      </StyledButton>
+    </StyledArchiveCard>
   );
 }
 
