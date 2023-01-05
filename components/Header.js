@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import {useGlobalState, setGlobalState} from "../state/index";
 import Bookmark from "../public/images/bookmark.svg";
+import BookmarkActive from "../public/images/bookmark_active.svg";
 import Lottie from "react-lottie";
 import {useRouter} from "next/router";
 import {useState, useEffect} from "react";
@@ -80,7 +81,10 @@ export default function Header(props) {
               />
             </StyledButton>
             <StyledButton onClick={() => openPopup()}>
-              <StyledImage alt="bookmark" src={Bookmark} />
+              <StyledImage
+                alt="bookmark"
+                src={openBookmark ? BookmarkActive : Bookmark}
+              />
             </StyledButton>
           </IconsContainer>
         </StyledDiv>
