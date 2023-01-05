@@ -2,15 +2,24 @@ import styled from "styled-components";
 import {setGlobalState, useGlobalState} from "../../state";
 import PopupForm from "../../components/Popup_form";
 import Task from "../../components/Task";
-import {StyledSection} from "../home";
-import {useActivities} from "../../context/context";
+import StyledSection from "../../components/styled/StyledSection";
+import {useActivities, useStates} from "../../context/context";
 import {DragDropContext, Droppable, Draggable} from "react-beautiful-dnd";
 import {useState, useEffect} from "react";
 import ProgressBar from "../../components/Progress-bar";
-import {StyledContainerDetails} from "../../components/Task";
+import StyledContainerDetails from "../../components/styled/StyledContainerDetails";
+import StyledBody from "../../components/styled/StyledBody";
+import PopupWellDone from "../../components/Popup_welldone";
+import PopupMongo from "../../components/Popup_mongo_archieve";
+import StyledButtonMain from "../../components/styled/StyledButtonMain";
+import FeatureBackground from "../../components/styled/FeatureBackground";
+import PopupSended from "../../components/Popup_sended";
 
 export default function Tasks() {
   const [openForm] = useGlobalState("openForm");
+  const [openPopupWellDone] = useGlobalState("openPopupWellDone");
+  const [openPopupSended] = useGlobalState("openPopupSended");
+  const {popupMongo} = useStates();
   const {activities, setActivities} = useActivities();
   const [tasks, updateTasks] = useState(activities);
   const [winReady, setWinReady] = useState(false);
@@ -56,102 +65,110 @@ export default function Tasks() {
     selected => selected?.selected === true
   ).length;
 
+  function magic(event) {
+    const {currentTarget: el, clientX: x, clientY: y} = event;
+    const {top: t, left: l, width: w, height: h} = el.getBoundingClientRect();
+    el.style.setProperty("--posX", x - l - w / 2);
+    el.style.setProperty("--posY", y - t - h / 2);
+  }
+
   return (
     <>
       <StyledBody>
-        <PopupForm trigger={openForm}></PopupForm>
-        <StyledContainerDetails active={openForm}>
-          <StyledButton onClick={() => openFormPopup()}>
-            Add activity
-          </StyledButton>
-          <StyledBar>
-            <ProgressBar tasksCount={length} tasksDone={tasksDone} />
-          </StyledBar>
-        </StyledContainerDetails>
-        {winReady && (
-          <DragDropContext onDragEnd={handleOnDragEnd}>
-            <Droppable droppableId="tasks">
-              {provided => (
-                <StyledSection
-                  tasks
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                  active={openForm}
-                >
-                  {tasks &&
-                    tasks.map(
-                      (
-                        {
-                          id,
-                          titel,
-                          link,
-                          blockchain,
-                          date,
+        <PopupWellDone trigger={openPopupWellDone} />
+        <PopupForm trigger={openForm} />
+        <PopupMongo trigger={popupMongo} />
+        <PopupSended trigger={openPopupSended} />
+        <FeatureBackground
+          onPointerMove={magic}
+          tasks
+          active={
+            openForm || openPopupWellDone || popupMongo || openPopupSended
+          }
+        >
+          <h2>CURRENT ACTIVITIES</h2>
+          <StyledContainerDetails>
+            <StyledButtonMain onClick={() => openFormPopup()}>
+              ADD ACTIVITY
+            </StyledButtonMain>
+            <StyledBar>
+              <ProgressBar tasksCount={length} tasksDone={tasksDone} />
+            </StyledBar>
+          </StyledContainerDetails>
+          {winReady && (
+            <DragDropContext onDragEnd={handleOnDragEnd}>
+              <Droppable droppableId="tasks">
+                {provided => (
+                  <StyledSection
+                    tasks
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                    active={
+                      openForm ||
+                      openPopupWellDone ||
+                      popupMongo ||
+                      openPopupSended
+                    }
+                  >
+                    {tasks &&
+                      tasks.map(
+                        (
+                          {
+                            id,
+                            titel,
+                            link,
+                            blockchain,
+                            date,
 
-                          description,
-                        },
-                        i
-                      ) => {
-                        return (
-                          winReady && (
-                            <Draggable
-                              key={id}
-                              draggableId={id ? id.toString() : "0"}
-                              index={i}
-                            >
-                              {provided => (
-                                <Task
-                                  refff={provided.innerRef}
-                                  {...provided.draggableProps}
-                                  {...provided.dragHandleProps}
-                                  index={i}
-                                  key={i}
-                                  id={id}
-                                  titel={titel}
-                                  link={link}
-                                  blockchain={blockchain}
-                                  date={date}
-                                  description={description}
-                                />
-                              )}
-                            </Draggable>
-                          )
-                        );
-                      }
-                    )}
-                  {provided.placeholder}
-                </StyledSection>
-              )}
-            </Droppable>
-          </DragDropContext>
-        )}
+                            description,
+                          },
+                          i
+                        ) => {
+                          return (
+                            winReady && (
+                              <Draggable
+                                key={id}
+                                draggableId={id ? id.toString() : "0"}
+                                index={i}
+                              >
+                                {provided => (
+                                  <Task
+                                    refff={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}
+                                    index={i}
+                                    key={i}
+                                    id={id}
+                                    titel={titel}
+                                    link={link}
+                                    blockchain={blockchain}
+                                    date={date}
+                                    description={description}
+                                  />
+                                )}
+                              </Draggable>
+                            )
+                          );
+                        }
+                      )}
+                    {provided.placeholder}
+                  </StyledSection>
+                )}
+              </Droppable>
+            </DragDropContext>
+          )}
+        </FeatureBackground>
       </StyledBody>
     </>
   );
 }
 
-const StyledBody = styled.main`
-  margin-top: 9%;
-  margin-bottom: 9%;
-`;
-
-const StyledButton = styled.button`
-  width: 228px;
-  height: 44px;
-  margin-left: 10px;
-  border: none;
-  background: rgba(165, 202, 210, 0.75);
-  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 5px;
-  color: #575757;
-  font-weight: bold;
-`;
 const StyledBar = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-left: 20px;
-  margin-right: 10px;
+  margin-left: 0px;
+  margin-right: 0px;
   margin-bottom: 10px;
   align-items: flex-end;
   justify-content: end;

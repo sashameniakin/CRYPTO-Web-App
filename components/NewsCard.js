@@ -1,5 +1,4 @@
 import Image from "next/image";
-
 import styled from "styled-components";
 import moment from "moment";
 
@@ -61,18 +60,23 @@ const StyledContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin: ${props => (props.primary ? "10px" : "")};
+  p {
+    color: white;
+  }
 `;
 
 const Card = styled.div`
-  background-color: aliceblue;
+  background-color: rgb(255, 255, 255, 0.25);
   border-radius: 10px;
   width: 400px;
+  padding: 5px;
+  height: 250px;
   font-family: Arial, Helvetica, sans-serif;
-  margin-left: 10px;
-  border-left: 10px solid pink;
+  border-left: 8px solid #ccd;
+  font-size: small;
   &:hover {
     transform: scale(1.02);
-    transition: 0.5s ease;
+    transition: 0.5s ease-in-out;
   }
 `;
 
@@ -85,10 +89,12 @@ const Titel = styled.div`
   width: 70%;
   margin-left: 10px;
   font-weight: bold;
+  color: white;
 `;
 
 const StyledP = styled.p`
   color: ${props => (props.primary ? "black" : "")};
   margin-left: 10px;
   margin-right: 10px;
+  color: white;
 `;

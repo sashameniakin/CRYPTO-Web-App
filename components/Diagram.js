@@ -17,16 +17,17 @@ const Diagram = ({diagram, coins}) => {
   const costArray = diagram?.map(element => {
     return element.inDollars;
   });
-  const actualPriceArray = diagram
-    ?.map(element => {
-      const object = coins?.filter(coin => coin.name === element.name);
-      return object[0]?.quote?.USD?.price.toFixed(2);
-    })
-    .map((element, i) => {
-      return amountArray[i] * element;
-    });
+  const actualPriceArray =
+    coins &&
+    diagram
+      ?.map(element => {
+        const object = coins?.filter(coin => coin.name === element.name);
+        return object[0]?.quote?.USD?.price.toFixed(2);
+      })
+      .map((element, i) => {
+        return amountArray[i] * element;
+      });
 
-  console.log(actualPriceArray);
   const colorArray = diagram?.map(() => {
     return "#" + Math.floor(Math.random() * 16777215).toString(16);
   });
@@ -84,29 +85,9 @@ const Diagram = ({diagram, coins}) => {
       ],
       labels: labels,
     });
-  }, [diagram]);
+  }, [diagram, coins]);
 
-  /*   const textCenter = {
-    id: "textCenter",
-
-    beforeDatasetsDraw(chart, args, pluginOptions) {
-      const {ctx, data} = chart;
-
-      ctx.save();
-      ctx.font = "bolder 60px sans-serif";
-      ctx.fillStyle = "black";
-      ctx.textAlign = "center";
-      ctx.textBaseLine = "middle";
-
-      ctx.fillText(
-        "t",
-        chart.getDatasetMeta(0).data[0].x,
-        chart.getDatasetMeta(0).data[0].y
-      );
-    },
-  }; */
-
-  return <Doughnut data={data} height={2000} width={2000} />;
+  return <Doughnut data={data} height={300} width={300} />;
 };
 
 export default Diagram;

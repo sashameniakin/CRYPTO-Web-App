@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Image from "next/image";
 import {useRouter} from "next/router";
-import StyledLink from "./StyledLink";
+import StyledLink from "./styled/StyledLink";
 import Metamask from "../public/images/metamask.svg";
 import MetamaskActive from "../public/images/metamask_filled.svg";
 import Funds from "../public/images/funds.svg";
@@ -12,6 +12,7 @@ import {setGlobalState} from "../state";
 import {useState} from "react";
 import Web3 from "web3";
 import {useEffect} from "react";
+import StyledButton from "../components/styled/StyledButton";
 
 export default function Navbar() {
   const {pathname} = useRouter();
@@ -140,7 +141,7 @@ export default function Navbar() {
 
   return (
     winReady && (
-      <footer>
+      <StyledFooter>
         <StyledList>
           <StyledDiv active={pathname === "/home" ? true : false}>
             <StyledLink href="/home">
@@ -178,24 +179,34 @@ export default function Navbar() {
             </StyledLink>
           </StyledDiv>
         </StyledList>
-      </footer>
+      </StyledFooter>
     )
   );
 }
+const StyledFooter = styled.footer`
+  display: flex;
+  justify-content: center;
+`;
 
 const StyledList = styled.ul`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   justify-items: center;
   align-items: center;
-  height: 60px;
-  width: 100%;
+  height: 45px;
+  width: 99%;
+  opacity: 0.95;
   position: fixed;
   bottom: 0;
   list-style: none;
   margin: 0;
   padding: 0;
-  background-color: rgba(165, 202, 210);
+  background: -webkit-linear-gradient(
+    322deg,
+    rgb(70, 81, 87) 0%,
+    rgb(81, 67, 107) 99%
+  );
+  border-radius: 5px;
 `;
 
 const StyledDiv = styled.div`
@@ -206,10 +217,5 @@ const StyledDiv = styled.div`
   width: 35px;
   height: 35px;
   background-color: ${props =>
-    props.active === true ? "rgba(255, 123, 137)" : ""};
-`;
-
-const StyledButton = styled.button`
-  background-color: transparent;
-  border: none;
+    props.active === true ? "rgba(255, 123, 137, 0.5)" : ""};
 `;

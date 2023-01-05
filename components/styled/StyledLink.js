@@ -6,6 +6,10 @@ const StyledLink = styled(Link)`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  &:hover {
+    transform: scale(1.2);
+    transition: 0.5s ease-in-out;
+  }
 `;
 
 export default StyledLink;

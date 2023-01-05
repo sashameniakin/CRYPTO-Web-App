@@ -26,7 +26,7 @@ export default function ProgressBar(props) {
 }
 
 const StyledContainer = styled.div`
-  height: 10px;
+  height: 7px;
   width: 100%;
   background-color: #e0e0de;
   border-radius: 10px;
@@ -41,6 +41,7 @@ const StyledFiller = styled.div`
 `;
 const StyledP = styled.p`
   font-weight: bold;
-  color: #575757;
+  font-size: small;
+  color: white;
   margin-bottom: 3px;
 `;

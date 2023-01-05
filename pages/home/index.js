@@ -6,14 +6,23 @@ import NewsCard from "../../components/NewsCard";
 import styled from "styled-components";
 import Popup from "../../components/Popup_bookmarked";
 import {useGlobalState} from "../../state";
+import StyledCard from "../../components/styled/StyledCard";
+import StyledBody from "../../components/styled/StyledBody";
+import StyledSelect from "../../components/styled/StyledSelect";
+import FeatureBackground from "../../components/styled/FeatureBackground";
 
 export default function Home() {
   let [coinNews, setCoinNews] = useState();
   let [coinData, setCoinData] = useState(null);
   let {getCoins} = useContext(CMContext);
-  const [newCoins, setNewCoins] = useState();
   const [buttonPopup] = useGlobalState("openPopup");
   const [newsCategory, setNewsCategory] = useState("Cryptocurrency");
+  const [newCoins, setNewCoins] = useState(() => {
+    if (typeof window !== "undefined") {
+      const localData = JSON.parse(localStorage.getItem("bookmarked"));
+      return localData ?? null;
+    }
+  });
 
   const toggleBookmark = ID => {
     setNewCoins(
@@ -29,6 +38,10 @@ export default function Home() {
       })
     );
   };
+
+  useEffect(() => {
+    localStorage.setItem("bookmarked", JSON.stringify(newCoins));
+  }, [newCoins]);
 
   useEffect(() => {
     const setData = async () => {
@@ -63,7 +76,6 @@ export default function Home() {
         const data = await res.json();
 
         setCoinNews(data.value);
-        console.log(data.value);
       } catch (err) {
         console.log(err);
       }
@@ -71,12 +83,26 @@ export default function Home() {
     callAPI();
   }, [newsCategory]);
 
+  function magic(event) {
+    const {currentTarget: el, clientX: x, clientY: y} = event;
+    const {top: t, left: l, width: w, height: h} = el.getBoundingClientRect();
+    el.style.setProperty("--posX", x - l - w / 2);
+    el.style.setProperty("--posY", y - t - h / 2);
+  }
+
   return (
     <>
+      <Popup
+        newCoins={newCoins}
+        trigger={buttonPopup}
+        toggleBookmark={toggleBookmark}
+      ></Popup>
       <StyledBody>
-        <StyledSelect>
-          News Category:
-          <Select onChange={e => setNewsCategory(e.target.value)}>
+        <FeatureBackground onPointerMove={magic} active={buttonPopup}>
+          <h2>LAST NEWS</h2>
+          <h3>News Category:</h3>
+
+          <StyledSelect onChange={e => setNewsCategory(e.target.value)}>
             <option value="cryptocurrency">cryptocurrency</option>
             {coinData
               ? newCoins.map((coin, i) => {
@@ -87,63 +113,64 @@ export default function Home() {
                   );
                 })
               : ""}
-          </Select>
-        </StyledSelect>
-        <Popup
-          newCoins={newCoins}
-          trigger={buttonPopup}
-          toggleBookmark={toggleBookmark}
-        ></Popup>
-        <StyledContainer>
-          {coinNews &&
-            coinNews.map((news, i) => (
-              <div key={i}>
-                <NewsCard
-                  urlLink={news.url}
-                  name={news.name}
-                  url={news?.image?.thumbnail?.contentUrl}
-                  description={news.description}
-                  datePublished={news.datePublished}
-                  providerName={news.provider[0]?.name}
-                  providerUrl={news.provider[0]?.image?.thumbnail?.contentUrl}
-                />
-              </div>
-            ))}
-        </StyledContainer>
-        <StyledHead active={buttonPopup}>
-          <StyledDiv>#</StyledDiv>
-          <StyledDiv>Name</StyledDiv>
-          <StyledDiv>Price</StyledDiv>
-          <StyledDiv>Market Cap</StyledDiv>
-          <StyledDiv>Volume (24h)</StyledDiv>
-        </StyledHead>
-        <StyledSection active={buttonPopup}>
-          {coinData ? (
-            newCoins.map((coin, i) => (
-              <div key={i}>
-                <CoinCard
-                  id={coin.id}
-                  rank={coin.cmc_rank}
-                  name={coin.name}
-                  price={coin.quote.USD.price}
-                  market_cap={coin.quote.USD.market_cap}
-                  volume={coin.quote.USD.volume_24h}
-                  isBookmarked={coin.isBookmarked}
-                  toggleBookmark={toggleBookmark}
-                />
-              </div>
-            ))
-          ) : (
-            <></>
-          )}
-        </StyledSection>
+          </StyledSelect>
+
+          <StyledContainer>
+            {coinNews &&
+              coinNews.map((news, i) => (
+                <div key={i}>
+                  <NewsCard
+                    urlLink={news.url}
+                    name={news.name}
+                    url={news?.image?.thumbnail?.contentUrl}
+                    description={news.description}
+                    datePublished={news.datePublished}
+                    providerName={news.provider[0]?.name}
+                    providerUrl={news.provider[0]?.image?.thumbnail?.contentUrl}
+                  />
+                </div>
+              ))}
+          </StyledContainer>
+        </FeatureBackground>
+        <FeatureBackground onPointerMove={magic} active={buttonPopup}>
+          <h2>TOP-100 CRYPTOCURRENCIES</h2>
+          <StyledCard active={buttonPopup} header>
+            <StyledP />
+            <StyledP>#</StyledP>
+            <StyledP>NAME</StyledP>
+            <StyledP>PRICE($)</StyledP>
+            <StyledP>MARKET CAP($bln.)</StyledP>
+            <StyledP>VOLUME(24h)($mln.)</StyledP>
+          </StyledCard>
+
+          <StyledTop100>
+            {coinData ? (
+              newCoins.map((coin, i) => (
+                <StyledDiv key={i}>
+                  <CoinCard
+                    id={coin.id}
+                    rank={coin.cmc_rank}
+                    name={coin.symbol}
+                    price={coin.quote.USD.price}
+                    market_cap={coin.quote.USD.market_cap}
+                    volume={coin.quote.USD.volume_24h}
+                    isBookmarked={coin.isBookmarked}
+                    toggleBookmark={toggleBookmark}
+                  />
+                </StyledDiv>
+              ))
+            ) : (
+              <></>
+            )}
+          </StyledTop100>
+        </FeatureBackground>
       </StyledBody>
     </>
   );
 }
 
-const StyledBody = styled.div`
-  margin-top: 8%;
+const StyledDiv = styled.div`
+  height: 25px;
 `;
 
 const StyledContainer = styled.div`
@@ -151,47 +178,18 @@ const StyledContainer = styled.div`
   flex-direction: row;
   gap: 10px;
   overflow-x: scroll;
+  margin-top: 25px;
 `;
 
-const StyledHead = styled.div`
-  background-color: rgba(165, 202, 210);
-  width: 100%;
-  height: 30px;
-  margin-bottom: 8px;
-  margin-top: 15px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  padding-left: 30px;
-  filter: ${props => (props.active === true ? "blur(5px)" : "")};
+const StyledTop100 = styled.section`
+  max-height: 100vh;
+  overflow-y: scroll;
+  padding-top: 5px;
 `;
 
-const StyledDiv = styled.div`
-  border-radius: 12px;
+const StyledP = styled.p`
+  word-break: break-all;
+  white-space: normal;
+  font-size: smaller;
   color: white;
-  width: 120px;
-  height: 20px;
-  background-color: rgba(255, 123, 137);
-  padding: 0px;
-  text-align: center;
-  font-weight: bold;
-  font-size: small;
-`;
-export const StyledSection = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: stretch;
-  margin-left: ${props => (props.tasks === true ? "10px" : "20px")};
-  margin-right: ${props => (props.tasks === true ? "10px" : "20px")};
-  gap: ${props => (props.tasks === true ? "" : "3px")};
-  filter: ${props => (props.active === true ? "blur(2px)" : "")};
-`;
-export const Select = styled.select`
-  margin-left: 10px;
-  margin-bottom: 30px;
-`;
-
-const StyledSelect = styled.div`
-  margin-left: 10px;
 `;

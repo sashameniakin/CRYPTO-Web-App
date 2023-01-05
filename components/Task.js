@@ -1,18 +1,20 @@
-import styled, {css} from "styled-components";
-import {StyledImage} from "./Header";
+import styled from "styled-components";
+import StyledImage from "../components/styled/StyledImage";
 import Archive from "../public/images/archive.svg";
 import Delete from "../public/images/delete.svg";
 import DeleteActiv from "../public/images/delete_activ.svg";
 import DetailsDown from "../public/images/down.svg";
 import DetailsUp from "../public/images/up.svg";
-import {StyledButton} from "./Header";
-import {useActivities} from "../context/context";
+import {useActivities, useArchive} from "../context/context";
 import Done from "../public/images/done.svg";
 import DoneActiv from "../public/images/done_activ.svg";
 import ArchiveActive from "../public/images/archive_activ.svg";
 import DetailsActiveUp from "../public/images/up_activ.svg";
 import DetailsActiveDown from "../public/images/down_activ.svg";
 import {useState} from "react";
+import StyledBaseDetails from "../components/styled/StyledBaseDetails";
+import StyledContainerDetails from "../components/styled/StyledContainerDetails";
+import StyledButton from "../components/styled/StyledButton";
 
 export default function Task(props) {
   const {refff, id, titel, link, blockchain, date, description, ...rest} =
@@ -20,6 +22,7 @@ export default function Task(props) {
   const {activities, handleDelete, handleDetails, handleClick, setUpdate} =
     useActivities();
   const [edit, setEdit] = useState(false);
+  const {sendToMongoArchive} = useArchive();
   let isOpen = activities.find(activity => activity.id === id)?.isOpen;
   if (isOpen === undefined) {
     isOpen = false;
@@ -39,7 +42,7 @@ export default function Task(props) {
   return (
     <>
       <StyledContainer isSelected={isSelected?.selected} ref={refff} {...rest}>
-        <StyledButton>
+        <StyledButton onClick={() => sendToMongoArchive(id)}>
           <StyledImage
             alt="archive"
             src={isSelected?.selected ? ArchiveActive : Archive}
@@ -55,9 +58,9 @@ export default function Task(props) {
             height="50px"
           />
         </StyledButton>
-        <StyledP>{titel}</StyledP>
+        <StyledP title>{titel}</StyledP>
 
-        <StyledFlexContainer isSelected={isSelected?.selected}>
+        <StyledFlexContainer isSelected={isSelected?.selected} icons>
           <StyledButton onClick={() => handleDelete(id)}>
             <StyledImage
               alt="delete"
@@ -90,16 +93,21 @@ export default function Task(props) {
       {isOpen && (
         <StyledFlexContainer isSelected={isSelected?.selected}>
           <StyledContainerDetails>
-            <StyledP>
+            <StyledP link>
               Link:{" "}
               <a href={link} target="_blank" rel="noreferrer">
                 {link}
               </a>
             </StyledP>
-            <StyledP>Blockchain: {blockchain}</StyledP>
-            <StyledP>Deadline: {date}</StyledP>
+            <StyledP details>Blockchain: {blockchain}</StyledP>
+            <StyledP details>Deadline: {date}</StyledP>
           </StyledContainerDetails>
-          <StyledP description onDoubleClick={handleEdit} viewmode={edit}>
+          <StyledP
+            description
+            onDoubleClick={handleEdit}
+            viewmode={edit}
+            details
+          >
             Description: {description}
           </StyledP>
           <StyledInput
@@ -121,11 +129,14 @@ const StyledContainer = styled.section`
   display: grid;
   grid-template-columns: 1fr 1fr 8fr 1fr;
   justify-items: start;
-  width: 100%;
+  align-items: center;
   margin-top: 5px;
+  height: 55px;
   border: none;
   background: ${props =>
-    props.isSelected === true ? "rgba(165, 202, 210)" : "#6f5f90"};
+    props.isSelected === true
+      ? "rgba(255, 123, 137, 0.4)"
+      : "rgba(165, 202, 210, 0.2)"};
   box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
   &:hover,
@@ -134,30 +145,26 @@ const StyledContainer = styled.section`
   }
 `;
 
-export const StyledContainerDetails = styled.div`
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-  filter: ${props => (props.active === true ? "blur(2px)" : "")};
-`;
-
-export const baseDetailsStyle = css`
-  color: white;
-  background-color: #6f5f90;
-  opacity: 0.8;
-  padding: 5px 14px;
-  border-radius: 999px;
-  background-color: lightslategray;
-  margin-left: ${props => (props.description ? "20px" : "")};
-  margin-right: ${props => (props.description ? "20px" : "")};
-`;
-
 const StyledP = styled.p`
-  ${baseDetailsStyle}
+  color: white;
+  opacity: 0.8;
+  width: ${props =>
+    props.detiails || props.description || props.link ? "305px" : ""};
+  padding-left: 10px;
+  padding-right: ${props => (props.details || props.link ? "10px" : 0)};
+  padding-top: ${props => (props.details || props.link ? "5px" : 0)};
+  padding-bottom: ${props => (props.details || props.link ? "5px" : 0)};
+  border-radius: 4px;
+  background-color: ${props => (props.title ? "" : "rgba(165, 202, 210, 0.2)")};
+  margin-left: ${props => (props.description || props.link ? "10px" : "")};
+  margin-right: ${props => (props.description || props.link ? "10px" : "")};
   display: ${props => (props.viewmode === true ? "none" : "")};
+  word-break: break-all;
+  white-space: normal;
+  font-size: small;
 `;
 const StyledInput = styled.input`
-  ${baseDetailsStyle}
+  ${StyledBaseDetails}
   display: ${props => (props.editmode === false ? "none" : "")};
   margin-bottom: 5px;
 `;
@@ -169,10 +176,14 @@ const StyledFlexContainer = styled.div`
   justify-items: center;
   justify-self: flex-end;
   align-self: center;
-  background: #6f5f90;
   border-radius: 0px 0px 5px 5px;
-  opacity: 0.7;
   border: none;
-  background-color: ${props =>
-    props.isSelected === true ? "#9ECAD3" : "#6f5f90"};
+  background: ${props =>
+    props.isSelected === true
+      ? props.icons === true
+        ? "rgba(255, 123, 137, 0)"
+        : "rgba(255, 123, 137, 0.4)"
+      : props.icons === true
+      ? "rgba(165, 202, 210, 0)"
+      : "rgba(165, 202, 210, 0.2)"};
 `;

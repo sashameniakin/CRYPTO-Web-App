@@ -1,21 +1,50 @@
 import styled from "styled-components";
 import {useGlobalState, setGlobalState} from "../state/index";
 import Bookmark from "../public/images/bookmark.svg";
-import BookmarkBlack from "../public/images/Star_black.svg";
-import Image from "next/image";
-import SignOut from "../public/images/signout.svg";
+import BookmarkActive from "../public/images/bookmark_active.svg";
+import Lottie from "react-lottie";
 import {useRouter} from "next/router";
 import {useState, useEffect} from "react";
+import StyledLottie from "./styled/StyledLottie";
+import StyledButton from "../components/styled/StyledButton";
+import StyledImage from "../components/styled/StyledImage";
+import fromArchive from "../public/images/fromarchive.svg";
+import fromArchiveActive from "../public/images/fromarchive_active.svg";
+import {useStates} from "../context/context";
 
-export default function Header() {
+export default function Header(props) {
+  const {popupMongo} = useStates();
+  const [openBookmark] = useGlobalState("openPopup");
   const [metamaskAddress] = useGlobalState("metamaskAddress");
   const [chain] = useGlobalState("chainId");
-  const [popupState] = useGlobalState("openPopup");
   const [Connecting] = useGlobalState("isConnecting");
   const path = useRouter().asPath;
   const [isConnected] = useGlobalState("isConnected");
-
   const [winReady, setWinReady] = useState(false);
+  const {openArchive} = useStates();
+  const initState = {url: "", height: 100, width: 100};
+  const [state, setLottieState] = useState(initState);
+
+  const lottieUrlPath =
+    "https://assets7.lottiefiles.com/private_files/lf30_jspeqlsz.json";
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    path: lottieUrlPath,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
+
+  useEffect(() => {
+    setLottieState({
+      url: lottieUrlPath,
+      name: props.name,
+      height: props.height,
+      width: props.width,
+    });
+  }, [props.height, props.name, props.width]);
 
   useEffect(() => {
     setWinReady(true);
@@ -30,48 +59,81 @@ export default function Header() {
   return (
     winReady && (
       <StyledHeader>
-        <StyledAddress>
-          {Connecting ? "...Loading" : isConnected ? chain : ""}
-        </StyledAddress>
-        <StyledAddress>
-          {Connecting ? "...Loading" : isConnected ? metamaskAddress : ""}
-        </StyledAddress>
-        <StyledButton>
-          <StyledImage alt="signout button" src={SignOut} />
-        </StyledButton>
-        <StyledButton onClick={() => openPopup()}>
-          <StyledImage
-            alt="bookmark"
-            src={popupState === true ? Bookmark : BookmarkBlack}
-          />
-        </StyledButton>
+        <StyledDiv>
+          <StyledLottie>
+            <Lottie
+              options={defaultOptions}
+              height={state.height}
+              width={state.width}
+            />
+          </StyledLottie>
+          <StyledChain>
+            {Connecting ? "...Loading" : isConnected ? chain : ""}
+          </StyledChain>
+          <StyledAddress>
+            {Connecting ? "...Loading" : isConnected ? metamaskAddress : ""}
+          </StyledAddress>
+          <IconsContainer>
+            <StyledButton onClick={() => openArchive()}>
+              <StyledImage
+                alt="fromArchive"
+                src={popupMongo ? fromArchiveActive : fromArchive}
+              />
+            </StyledButton>
+            <StyledButton onClick={() => openPopup()}>
+              <StyledImage
+                alt="bookmark"
+                src={openBookmark ? BookmarkActive : Bookmark}
+              />
+            </StyledButton>
+          </IconsContainer>
+        </StyledDiv>
       </StyledHeader>
     )
   );
 }
 
+const IconsContainer = styled.div`
+  display: flex;
+`;
+
 const StyledHeader = styled.header`
+  display: flex;
+  justify-content: center;
+`;
+
+const StyledDiv = styled.div`
   position: fixed;
-  width: 100%;
-  height: 50px;
+  width: 99%;
+  height: 40px;
+  border-radius: 5px;
   top: 0%;
   bottom: 94.44%;
-  background-color: rgba(165, 202, 210);
+  background: -webkit-linear-gradient(
+    322deg,
+    rgb(70, 81, 87) 0%,
+    rgb(81, 67, 107) 99%
+  );
+  opacity: 0.95;
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
   align-items: center;
   z-index: 100;
 `;
-
-export const StyledButton = styled.button`
-  background-color: transparent;
-  border: none;
-`;
-export const StyledImage = styled(Image)`
-  text-align: center;
-`;
-const StyledAddress = styled.div`
-  margin-right: 20px;
+const StyledChain = styled.div`
+  margin-right: 5px;
   color: white;
-  font-size: small;
+  width: 280px;
+  font-size: x-small;
+  word-break: break-all;
+  white-space: normal;
+`;
+
+const StyledAddress = styled.div`
+  margin-right: 5px;
+  color: white;
+  width: 330px;
+  font-size: x-small;
+  word-break: break-all;
+  white-space: normal;
 `;

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import StyledTransaction from "../components/styled/StyledTransaction";
 
 export default function TransactionCard({
   id,
@@ -17,14 +18,11 @@ export default function TransactionCard({
       <div>{amount}</div>
       <div>{price}</div>
       <div>{date}</div>
-      <div>{time}</div>
+      <StyledDiv>{time}</StyledDiv>
     </StyledTransaction>
   );
 }
 
-export const StyledTransaction = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  color: white;
-  margin-bottom: ${props => (props.header ? "30px" : "")};
+const StyledDiv = styled.div`
+  padding-left: 12px;
 `;
