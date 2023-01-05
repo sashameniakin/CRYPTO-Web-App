@@ -30,7 +30,7 @@ export default function Profile() {
               width={200}
               height={200}
             />
-            <p>Signed in as</p>
+            <StyledSign>Signed in as</StyledSign>
             <StyledEmail> {session?.user?.email}</StyledEmail>
 
             <StyledButtonMain
@@ -44,6 +44,12 @@ export default function Profile() {
     </>
   );
 }
+
+const StyledSign = styled.p`
+  padding: 0;
+  margin-bottom: 0;
+  margin-top: 20px;
+`;
 
 const StyledProfileImage = styled(Image)`
   border-radius: 100px;

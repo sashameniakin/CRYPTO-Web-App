@@ -217,7 +217,5 @@ const StyledDiv = styled.div`
   width: 35px;
   height: 35px;
   background-color: ${props =>
-    props.active === true
-      ? /* "rgba(165, 202, 210, 0.5)" */ "rgba(255, 123, 137, 0.3)"
-      : ""};
+    props.active === true ? "rgba(255, 123, 137, 0.5)" : ""};
 `;

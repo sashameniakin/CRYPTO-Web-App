@@ -359,6 +359,7 @@ export function ArchiveProvider({children}) {
   const [archive, setArchive] = useState(null);
   const [shouldReload, setShouldReload] = useState(true);
   const {activities} = useActivities();
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     const getArchive = async () => {
@@ -368,7 +369,7 @@ export function ArchiveProvider({children}) {
         if (response.ok) {
           const data = await response.json();
           setArchive(data);
-          console.log(archive);
+
           setShouldReload(false);
         } else {
           throw new Error(
@@ -402,6 +403,9 @@ export function ArchiveProvider({children}) {
       body: JSON.stringify(archiveValue),
     };
     const response = await fetch("api/tasksValues", options);
+    if (response.ok) {
+      setGlobalState("openPopupSended", true);
+    }
     const result = await response.json();
     setShouldReload(true);
   };
@@ -411,7 +415,7 @@ export function ArchiveProvider({children}) {
       const response = await fetch(`/api/tasks/${id}`, {
         method: "DELETE",
       });
-      console.log(id);
+
       setShouldReload(true);
     } catch (error) {
       console.log(error);

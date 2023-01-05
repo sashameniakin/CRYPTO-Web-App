@@ -156,8 +156,8 @@ export default function Funds() {
             <StyledP>COIN</StyledP>
             <StyledP>AMT.</StyledP>
             <StyledP>PRICE($)</StyledP>
-            <StyledP>DATE</StyledP>
-            <StyledP>TIME</StyledP>
+            <StyledP align>DATE</StyledP>
+            <StyledP align>TIME</StyledP>
           </StyledTransaction>
           {transactions &&
             transactions.map((transaction, i) => {
@@ -206,4 +206,6 @@ const StyledP = styled.p`
   word-break: break-all;
   white-space: normal;
   font-size: smaller;
+  display: flex;
+  justify-content: ${props => (props.align ? "center" : "")};
 `;

@@ -27,50 +27,48 @@ export default function Login() {
   }
 
   return (
-    <>
-      <FeatureBackground onPointerMove={magic} login>
-        <StyledBackground>
-          <StyledForm onSubmit={handleSubmit}>
-            <label for="email" />
-            <StyledInput
-              value={email}
-              placeholder="test@gmail.com"
-              type="email"
-              id="email"
-              name="email"
-            />
-            <label for="password" />
-            <StyledInput
-              value={pass}
-              type="password"
-              placeholder="********"
-              id="password"
-              name="password"
-            />
-            <StyledLoginButton type="submit">LOGIN </StyledLoginButton>
-          </StyledForm>
-          <StyledRegister>
-            Dont have an account? Register{" "}
-            <StyledRegisterButton>here</StyledRegisterButton>!
-          </StyledRegister>
+    <FeatureBackground onPointerMove={magic} login>
+      <StyledBackground>
+        <StyledForm onSubmit={handleSubmit}>
+          <label for="email" />
+          <StyledInput
+            value={email}
+            placeholder="test@gmail.com"
+            type="email"
+            id="email"
+            name="email"
+          />
+          <label for="password" />
+          <StyledInput
+            value={pass}
+            type="password"
+            placeholder="********"
+            id="password"
+            name="password"
+          />
+          <StyledLoginButton type="submit">LOGIN </StyledLoginButton>
+        </StyledForm>
+        <StyledRegister>
+          Dont have an account? Register{" "}
+          <StyledRegisterButton>here</StyledRegisterButton>!
+        </StyledRegister>
 
-          <StyledButtonGitHub
-            onClick={() =>
-              signIn(undefined, {
-                callbackUrl: "http://localhost:3000/home",
-              })
-            }
-          >
-            <Image alt="github_logo" src={github_logo}></Image>
-            <p>Login with </p>
-            <Image alt="github" src={github}></Image>
-          </StyledButtonGitHub>
-        </StyledBackground>
-        {/*    <Link href="/profile">
+        <StyledButtonGitHub
+          onClick={() =>
+            signIn(undefined, {
+              callbackUrl: "http://localhost:3000/home",
+            })
+          }
+        >
+          <Image alt="github_logo" src={github_logo}></Image>
+          <p>Login with </p>
+          <Image alt="github" src={github}></Image>
+        </StyledButtonGitHub>
+      </StyledBackground>
+      {/*    <Link href="/profile">
           <StyledButtonMain test>Go to app (without login)</StyledButtonMain>
         </Link> */}
-      </FeatureBackground>
-    </>
+    </FeatureBackground>
   );
 }
 

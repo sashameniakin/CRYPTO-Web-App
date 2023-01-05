@@ -23,7 +23,12 @@ export default function PopupAddBlockchain({trigger}) {
               <Image alt="close" src={Close} />
             </StyledCloseButton>
             <label htmlFor="blockchain">Blockchain:</label>
-            <input placeholder="e.g. Optimism" type="text" name="blockchain" />
+            <input
+              placeholder="e.g. Optimism"
+              type="text"
+              name="blockchain"
+              autoComplete="off"
+            />
             <button type="submit">Add blockchain</button>
           </StyledFormContainer>
         </StyledPopupInner>

@@ -13,10 +13,12 @@ import PopupWellDone from "../../components/Popup_welldone";
 import PopupMongo from "../../components/Popup_mongo_archieve";
 import StyledButtonMain from "../../components/styled/StyledButtonMain";
 import FeatureBackground from "../../components/styled/FeatureBackground";
+import PopupSended from "../../components/Popup_sended";
 
 export default function Tasks() {
   const [openForm] = useGlobalState("openForm");
   const [openPopupWellDone] = useGlobalState("openPopupWellDone");
+  const [openPopupSended] = useGlobalState("openPopupSended");
   const {popupMongo} = useStates();
   const {activities, setActivities} = useActivities();
   const [tasks, updateTasks] = useState(activities);
@@ -76,10 +78,16 @@ export default function Tasks() {
         <PopupWellDone trigger={openPopupWellDone} />
         <PopupForm trigger={openForm} />
         <PopupMongo trigger={popupMongo} />
-        <FeatureBackground onPointerMove={magic} tasks>
-          <StyledContainerDetails
-            active={openForm || openPopupWellDone || popupMongo}
-          >
+        <PopupSended trigger={openPopupSended} />
+        <FeatureBackground
+          onPointerMove={magic}
+          tasks
+          active={
+            openForm || openPopupWellDone || popupMongo || openPopupSended
+          }
+        >
+          <h2>CURRENT ACTIVITIES</h2>
+          <StyledContainerDetails>
             <StyledButtonMain onClick={() => openFormPopup()}>
               ADD ACTIVITY
             </StyledButtonMain>
@@ -95,7 +103,12 @@ export default function Tasks() {
                     tasks
                     {...provided.droppableProps}
                     ref={provided.innerRef}
-                    active={openForm || openPopupWellDone || popupMongo}
+                    active={
+                      openForm ||
+                      openPopupWellDone ||
+                      popupMongo ||
+                      openPopupSended
+                    }
                   >
                     {tasks &&
                       tasks.map(

@@ -3,11 +3,7 @@ import styled from "styled-components";
 const FeatureBackground = styled.div`
   width: ${props => (props.welcome || props.login ? "100%" : "98%")};
   height: ${props =>
-    props.welcome ||
-    /* props.transactions || */
-    props.login ||
-    props.tasks ||
-    props.profile
+    props.welcome || props.login || props.tasks || props.profile
       ? "100vh"
       : ""};
   opacity: 0.8;

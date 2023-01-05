@@ -12,6 +12,7 @@ import StyledFormContainer from "./styled/StyledFormContainer";
 function PopupForm({trigger}) {
   const {handleSubmit, options} = useActivities();
   const [openAddBlockchain] = useGlobalState("openPopupAddBlockchain");
+  const [openPopupWellDone] = useGlobalState("openPopupWellDone");
 
   function closePopup() {
     setGlobalState("openForm", false);
@@ -26,7 +27,7 @@ function PopupForm({trigger}) {
       <>
         <PopupAddBlockchain trigger={openAddBlockchain}></PopupAddBlockchain>
         <StyledPopup primary>
-          <StyledPopupInner active={openAddBlockchain}>
+          <StyledPopupInner active={openAddBlockchain || openPopupWellDone}>
             <StyledCloseButton onClick={() => closePopup()}>
               <Image alt="close" src={Close}></Image>
             </StyledCloseButton>
@@ -37,10 +38,16 @@ function PopupForm({trigger}) {
                 placeholder="e.g. NFT claim"
                 type="text"
                 name="titel"
+                autoComplete="off"
                 required
               />
               <label htmlFor="link">Link:</label>
-              <input placeholder="https://test.de" type="url" name="link" />
+              <input
+                placeholder="https://test.de"
+                type="url"
+                name="link"
+                autoComplete="off"
+              />
               <label htmlFor="question">Blockchain:</label>
               <StyledSelectContainer>
                 <select name="blockchain" required>
@@ -58,7 +65,12 @@ function PopupForm({trigger}) {
               <label htmlFor="date">Date:</label>
               <input type="date" name="date" />
               <label htmlFor="description">Description:</label>
-              <input type="text" name="description" required />
+              <input
+                type="text"
+                name="description"
+                autoComplete="off"
+                required
+              />
               <button type="submit">Add activity!</button>
             </StyledFormContainer>
           </StyledPopupInner>

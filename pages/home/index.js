@@ -15,9 +15,14 @@ export default function Home() {
   let [coinNews, setCoinNews] = useState();
   let [coinData, setCoinData] = useState(null);
   let {getCoins} = useContext(CMContext);
-  const [newCoins, setNewCoins] = useState();
   const [buttonPopup] = useGlobalState("openPopup");
   const [newsCategory, setNewsCategory] = useState("Cryptocurrency");
+  const [newCoins, setNewCoins] = useState(() => {
+    if (typeof window !== "undefined") {
+      const localData = JSON.parse(localStorage.getItem("bookmarked"));
+      return localData ?? null;
+    }
+  });
 
   const toggleBookmark = ID => {
     setNewCoins(
@@ -35,6 +40,10 @@ export default function Home() {
   };
 
   useEffect(() => {
+    localStorage.setItem("bookmarked", JSON.stringify(newCoins));
+  }, [newCoins]);
+
+  useEffect(() => {
     const setData = async () => {
       try {
         let apiResponse = await getCoins();
@@ -44,7 +53,6 @@ export default function Home() {
         console.log(error.message);
       }
     };
-    console.log(coinData);
 
     setData();
   }, [getCoins]);
@@ -68,7 +76,6 @@ export default function Home() {
         const data = await res.json();
 
         setCoinNews(data.value);
-        console.log(data.value);
       } catch (err) {
         console.log(err);
       }

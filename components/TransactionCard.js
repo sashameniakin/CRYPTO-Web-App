@@ -1,3 +1,4 @@
+import styled from "styled-components";
 import StyledTransaction from "../components/styled/StyledTransaction";
 
 export default function TransactionCard({
@@ -17,7 +18,11 @@ export default function TransactionCard({
       <div>{amount}</div>
       <div>{price}</div>
       <div>{date}</div>
-      <div>{time}</div>
+      <StyledDiv>{time}</StyledDiv>
     </StyledTransaction>
   );
 }
+
+const StyledDiv = styled.div`
+  padding-left: 12px;
+`;

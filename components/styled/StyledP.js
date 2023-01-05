@@ -8,7 +8,6 @@ const StyledP = styled.p`
   padding-left: 10px;
   padding-right: 10px;
   width: auto;
-  border: 1px solid white;
 `;
 
 export default StyledP;

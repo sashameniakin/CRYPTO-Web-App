@@ -22,12 +22,12 @@ function Popup(props) {
           </StyledCloseButton>
           <StyledH2>YOUR WATCHLIST</StyledH2>
           <StyledCard header>
-            <div />
-            <div>#</div>
-            <div>NAME</div>
-            <div>PRICE($)</div>
-            <div>MARKET CAP($bln.)</div>
-            <div>VOLUME (24h)($mln.)</div>
+            <p />
+            <p>#</p>
+            <p>NAME</p>
+            <p>PRICE($)</p>
+            <p>MARKET CAP($bln.)</p>
+            <p>VOLUME (24h)($mln.)</p>
           </StyledCard>
 
           {props.newCoins.map((coins, i) => {

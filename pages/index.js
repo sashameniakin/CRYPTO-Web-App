@@ -43,10 +43,10 @@ const LottieComponent = props => {
       <FeatureBackground onPointerMove={magic} welcome>
         <StyledDiv>
           <h3>Welcome to</h3>
-          <h1>CRIPTO</h1>
+          <h1>CRYPTO</h1>
           <p>
-            With CRIPTO you can manage your funds, investments and
-            criproprojects. Are you ready?
+            With CRYPTO you can manage your funds, investments and
+            cryproprojects. Are you ready?
           </p>
           <StyledLottie>
             {
@@ -84,5 +84,6 @@ const StyledDiv = styled.div`
   }
   p {
     margin-top: 25px;
+    font-size: small;
   }
 `;

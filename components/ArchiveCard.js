@@ -3,7 +3,7 @@ import StyledImage from "./styled/StyledImage";
 import StyledButton from "./styled/StyledButton";
 import Delete from "../public/images/delete.svg";
 import {useArchive} from "../context/context";
-import StyledP from "./styled/StyledP";
+import styled from "styled-components";
 
 export default function ArchiveCard({
   id,
@@ -17,12 +17,12 @@ export default function ArchiveCard({
   return (
     <>
       <StyledArchiveCard>
-        <StyledP id>{id}</StyledP>
+        <StyledP wordbreak>{id}</StyledP>
         <StyledP>{title}</StyledP>
-        <StyledP id>{link}</StyledP>
-        <StyledP>{blockchain}</StyledP>
-        <StyledP>{deadline}</StyledP>
-        <StyledP>{description}</StyledP>
+        <StyledP wordbreak>{link}</StyledP>
+        <StyledP align>{blockchain}</StyledP>
+        <StyledP align>{deadline}</StyledP>
+        <StyledP align>{description}</StyledP>
         <StyledButton onClick={() => handleDelete(id)}>
           <StyledImage alt="delete" src={Delete} width="25px" height="25px" />
         </StyledButton>
@@ -30,3 +30,17 @@ export default function ArchiveCard({
     </>
   );
 }
+
+const StyledP = styled.p`
+  word-break: ${props => (props.wordbreak ? "break-all" : "")};
+  white-space: normal;
+  font-size: x-small;
+  color: white;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: auto;
+  vertical-align: middle;
+  display: flex;
+  align-items: center;
+  justify-content: ${props => (props.align ? "center" : "")};
+`;

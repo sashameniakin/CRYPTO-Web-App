@@ -87,26 +87,6 @@ const Diagram = ({diagram, coins}) => {
     });
   }, [diagram, coins]);
 
-  /*   const textCenter = {
-    id: "textCenter",
-
-    beforeDatasetsDraw(chart, args, pluginOptions) {
-      const {ctx, data} = chart;
-
-      ctx.save();
-      ctx.font = "bolder 60px sans-serif";
-      ctx.fillStyle = "black";
-      ctx.textAlign = "center";
-      ctx.textBaseLine = "middle";
-
-      ctx.fillText(
-        "t",
-        chart.getDatasetMeta(0).data[0].x,
-        chart.getDatasetMeta(0).data[0].y
-      );
-    },
-  }; */
-
   return <Doughnut data={data} height={300} width={300} />;
 };
 
