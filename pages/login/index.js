@@ -57,7 +57,8 @@ export default function Login() {
         <StyledButtonGitHub
           onClick={() =>
             signIn(undefined, {
-              callbackUrl: "http://localhost:3000/home",
+              callbackUrl:
+                /* "http://localhost:3000/home" */ "https://crypto10.vercel.app/profile",
             })
           }
         >
