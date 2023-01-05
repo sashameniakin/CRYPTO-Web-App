@@ -4,7 +4,7 @@ const FeatureBackground = styled.div`
   width: ${props => (props.welcome || props.login ? "100%" : "98%")};
   height: ${props =>
     props.welcome ||
-    props.transactions ||
+    /* props.transactions || */
     props.login ||
     props.tasks ||
     props.profile
@@ -13,7 +13,7 @@ const FeatureBackground = styled.div`
   opacity: 0.8;
   box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
   z-index: 0;
-  overflow-y: ${props => (props.transactions ? "scroll" : "")};
+  overflow-y: ${props => (props.transactions || props.tasks ? "scroll" : "")};
   filter: ${props => (props.active === true ? "blur(2px)" : "")};
   display: ${props => (props.profile || props.login ? "flex" : "")};
   flex-direction: ${props => (props.profile || props.login ? "column" : "")};

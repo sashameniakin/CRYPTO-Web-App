@@ -1,14 +1,14 @@
 import styled from "styled-components";
 
 const StyledP = styled.p`
-  word-break: break-all;
+  word-break: ${props => (props.id ? "break-all" : "")};
   white-space: normal;
-  font-size: small;
+  font-size: x-small;
   color: white;
   padding-left: 10px;
   padding-right: 10px;
-  padding-top: 30px;
-  border-radius: 50px;
+  width: auto;
+  border: 1px solid white;
 `;
 
 export default StyledP;

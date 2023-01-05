@@ -58,7 +58,7 @@ export default function Task(props) {
             height="50px"
           />
         </StyledButton>
-        <StyledP>{titel}</StyledP>
+        <StyledP title>{titel}</StyledP>
 
         <StyledFlexContainer isSelected={isSelected?.selected} icons>
           <StyledButton onClick={() => handleDelete(id)}>
@@ -93,16 +93,21 @@ export default function Task(props) {
       {isOpen && (
         <StyledFlexContainer isSelected={isSelected?.selected}>
           <StyledContainerDetails>
-            <StyledP>
+            <StyledP link>
               Link:{" "}
               <a href={link} target="_blank" rel="noreferrer">
                 {link}
               </a>
             </StyledP>
-            <StyledP>Blockchain: {blockchain}</StyledP>
-            <StyledP>Deadline: {date}</StyledP>
+            <StyledP details>Blockchain: {blockchain}</StyledP>
+            <StyledP details>Deadline: {date}</StyledP>
           </StyledContainerDetails>
-          <StyledP description onDoubleClick={handleEdit} viewmode={edit}>
+          <StyledP
+            description
+            onDoubleClick={handleEdit}
+            viewmode={edit}
+            details
+          >
             Description: {description}
           </StyledP>
           <StyledInput
@@ -124,7 +129,9 @@ const StyledContainer = styled.section`
   display: grid;
   grid-template-columns: 1fr 1fr 8fr 1fr;
   justify-items: start;
+  align-items: center;
   margin-top: 5px;
+  height: 55px;
   border: none;
   background: ${props =>
     props.isSelected === true
@@ -139,10 +146,22 @@ const StyledContainer = styled.section`
 `;
 
 const StyledP = styled.p`
-  ${StyledBaseDetails}
+  color: white;
+  opacity: 0.8;
+  width: ${props =>
+    props.detiails || props.description || props.link ? "305px" : ""};
+  padding-left: 10px;
+  padding-right: ${props => (props.details || props.link ? "10px" : 0)};
+  padding-top: ${props => (props.details || props.link ? "5px" : 0)};
+  padding-bottom: ${props => (props.details || props.link ? "5px" : 0)};
+  border-radius: 4px;
+  background-color: ${props => (props.title ? "" : "rgba(165, 202, 210, 0.2)")};
+  margin-left: ${props => (props.description || props.link ? "10px" : "")};
+  margin-right: ${props => (props.description || props.link ? "10px" : "")};
   display: ${props => (props.viewmode === true ? "none" : "")};
   word-break: break-all;
   white-space: normal;
+  font-size: small;
 `;
 const StyledInput = styled.input`
   ${StyledBaseDetails}

@@ -154,8 +154,8 @@ const StyledBar = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 0px;
+  margin-right: 0px;
   margin-bottom: 10px;
   align-items: flex-end;
   justify-content: end;

@@ -85,7 +85,7 @@ const Diagram = ({diagram, coins}) => {
       ],
       labels: labels,
     });
-  }, [diagram]);
+  }, [diagram, coins]);
 
   /*   const textCenter = {
     id: "textCenter",
@@ -107,7 +107,7 @@ const Diagram = ({diagram, coins}) => {
     },
   }; */
 
-  return <Doughnut data={data} height={2000} width={2000} />;
+  return <Doughnut data={data} height={300} width={300} />;
 };
 
 export default Diagram;

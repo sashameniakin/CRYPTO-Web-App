@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const StyledTransaction = styled.div`
   display: grid;
-  grid-template-columns: 40px 40px 1.5fr 0.5fr 1fr 1fr 1fr;
+  grid-template-columns: 30px 45px 1fr 30px 1fr 1fr 1fr;
   color: white;
   margin-bottom: ${props => (props.header ? "30px" : "")};
   font-size: small;

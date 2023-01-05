@@ -33,6 +33,7 @@
     "react-dom": "18.2.0",
     "react-hooks-global-state": "^2.1.0",
     "react-lottie": "^1.2.3",
+    "react-router-dom": "^6.6.1",
     "react-spinners": "^0.13.7",
     "react-spring": "^9.5.5",
     "styled-components": "^5.3.6",

@@ -31,9 +31,6 @@ function PopupForm({trigger}) {
               <Image alt="close" src={Close}></Image>
             </StyledCloseButton>
 
-            <StyledButtoAddBlockchain onClick={openPopupAddBlockchain}>
-              <StyledImage alt="add blockchain button" src={AddBlockchain} />
-            </StyledButtoAddBlockchain>
             <StyledFormContainer onSubmit={handleSubmit}>
               <label htmlFor="titel">Titel:</label>
               <input
@@ -45,11 +42,19 @@ function PopupForm({trigger}) {
               <label htmlFor="link">Link:</label>
               <input placeholder="https://test.de" type="url" name="link" />
               <label htmlFor="question">Blockchain:</label>
-              <select name="blockchain" required>
-                {options?.map((options, i) => {
-                  return <option key={i}>{options.blockchain}</option>;
-                })}
-              </select>
+              <StyledSelectContainer>
+                <select name="blockchain" required>
+                  {options?.map((options, i) => {
+                    return <option key={i}>{options.blockchain}</option>;
+                  })}
+                </select>
+                <StyledButtoAddBlockchain onClick={openPopupAddBlockchain}>
+                  <StyledImage
+                    alt="add blockchain button"
+                    src={AddBlockchain}
+                  />
+                </StyledButtoAddBlockchain>
+              </StyledSelectContainer>
               <label htmlFor="date">Date:</label>
               <input type="date" name="date" />
               <label htmlFor="description">Description:</label>
@@ -83,10 +88,14 @@ const StyledImage = styled(Image)`
 `;
 
 const StyledButtoAddBlockchain = styled.button`
-  position: absolute;
   background-color: transparent;
   border: none;
-  top: 227px;
-  right: 46px;
   z-index: 1;
+`;
+
+const StyledSelectContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 `;

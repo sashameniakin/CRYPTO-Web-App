@@ -13,7 +13,6 @@ import {useState} from "react";
 import Web3 from "web3";
 import {useEffect} from "react";
 import StyledButton from "../components/styled/StyledButton";
-import ProfileBlack from "../public/images/profile_black.svg";
 
 export default function Navbar() {
   const {pathname} = useRouter();
@@ -173,7 +172,7 @@ export default function Navbar() {
             <StyledLink href="/profile">
               <Image
                 alt="personal profile"
-                src={pathname === "/profile" ? ProfileBlack : Profile}
+                src={Profile}
                 width="50px"
                 height="50px"
               />
@@ -196,13 +195,17 @@ const StyledList = styled.ul`
   align-items: center;
   height: 45px;
   width: 99%;
-  opacity: 0.7;
+  opacity: 0.95;
   position: fixed;
   bottom: 0;
   list-style: none;
   margin: 0;
   padding: 0;
-  background-color: #142240;
+  background: -webkit-linear-gradient(
+    322deg,
+    rgb(70, 81, 87) 0%,
+    rgb(81, 67, 107) 99%
+  );
   border-radius: 5px;
 `;
 
@@ -214,5 +217,7 @@ const StyledDiv = styled.div`
   width: 35px;
   height: 35px;
   background-color: ${props =>
-    props.active === true ? "rgba(255, 123, 137, 0.8)" : ""};
+    props.active === true
+      ? /* "rgba(165, 202, 210, 0.5)" */ "rgba(255, 123, 137, 0.3)"
+      : ""};
 `;

@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import StyledTransaction from "../components/styled/StyledTransaction";
 
 export default function TransactionCard({
@@ -12,17 +11,13 @@ export default function TransactionCard({
 }) {
   return (
     <StyledTransaction>
-      <StyledDiv>{id}</StyledDiv>
-      <StyledDiv>{action}</StyledDiv>
-      <StyledDiv>{name}</StyledDiv>
-      <StyledDiv>{amount}</StyledDiv>
-      <StyledDiv>{price}</StyledDiv>
-      <StyledDiv>{date}</StyledDiv>
-      <StyledDiv>{time}</StyledDiv>
+      <div>{id}</div>
+      <div>{action}</div>
+      <div>{name}</div>
+      <div>{amount}</div>
+      <div>{price}</div>
+      <div>{date}</div>
+      <div>{time}</div>
     </StyledTransaction>
   );
 }
-
-const StyledDiv = styled.div`
-  text-align: start;
-`;

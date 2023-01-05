@@ -17,9 +17,9 @@ export default function ArchiveCard({
   return (
     <>
       <StyledArchiveCard>
-        <StyledP>{id}</StyledP>
+        <StyledP id>{id}</StyledP>
         <StyledP>{title}</StyledP>
-        <StyledP>{link}</StyledP>
+        <StyledP id>{link}</StyledP>
         <StyledP>{blockchain}</StyledP>
         <StyledP>{deadline}</StyledP>
         <StyledP>{description}</StyledP>

@@ -5,7 +5,7 @@ const StyledSelect = styled.select`
   padding: 8px 20px;
   border-radius: 999px;
   background-color: #ccd;
-  font-size: 1rem;
+  font-size: small;
   align-self: center;
   width: 100%;
 `;

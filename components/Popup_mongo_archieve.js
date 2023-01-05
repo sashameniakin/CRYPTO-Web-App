@@ -66,7 +66,7 @@ const StyledPopup = styled.div`
 
 const StyledPopupInner = styled.div`
   position: relative;
-  padding: 32px;
+  padding: 10px;
   width: 98%;
   max-height: 100vh;
   height: 70vh;
@@ -77,6 +77,7 @@ const StyledPopupInner = styled.div`
   margin-bottom: 150px;
   margin-top: 150px;
   z-index: 100;
+  opacity: 0.9;
 
   h2 {
     color: white;

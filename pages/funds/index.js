@@ -21,7 +21,6 @@ import StyledFormContainer from "../../components/styled/StyledFormContainer";
 import {setGlobalState} from "../../state";
 import TransactionCard from "../../components/TransactionCard";
 import BarGrafik from "../../components/Bar";
-import Help from "../../components/Help";
 import StyledBody from "../../components/styled/StyledBody";
 import StyledSelect from "../../components/styled/StyledSelect";
 import StyledTransaction from "../../components/styled/StyledTransaction";
@@ -64,7 +63,7 @@ export default function Funds() {
   const selected = coins?.filter(coin => coin.name === coinsToFind);
   useEffect(() => {
     coinsToFind &&
-      setGlobalState("coinPrice", selected[0]?.quote?.USD?.price.toFixed(2));
+      setGlobalState("coinPrice", selected[0]?.quote?.USD?.price.toFixed(1));
     coinsToFind && setGlobalState("coinName", selected[0]?.name);
     coinsToFind && setGlobalState("coinSymbol", selected[0]?.symbol);
   }, [handleSell, handleBuy, coinsToFind]);
@@ -99,7 +98,7 @@ export default function Funds() {
               <StyledFormContainer onSubmit={handleBuy}>
                 <label htmlFor="amount">BUY:</label>
                 <input
-                  placeholder="amount"
+                  placeholder="amt."
                   type="number"
                   step="0.00001"
                   min="0"
@@ -119,7 +118,7 @@ export default function Funds() {
                 <div>PRICE ($):</div>
                 <div>
                   {coinsToFind && coinsToFind !== "coin"
-                    ? selected[0]?.quote?.USD?.price.toFixed(2)
+                    ? selected[0]?.quote?.USD?.price.toFixed(1)
                     : "price"}
                 </div>
               </StyledColumn>
@@ -128,7 +127,7 @@ export default function Funds() {
               <StyledFormContainer onSubmit={handleSell}>
                 <label htmlFor="amount">SELL:</label>
                 <input
-                  placeholder="amount"
+                  placeholder="amt."
                   type="number"
                   step="0.00001"
                   min="0"
@@ -143,7 +142,6 @@ export default function Funds() {
         <FeatureBackground onPointerMove={magic}>
           <h2>PORTFOLIO</h2>
           <Diagram diagram={diagram} coins={coins} />
-          <Help />
         </FeatureBackground>
 
         <FeatureBackground onPointerMove={magic}>
@@ -153,13 +151,13 @@ export default function Funds() {
         <FeatureBackground onPointerMove={magic} transactions>
           <h2>TRANSACTIONS</h2>
           <StyledTransaction header>
-            <div>ID</div>
-            <div>ACTION</div>
-            <div>COIN</div>
-            <div>AMOUNT</div>
-            <div>PRICE</div>
-            <div>DATE</div>
-            <div>TIME</div>
+            <StyledP>ID</StyledP>
+            <StyledP>ACTION</StyledP>
+            <StyledP>COIN</StyledP>
+            <StyledP>AMT.</StyledP>
+            <StyledP>PRICE($)</StyledP>
+            <StyledP>DATE</StyledP>
+            <StyledP>TIME</StyledP>
           </StyledTransaction>
           {transactions &&
             transactions.map((transaction, i) => {
@@ -202,4 +200,10 @@ const StyledField = styled.div`
   ${StyledBaseDetails}
   border-radius: 5px;
   margin-top: 10px;
+`;
+
+const StyledP = styled.p`
+  word-break: break-all;
+  white-space: normal;
+  font-size: smaller;
 `;

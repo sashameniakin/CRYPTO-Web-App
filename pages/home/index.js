@@ -177,6 +177,7 @@ const StyledContainer = styled.div`
 const StyledTop100 = styled.section`
   max-height: 100vh;
   overflow-y: scroll;
+  padding-top: 5px;
 `;
 
 const StyledP = styled.p`

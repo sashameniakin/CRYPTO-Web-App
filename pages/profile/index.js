@@ -24,7 +24,7 @@ export default function Profile() {
         <FeatureBackground onPointerMove={magic} profile>
           <StyledBackground>
             <StyledProfileImage
-              alt="userFoto"
+              alt=""
               loader={() => session?.user?.image || demoImage}
               src={src}
               width={200}

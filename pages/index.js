@@ -80,5 +80,9 @@ const StyledDiv = styled.div`
     word-break: break-all;
     white-space: normal;
     text-align: center;
+    margin-top: 70px;
+  }
+  p {
+    margin-top: 25px;
   }
 `;

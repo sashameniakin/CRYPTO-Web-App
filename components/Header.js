@@ -8,9 +8,12 @@ import StyledLottie from "./styled/StyledLottie";
 import StyledButton from "../components/styled/StyledButton";
 import StyledImage from "../components/styled/StyledImage";
 import fromArchive from "../public/images/fromarchive.svg";
+import fromArchiveActive from "../public/images/fromarchive_active.svg";
 import {useStates} from "../context/context";
 
 export default function Header(props) {
+  const {popupMongo} = useStates();
+  const [openBookmark] = useGlobalState("openPopup");
   const [metamaskAddress] = useGlobalState("metamaskAddress");
   const [chain] = useGlobalState("chainId");
   const [Connecting] = useGlobalState("isConnecting");
@@ -63,25 +66,32 @@ export default function Header(props) {
               width={state.width}
             />
           </StyledLottie>
-          <StyledAddress>
+          <StyledChain>
             {Connecting ? "...Loading" : isConnected ? chain : ""}
-          </StyledAddress>
+          </StyledChain>
           <StyledAddress>
             {Connecting ? "...Loading" : isConnected ? metamaskAddress : ""}
           </StyledAddress>
-          <div>
+          <IconsContainer>
             <StyledButton onClick={() => openArchive()}>
-              <StyledImage alt="fromArchive" src={fromArchive} />
+              <StyledImage
+                alt="fromArchive"
+                src={popupMongo ? fromArchiveActive : fromArchive}
+              />
             </StyledButton>
             <StyledButton onClick={() => openPopup()}>
               <StyledImage alt="bookmark" src={Bookmark} />
             </StyledButton>
-          </div>
+          </IconsContainer>
         </StyledDiv>
       </StyledHeader>
     )
   );
 }
+
+const IconsContainer = styled.div`
+  display: flex;
+`;
 
 const StyledHeader = styled.header`
   display: flex;
@@ -95,18 +105,31 @@ const StyledDiv = styled.div`
   border-radius: 5px;
   top: 0%;
   bottom: 94.44%;
-  background-color: #142240;
-  opacity: 0.7;
+  background: -webkit-linear-gradient(
+    322deg,
+    rgb(70, 81, 87) 0%,
+    rgb(81, 67, 107) 99%
+  );
+  opacity: 0.95;
   display: flex;
   justify-content: space-between;
   align-items: center;
   z-index: 100;
 `;
+const StyledChain = styled.div`
+  margin-right: 5px;
+  color: white;
+  width: 280px;
+  font-size: x-small;
+  word-break: break-all;
+  white-space: normal;
+`;
 
 const StyledAddress = styled.div`
-  margin-right: 20px;
+  margin-right: 5px;
   color: white;
-  font-size: small;
+  width: 330px;
+  font-size: x-small;
   word-break: break-all;
   white-space: normal;
 `;

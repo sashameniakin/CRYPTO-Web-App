@@ -36,5 +36,5 @@ const StyledDiv = styled.div`
   display: flex;
   justify-content: start;
   align-items: center;
-  height: 14px;
+  height: 10px;
 `;

@@ -73,6 +73,7 @@ const Card = styled.div`
   height: 250px;
   font-family: Arial, Helvetica, sans-serif;
   border-left: 8px solid #ccd;
+  font-size: small;
   &:hover {
     transform: scale(1.02);
     transition: 0.5s ease-in-out;

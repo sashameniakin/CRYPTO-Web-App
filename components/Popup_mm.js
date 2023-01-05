@@ -37,6 +37,7 @@ const StyledPopupInner = styled.div`
   color: white;
   border-radius: 20px;
   border-left: 10px solid #ccd;
+  opacity: 0.9;
 `;
 
 const StyledDiv = styled.div`

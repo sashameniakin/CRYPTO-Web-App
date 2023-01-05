@@ -26,23 +26,25 @@ function Popup(props) {
             <div>#</div>
             <div>NAME</div>
             <div>PRICE($)</div>
-            <div>MARKET CAP($mln.)</div>
+            <div>MARKET CAP($bln.)</div>
             <div>VOLUME (24h)($mln.)</div>
           </StyledCard>
 
           {props.newCoins.map((coins, i) => {
             return coins.isBookmarked ? (
-              <CoinCard
-                key={i}
-                id={coins.id}
-                rank={coins.cmc_rank}
-                name={coins.name}
-                price={coins.quote.USD.price}
-                market_cap={coins.quote.USD.market_cap}
-                volume={coins.quote.USD.volume_24h}
-                isBookmarked={coins.isBookmarked}
-                toggleBookmark={props.toggleBookmark}
-              />
+              <StyledDiv key={i}>
+                <CoinCard
+                  key={i}
+                  id={coins.id}
+                  rank={coins.cmc_rank}
+                  name={coins.name}
+                  price={coins.quote.USD.price}
+                  market_cap={coins.quote.USD.market_cap}
+                  volume={coins.quote.USD.volume_24h}
+                  isBookmarked={coins.isBookmarked}
+                  toggleBookmark={props.toggleBookmark}
+                />
+              </StyledDiv>
             ) : (
               ""
             );
@@ -55,10 +57,13 @@ function Popup(props) {
 }
 
 export default Popup;
+const StyledDiv = styled.div`
+  height: 25px;
+`;
 
 const StyledPopupInner = styled.div`
   position: relative;
-  padding: 32px;
+  padding: 10px;
   width: 98%;
   max-height: 100vh;
   height: 70vh;
@@ -68,4 +73,5 @@ const StyledPopupInner = styled.div`
   overflow-y: scroll;
   margin-top: 75px;
   z-index: 100;
+  opacity: 0.9;
 `;

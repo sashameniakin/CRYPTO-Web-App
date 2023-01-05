@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Link from "next/link";
 import {signIn} from "next-auth/react";
 import github from "../../public/images/github.svg";
 import github_logo from "../../public/images/github_logo.svg";
@@ -7,7 +6,6 @@ import Image from "next/image";
 import FeatureBackground from "../../components/styled/FeatureBackground";
 import {useState} from "react";
 import StyledBackground from "../../components/styled/StyledBackground";
-import StyledButtonMain from "../../components/styled/StyledButtonMain";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -17,8 +15,8 @@ export default function Login() {
     e.preventDefault();
     const form = e.target;
     const {email, password} = form.elements;
-    setEmail(email);
-    setPass(password);
+    setEmail(email.value);
+    setPass(password.value);
   };
 
   function magic(event) {
@@ -34,7 +32,13 @@ export default function Login() {
         <StyledBackground>
           <StyledForm onSubmit={handleSubmit}>
             <label for="email" />
-            <StyledInput value={email} type="email" id="email" name="email" />
+            <StyledInput
+              value={email}
+              placeholder="test@gmail.com"
+              type="email"
+              id="email"
+              name="email"
+            />
             <label for="password" />
             <StyledInput
               value={pass}
@@ -43,14 +47,17 @@ export default function Login() {
               id="password"
               name="password"
             />
-            <StyledButton type="submit">LOGIN </StyledButton>
+            <StyledLoginButton type="submit">LOGIN </StyledLoginButton>
           </StyledForm>
-          <button>Dont have an account? Register here!</button>
+          <StyledRegister>
+            Dont have an account? Register{" "}
+            <StyledRegisterButton>here</StyledRegisterButton>!
+          </StyledRegister>
 
           <StyledButtonGitHub
             onClick={() =>
               signIn(undefined, {
-                callbackUrl: "http://localhost:3000/profile",
+                callbackUrl: "http://localhost:3000/home",
               })
             }
           >
@@ -59,13 +66,26 @@ export default function Login() {
             <Image alt="github" src={github}></Image>
           </StyledButtonGitHub>
         </StyledBackground>
-        <Link href="/profile">
-          <StyledButtonMain>Go to app (without login)</StyledButtonMain>
-        </Link>
+        {/*    <Link href="/profile">
+          <StyledButtonMain test>Go to app (without login)</StyledButtonMain>
+        </Link> */}
       </FeatureBackground>
     </>
   );
 }
+
+const StyledRegisterButton = styled.button`
+  background-color: transparent;
+  border: none;
+  color: lightblue;
+  padding: 0;
+`;
+
+const StyledRegister = styled.div`
+  color: white;
+  font-size: small;
+  margin-top: 4px;
+`;
 
 const StyledForm = styled.form`
   text-align: center;
@@ -75,16 +95,24 @@ const StyledForm = styled.form`
 `;
 
 const StyledInput = styled.input`
-  background: #e5defa;
-  border: 3px solid #6f5f90;
+  background: rgba(165, 202, 210, 0.2);
   box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+  border: 1px solid white;
   border-radius: 4px;
   width: 300px;
   height: 58px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+  color: white;
+  margin-top: 3px;
+  ::placeholder {
+    color: white;
+  }
 `;
 
-const StyledButton = styled.button`
+const StyledLoginButton = styled.button`
   width: 300px;
   height: 58px;
   margin-top: 3px;
@@ -99,13 +127,11 @@ const StyledButtonGitHub = styled.button`
   width: 300px;
   height: 58px;
   margin-top: 6px;
-
+  background-color: rgba(165, 202, 210, 0.4);
   color: white;
   border-radius: 5px;
   border-color: white;
-  background: transparent;
   box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
-
   display: flex;
   flex-direction: row;
   align-items: center;

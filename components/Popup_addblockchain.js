@@ -43,4 +43,5 @@ const StyledPopupInner = styled.div`
   border-radius: 20px;
   overflow-y: scroll;
   margin-top: 200px;
+  opacity: 0.9;
 `;

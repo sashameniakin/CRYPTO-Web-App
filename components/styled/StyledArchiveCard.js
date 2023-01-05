@@ -2,9 +2,12 @@ import styled from "styled-components";
 
 const StyledArchiveCard = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 70px 100px 80px 100px 1fr 100px 1fr;
   color: white;
-  background-color: rgba(165, 202, 210, 0.2);
+  overflow-x: scroll;
+  white-space: normal;
+  word-break: normal;
+  justify-content: start;
 `;
 
 export default StyledArchiveCard;

@@ -19,6 +19,9 @@ const StyledFormContainer = styled.form`
     font-size: 1rem;
     align-self: center;
     width: 100%;
+    ::placeholder {
+      text-align: center;
+    }
   }
   select {
     width: 94%;
@@ -27,6 +30,9 @@ const StyledFormContainer = styled.form`
   input {
     font-size: small;
     border-radius: 5px;
+  }
+  label {
+    text-align: center;
   }
 `;
 
