@@ -11,32 +11,8 @@
 - [React Testing Library & Jest support added](#testing)
 - [Prettier config added](#prettier)
 
-## Getting Started
+## Tech Stack
 
-Run the development server:
-
-```bash
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) to see the result.
-
-Run Storybook:
-
-```bash
-npm run storybook
-```
-
-Open [http://localhost:6006](http://localhost:6006) to inspect your components
-with Storybook.
-
-Run tests:
-
-```bash
-npm run test
-# or
-npm run test:watch
-```
 
 ## Styling
 
@@ -68,43 +44,6 @@ We prepared a demo API route handler
 data in [`/pages/api/_db/models`](/pages/api/_db/models). This is just for
 demonstration purposes - create your own data and models following this pattern.
 
-## Storybook
 
-We created a demo component
-[`/components/OctopusCard.js`](/components/OctopusCard.js) and corresponding
-stories. Create your own stories following this pattern.
 
-## ESLint
 
-You can run ESLint from the terminal by typing
-
-```bash
-npm run lint
-```
-
-Please make sure that there are no linter errors before pushing to Github. Your
-pull requests will report failed code quality checks otherwise.
-
-## Testing
-
-Please write your tests in the [`/__tests__`](/__tests__/) folder instead of
-placing them next to your components. Next.js does not allow test files in its
-`/pages` directory.
-
-We prepared a demo test that tests if the Homepage renders a 🐙.
-
-Please make sure that all tests pass before pushing to Github. Your pull
-requests will report failed test runs otherwise.
-
-## Prettier
-
-We added a [Prettier configuration file](/.prettierrc) with basic formatting
-rules. Feel free to edit these rules to your taste.
-
-You can check the formatting of your files with `npm run prettier`
-
-You can auto format all files in the project by calling
-`npm run prettier:write`.
-
-Please make sure that your code passes the prettier check before pushing to
-Github. Your pull requests will report failed code quality checks otherwise.
