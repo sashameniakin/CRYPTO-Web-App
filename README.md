@@ -20,19 +20,14 @@
 - Metamask
 
 
+## How to set it up
+- clone this repository
+- install all npm dependencies
 ```
-export default connectDB(handler);
+npm install
 ```
+- install ethers
 
-To use your own DB, create a `.env.local` file and add your connection string as
-shown in [`.env.local.example`](/.env.local.example). Please remember to add
-your database name at the end of the connection string.
-
-We prepared a demo API route handler
-[`pages/api/octopodes.js`](/pages/api/octopodes.js) and some demo data in the
-[`/_data`](/_data) folder. Additionally there is a mongoose model for the demo
-data in [`/pages/api/_db/models`](/pages/api/_db/models). This is just for
-demonstration purposes - create your own data and models following this pattern.
 
 
 
