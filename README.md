@@ -4,23 +4,21 @@
 
 
 ## Tech Stack
+-React
+-React Hook
+-React Router
+-styled-components
+-next.js
+-web3
+-chart.js
+-MongoDB
+-mongoose
+-NextAuth
+-ethers
+-Node.js
+-localStorage
+-Metamask
 
-
-## Styling
-
-We removed the Next.js default styles and added Styled Components support.
-
-You can find an initial [`GobalStyles.js`](/styles/GlobalStyles.js) in the
-`/styles` directory. Storybook is already configured to respect styles from
-`GlobalStyles.js`
-
-## Mongoose connectivity
-
-We added a mongoose connection helper function in
-[`/pages/api/_db/connect-db.js`](/pages/api/_db/connect-db.js).
-
-Please remember to wrap your API route handler functions with the `connectDB()`
-helper when exporting:
 
 ```
 export default connectDB(handler);
