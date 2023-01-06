@@ -1,6 +1,6 @@
 # CRYPTO
 
-<img width="337" alt="Bildschirmfoto 2023-01-06 um 11 11 27" src="https://user-images.githubusercontent.com/110241401/210996313-6ce3a688-7828-4367-92ba-45c5a7da6dae.png"><img width="337" alt="Bildschirmfoto 2023-01-06 um 11 10 26" src="https://user-images.githubusercontent.com/110241401/210996410-498cd3ab-86f7-449a-aad7-89b84795bcd2.png">
+<img width="337" alt="Bildschirmfoto 2023-01-06 um 11 11 27" src="https://user-images.githubusercontent.com/110241401/210996313-6ce3a688-7828-4367-92ba-45c5a7da6dae.png"><img width="337" alt="Bildschirmfoto 2023-01-06 um 11 10 26" src="https://user-images.githubusercontent.com/110241401/210996410-498cd3ab-86f7-449a-aad7-89b84795bcd2.png"><img width="337" alt="Bildschirmfoto 2023-01-06 um 11 10 50" src="https://user-images.githubusercontent.com/110241401/210997885-7a757791-5bee-4b2f-ac04-b34692c02b3f.png">
 
 
 - Next.js project created with `create-next-app`
