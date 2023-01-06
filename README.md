@@ -4,20 +4,20 @@
 
 
 ## Tech Stack
--React
--React Hook
--React Router
--styled-components
--next.js
--web3
--chart.js
--MongoDB
--mongoose
--NextAuth
--ethers
--Node.js
--localStorage
--Metamask
+- React
+- React Hook
+- React Router
+- styled-components
+- next.js
+- web3
+- chart.js
+- MongoDB
+- mongoose
+- NextAuth
+- ethers
+- Node.js
+- localStorage
+- Metamask
 
 
 ```
