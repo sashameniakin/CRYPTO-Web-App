@@ -10,7 +10,8 @@ const FeatureBackground = styled.div`
   box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
   z-index: 0;
   overflow-y: ${props => (props.transactions || props.tasks ? "scroll" : "")};
-  filter: ${props => (props.active === true ? "blur(2px)" : "")};
+  filter: ${props => (props.active ? "blur(2px)" : "")};
+  overflow: ${props => (props.active ? "hidden" : "")};
   display: ${props => (props.profile || props.login ? "flex" : "")};
   flex-direction: ${props => (props.profile || props.login ? "column" : "")};
   justify-content: ${props => (props.profile || props.login ? "center" : "")};

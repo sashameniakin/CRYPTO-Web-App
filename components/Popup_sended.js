@@ -2,6 +2,7 @@ import styled from "styled-components";
 import {setGlobalState} from "../state";
 import StyledPopup from "../components/styled/StyledPopup";
 import StyledFormContainer from "./styled/StyledFormContainer";
+import StyledButtonMain from "./styled/StyledButtonMain";
 
 function PopupSended(props) {
   function closePopup() {
@@ -14,7 +15,9 @@ function PopupSended(props) {
         <StyledPopupInner>
           <StyledFormContainer>
             <p>Successfully sended to database!</p>
-            <button onClick={closePopup}>OK</button>
+            <StyledButtonMain form onClick={closePopup}>
+              OK
+            </StyledButtonMain>
           </StyledFormContainer>
         </StyledPopupInner>
       </StyledPopup>

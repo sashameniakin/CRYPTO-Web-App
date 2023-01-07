@@ -17,6 +17,11 @@ import {SessionProvider} from "next-auth/react";
 function MyApp({Component, pageProps: {session, ...pageProps}}) {
   const {asPath} = useRouter();
   const [openPopup] = useGlobalState("openMMPopup");
+  const [openForm] = useGlobalState("openForm");
+  const [openWellDone] = useGlobalState("openPopupWellDone");
+  const [openArchive] = useGlobalState("openPopupMongo");
+  const [openBookmark] = useGlobalState("openPopup");
+  const [openPopupSended] = useGlobalState("openPopupSended");
 
   Router.events.on("routeChangeStart", () => NProgress.start());
   Router.events.on("routeChangeComplete", () => NProgress.done());
@@ -24,7 +29,16 @@ function MyApp({Component, pageProps: {session, ...pageProps}}) {
 
   return (
     <SessionProvider session={session}>
-      <GlobalStyles />
+      <GlobalStyles
+        active={
+          openForm ||
+          openArchive ||
+          openWellDone ||
+          openBookmark ||
+          openPopup ||
+          openPopupSended
+        }
+      />
       {asPath === "/login" || asPath === "/" ? (
         <Component {...pageProps} />
       ) : (

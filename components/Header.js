@@ -21,7 +21,6 @@ export default function Header(props) {
   const path = useRouter().asPath;
   const [isConnected] = useGlobalState("isConnected");
   const [winReady, setWinReady] = useState(false);
-  const {openArchive} = useStates();
   const initState = {url: "", height: 100, width: 100};
   const [state, setLottieState] = useState(initState);
 
@@ -54,6 +53,9 @@ export default function Header(props) {
     if (path === "/home") {
       setGlobalState("openPopup", true);
     }
+  }
+  function openArchive() {
+    setGlobalState("openPopupMongo", true);
   }
 
   return (

@@ -2,8 +2,7 @@ import styled from "styled-components";
 import Image from "next/image";
 import {useRouter} from "next/router";
 import StyledLink from "./styled/StyledLink";
-import Metamask from "../public/images/metamask.svg";
-import MetamaskActive from "../public/images/metamask_filled.svg";
+import Metamask from "../public/images/MM_notactive.svg";
 import Funds from "../public/images/funds.svg";
 import Home from "../public/images/home.svg";
 import Profile from "../public/images/profile.svg";
@@ -13,6 +12,7 @@ import {useState} from "react";
 import Web3 from "web3";
 import {useEffect} from "react";
 import StyledButton from "../components/styled/StyledButton";
+import Logo from "../public/images/MMlogos.svg";
 
 export default function Navbar() {
   const {pathname} = useRouter();
@@ -157,7 +157,7 @@ export default function Navbar() {
           <StyledButton onClick={onLoginHandler}>
             <Image
               alt="metamask"
-              src={isConnected ? MetamaskActive : Metamask}
+              src={isConnected ? Logo : Metamask}
               width="100px"
               height="100px"
             />
@@ -201,6 +201,7 @@ const StyledList = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
+
   background: -webkit-linear-gradient(
     322deg,
     rgb(70, 81, 87) 0%,

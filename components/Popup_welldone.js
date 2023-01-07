@@ -1,11 +1,18 @@
 import styled from "styled-components";
-import {setGlobalState} from "../state";
+/* import {setGlobalState} from "../state"; */
 import StyledPopup from "../components/styled/StyledPopup";
 import StyledFormContainer from "./styled/StyledFormContainer";
+import StyledButtonMain from "./styled/StyledButtonMain";
+import {useStates} from "../context/context";
 
 function PopupWellDone(props) {
-  function closePopup() {
+  /*   function closePopup() {
     setGlobalState("openPopupWellDone", false);
+  } */
+  const {setPopupWellDone} = useStates();
+
+  function closePopupWellDone() {
+    setPopupWellDone(false);
   }
 
   return (
@@ -14,7 +21,9 @@ function PopupWellDone(props) {
         <StyledPopupInner>
           <StyledFormContainer>
             <p>Well done!</p>
-            <button onClick={closePopup}>OK</button>
+            <StyledButtonMain form onClick={closePopupWellDone}>
+              OK
+            </StyledButtonMain>
           </StyledFormContainer>
         </StyledPopupInner>
       </StyledPopup>

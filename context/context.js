@@ -26,6 +26,7 @@ const ArchiveContext = createContext(null);
 const StatesContext = createContext(null);
 
 export function ActivitiesProvider({children}) {
+  const {setPopupWellDone} = useStates();
   const [activities, setActivities] = useState(() => {
     if (typeof window !== "undefined") {
       const localData = JSON.parse(localStorage.getItem("tasks"));
@@ -103,7 +104,10 @@ export function ActivitiesProvider({children}) {
       return [newActivity, ...activities];
     });
     setGlobalState("openForm", false);
-    setGlobalState("openPopupWellDone", true);
+    /*  setGlobalState("openPopupWellDone", true); */
+
+    setPopupWellDone(true);
+
     form.reset();
     titel.focus();
   }
@@ -121,7 +125,10 @@ export function ActivitiesProvider({children}) {
     });
 
     setGlobalState("openPopupAddBlockchain", false);
-    setGlobalState("openPopupWellDone", true);
+    /*   setGlobalState("openPopupWellDone", true); */
+
+    setPopupWellDone(true);
+
     form.reset();
     blockchain.focus();
   }
@@ -359,7 +366,6 @@ export function ArchiveProvider({children}) {
   const [archive, setArchive] = useState(null);
   const [shouldReload, setShouldReload] = useState(true);
   const {activities} = useActivities();
-  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     const getArchive = async () => {
@@ -437,17 +443,15 @@ export function ArchiveProvider({children}) {
 }
 
 export function StatesProvider({children}) {
-  const [popupMongo, setPopupMongo] = useState(false);
-
-  function closePopupMongo() {
-    setPopupMongo(false);
-  }
-  function openArchive() {
-    setPopupMongo(true);
-  }
+  const [popupWellDone, setPopupWellDone] = useState(false);
 
   return (
-    <StatesContext.Provider value={{closePopupMongo, openArchive, popupMongo}}>
+    <StatesContext.Provider
+      value={{
+        setPopupWellDone,
+        popupWellDone,
+      }}
+    >
       {children}
     </StatesContext.Provider>
   );
