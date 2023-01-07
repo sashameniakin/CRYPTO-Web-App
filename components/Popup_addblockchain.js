@@ -6,6 +6,7 @@ import StyledCloseButton from "../components/styled/StyledCloseButton";
 import {useActivities} from "../context/context";
 import StyledFormContainer from "./styled/StyledFormContainer";
 import StyledPopup from "../components/styled/StyledPopup";
+import StyledButtonMain from "./styled/StyledButtonMain";
 
 export default function PopupAddBlockchain({trigger}) {
   const {handleSubmitBlockchain} = useActivities();
@@ -29,7 +30,9 @@ export default function PopupAddBlockchain({trigger}) {
               name="blockchain"
               autoComplete="off"
             />
-            <button type="submit">Add blockchain</button>
+            <StyledButtonMain form type="submit">
+              Add blockchain
+            </StyledButtonMain>
           </StyledFormContainer>
         </StyledPopupInner>
       </StyledPopup>

@@ -17,13 +17,13 @@ import PopupSended from "../../components/Popup_sended";
 
 export default function Tasks() {
   const [openForm] = useGlobalState("openForm");
-  const [openPopupWellDone] = useGlobalState("openPopupWellDone");
   const [openPopupSended] = useGlobalState("openPopupSended");
-  const {popupMongo} = useStates();
+  const [popupMongo] = useGlobalState("openPopupMongo");
   const {activities, setActivities} = useActivities();
   const [tasks, updateTasks] = useState(activities);
   const [winReady, setWinReady] = useState(false);
   const [length, setLength] = useState(null);
+  const {popupWellDone} = useStates();
 
   useEffect(() => {
     updateTasks(activities);
@@ -75,16 +75,14 @@ export default function Tasks() {
   return (
     <>
       <StyledBody>
-        <PopupWellDone trigger={openPopupWellDone} />
+        <PopupWellDone trigger={popupWellDone} />
         <PopupForm trigger={openForm} />
         <PopupMongo trigger={popupMongo} />
         <PopupSended trigger={openPopupSended} />
         <FeatureBackground
           onPointerMove={magic}
           tasks
-          active={
-            openForm || openPopupWellDone || popupMongo || openPopupSended
-          }
+          active={openForm || popupWellDone || popupMongo || openPopupSended}
         >
           <h2>CURRENT ACTIVITIES</h2>
           <StyledContainerDetails>
@@ -104,10 +102,7 @@ export default function Tasks() {
                     {...provided.droppableProps}
                     ref={provided.innerRef}
                     active={
-                      openForm ||
-                      openPopupWellDone ||
-                      popupMongo ||
-                      openPopupSended
+                      openForm || popupWellDone || popupMongo || openPopupSended
                     }
                   >
                     {tasks &&

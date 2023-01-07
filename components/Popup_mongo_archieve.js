@@ -2,15 +2,19 @@ import styled from "styled-components";
 import StyledCloseButton from "./styled/StyledCloseButton";
 import Image from "next/image";
 import Close from "../public/images/close.svg";
-import {useArchive, useStates} from "../context/context";
 import ArchiveCard from "./ArchiveCard";
 import StyledArchiveCard from "./styled/StyledArchiveCard";
 import StyledH2 from "./styled/StyledH2";
 import StyledP from "./styled/StyledP";
+import {setGlobalState} from "../state";
+import {useArchive} from "../context/context";
 
 function PopupMongo(props) {
   const {archive} = useArchive();
-  const {closePopupMongo} = useStates();
+
+  function closePopupMongo() {
+    setGlobalState("openPopupMongo", false);
+  }
 
   return (
     props.trigger && (

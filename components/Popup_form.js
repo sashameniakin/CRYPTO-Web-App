@@ -6,13 +6,15 @@ import PopupAddBlockchain from "./Popup_addblockchain";
 import AddBlockchain from "../public/images/addBlockchain.svg";
 import StyledCloseButton from "../components/styled/StyledCloseButton";
 import StyledPopup from "../components/styled/StyledPopup";
-import {useActivities} from "../context/context";
+import {useActivities, useStates} from "../context/context";
 import StyledFormContainer from "./styled/StyledFormContainer";
+import StyledButtonMain from "./styled/StyledButtonMain";
 
 function PopupForm({trigger}) {
   const {handleSubmit, options} = useActivities();
   const [openAddBlockchain] = useGlobalState("openPopupAddBlockchain");
-  const [openPopupWellDone] = useGlobalState("openPopupWellDone");
+  /*   const [openPopupWellDone] = useGlobalState("openPopupWellDone"); */
+  const {popupWellDone} = useStates();
 
   function closePopup() {
     setGlobalState("openForm", false);
@@ -27,7 +29,7 @@ function PopupForm({trigger}) {
       <>
         <PopupAddBlockchain trigger={openAddBlockchain}></PopupAddBlockchain>
         <StyledPopup primary>
-          <StyledPopupInner active={openAddBlockchain || openPopupWellDone}>
+          <StyledPopupInner active={openAddBlockchain || popupWellDone}>
             <StyledCloseButton onClick={() => closePopup()}>
               <Image alt="close" src={Close}></Image>
             </StyledCloseButton>
@@ -71,7 +73,9 @@ function PopupForm({trigger}) {
                 autoComplete="off"
                 required
               />
-              <button type="submit">Add activity!</button>
+              <StyledButtonMain form type="submit">
+                SUBMIT
+              </StyledButtonMain>
             </StyledFormContainer>
           </StyledPopupInner>
         </StyledPopup>
