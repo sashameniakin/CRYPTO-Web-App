@@ -443,24 +443,11 @@ export function ArchiveProvider({children}) {
 }
 
 export function StatesProvider({children}) {
-  /*   const [popupMongo, setPopupMongo] = useState(false); */
   const [popupWellDone, setPopupWellDone] = useState(false);
-
-  /*   function closePopupMongo() {
-    setPopupMongo(false);
-  }
-  function openArchive() {
-    setPopupMongo(true);
-
-  } */
 
   return (
     <StatesContext.Provider
       value={{
-        /*      closePopupMongo,
-        openArchive,
-        popupMongo, */
-
         setPopupWellDone,
         popupWellDone,
       }}
