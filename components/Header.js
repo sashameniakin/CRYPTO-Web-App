@@ -55,7 +55,9 @@ export default function Header(props) {
     }
   }
   function openArchive() {
-    setGlobalState("openPopupMongo", true);
+    if (path === "/tasks") {
+      setGlobalState("openPopupMongo", true);
+    }
   }
 
   return (

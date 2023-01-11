@@ -100,7 +100,6 @@ const StyledPopupInner = styled.div`
 `;
 const StyledImage = styled(Image)`
   text-align: center;
-  margin-top: 3px;
 `;
 
 const StyledButtoAddBlockchain = styled.button`

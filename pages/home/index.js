@@ -12,50 +12,11 @@ import StyledSelect from "../../components/styled/StyledSelect";
 import FeatureBackground from "../../components/styled/FeatureBackground";
 
 export default function Home() {
-  let [coinNews, setCoinNews] = useState();
-  let [coinData, setCoinData] = useState(null);
-  let {getCoins} = useContext(CMContext);
+  let [coinNews, setCoinNews] = useState(null);
+  let {coinData} = useContext(CMContext);
+
   const [buttonPopup] = useGlobalState("openPopup");
   const [newsCategory, setNewsCategory] = useState("Cryptocurrency");
-  const [newCoins, setNewCoins] = useState(() => {
-    if (typeof window !== "undefined") {
-      const localData = JSON.parse(localStorage.getItem("bookmarked"));
-      return localData ?? null;
-    }
-  });
-
-  const toggleBookmark = ID => {
-    setNewCoins(
-      newCoins.map(coin => {
-        if (ID === coin.id) {
-          return {
-            ...coin,
-            isBookmarked: !coin.isBookmarked,
-          };
-        } else {
-          return coin;
-        }
-      })
-    );
-  };
-
-  useEffect(() => {
-    localStorage.setItem("bookmarked", JSON.stringify(newCoins));
-  }, [newCoins]);
-
-  useEffect(() => {
-    const setData = async () => {
-      try {
-        let apiResponse = await getCoins();
-        setCoinData(apiResponse);
-        setNewCoins(apiResponse);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-
-    setData();
-  }, [getCoins]);
 
   useEffect(() => {
     const callAPI = async () => {
@@ -92,11 +53,7 @@ export default function Home() {
 
   return (
     <>
-      <Popup
-        newCoins={newCoins}
-        trigger={buttonPopup}
-        toggleBookmark={toggleBookmark}
-      ></Popup>
+      <Popup trigger={buttonPopup}></Popup>
       <StyledBody>
         <FeatureBackground onPointerMove={magic} active={buttonPopup}>
           <h2>LAST NEWS</h2>
@@ -105,7 +62,7 @@ export default function Home() {
           <StyledSelect onChange={e => setNewsCategory(e.target.value)}>
             <option value="cryptocurrency">cryptocurrency</option>
             {coinData
-              ? newCoins.map((coin, i) => {
+              ? coinData.map((coin, i) => {
                   return (
                     <option key={i} value={coin.name}>
                       {coin.name}
@@ -145,7 +102,7 @@ export default function Home() {
 
           <StyledTop100>
             {coinData ? (
-              newCoins.map((coin, i) => (
+              coinData.map((coin, i) => (
                 <StyledDiv key={i}>
                   <CoinCard
                     id={coin.id}
@@ -154,8 +111,6 @@ export default function Home() {
                     price={coin.quote.USD.price}
                     market_cap={coin.quote.USD.market_cap}
                     volume={coin.quote.USD.volume_24h}
-                    isBookmarked={coin.isBookmarked}
-                    toggleBookmark={toggleBookmark}
                   />
                 </StyledDiv>
               ))

@@ -16,13 +16,13 @@ async function handler(req, res) {
     case "POST":
       try {
         const newBookmarked = new Bookmarked({
-          id: req.body.id,
           rank: req.body.rank,
           name: req.body.name,
           price: req.body.price,
           markedCap: req.body.markedCap,
           volume: req.body.volume,
         });
+
         await newBookmarked.save();
         res.status(200).json(newBookmarked);
       } catch (error) {

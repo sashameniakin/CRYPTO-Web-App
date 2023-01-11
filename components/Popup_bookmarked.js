@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import CoinCard from "./CoinCard";
+import BookmarkedCard from "./BookmarkedCard";
 import Close from "../public/images/close.svg";
 import Image from "next/image";
 import {setGlobalState} from "../state";
@@ -7,8 +7,11 @@ import StyledCard from "../components/styled/StyledCard";
 import StyledCloseButton from "./styled/StyledCloseButton";
 import StyledPopup from "../components/styled/StyledPopup";
 import StyledH2 from "../components/styled/StyledH2";
+import {useBookmarked} from "../context/context";
 
 function Popup(props) {
+  const {bookmarked} = useBookmarked();
+
   function closePopup() {
     setGlobalState("openPopup", false);
   }
@@ -30,25 +33,24 @@ function Popup(props) {
             <p>VOLUME (24h)($mln.)</p>
           </StyledCard>
 
-          {props.newCoins.map((coins, i) => {
-            return coins.isBookmarked ? (
-              <StyledDiv key={i}>
-                <CoinCard
-                  key={i}
-                  id={coins.id}
-                  rank={coins.cmc_rank}
-                  name={coins.name}
-                  price={coins.quote.USD.price}
-                  market_cap={coins.quote.USD.market_cap}
-                  volume={coins.quote.USD.volume_24h}
-                  isBookmarked={coins.isBookmarked}
-                  toggleBookmark={props.toggleBookmark}
-                />
-              </StyledDiv>
-            ) : (
-              ""
-            );
-          })}
+          {bookmarked &&
+            bookmarked
+              .sort((a, b) => a.rank - b.rank)
+              .map((coins, i) => {
+                return (
+                  <StyledDiv key={i}>
+                    <BookmarkedCard
+                      key={i}
+                      id={coins._id}
+                      rank={coins.rank}
+                      name={coins.name}
+                      price={coins.price}
+                      market_cap={coins.markedCap}
+                      volume={coins.volume}
+                    />
+                  </StyledDiv>
+                );
+              })}
           {props.children}
         </StyledPopupInner>
       </StyledPopup>

@@ -6,24 +6,30 @@ import {setGlobalState, useGlobalState} from "../state";
 export const CMContext = createContext();
 
 export const CMProvider = ({children}) => {
-  const getCoins = async () => {
-    try {
-      const res = await fetch("/api/coinmarketcap-api");
-      const data = await res.json();
+  let [coinData, setCoinData] = useState(null);
 
-      return data.data.data;
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
+  useEffect(() => {
+    const getCoins = async () => {
+      try {
+        const res = await fetch("/api/coinmarketcap-api");
+        const data = await res.json();
 
-  return <CMContext.Provider value={{getCoins}}>{children}</CMContext.Provider>;
+        setCoinData(data.data.data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    getCoins();
+  }, []);
+
+  return <CMContext.Provider value={{coinData}}>{children}</CMContext.Provider>;
 };
 
 const ActivitiesContext = createContext(null);
 const FundsContext = createContext(null);
 const ArchiveContext = createContext(null);
 const StatesContext = createContext(null);
+const BookmarkedContext = createContext(null);
 
 export function ActivitiesProvider({children}) {
   const {setPopupWellDone} = useStates();
@@ -442,6 +448,97 @@ export function ArchiveProvider({children}) {
   );
 }
 
+export function BookmarkedProvider({children}) {
+  const [bookmarked, setBookmarked] = useState(null);
+  const [shouldReload, setShouldReload] = useState(true);
+  const {coinData} = useCoins();
+
+  useEffect(() => {
+    const getBookmarked = async () => {
+      try {
+        const url = "/api/bookmarked";
+        const response = await fetch(url);
+        if (response.ok) {
+          const data = await response.json();
+          setBookmarked(data);
+
+          setShouldReload(false);
+        } else {
+          throw new Error(
+            `Fetch fehlgeschlagen mit Status: ${response.status}`
+          );
+        }
+      } catch (error) {
+        console.log(error);
+        alert(error.message);
+      }
+    };
+    getBookmarked();
+  }, [shouldReload]);
+
+  const handleBoookmarked = async id => {
+    const coinToHandle = coinData?.filter(coin => coin.id === id);
+    const filtered = bookmarked?.filter(
+      coin => coin.name === coinToHandle[0].symbol
+    );
+    if (filtered.length > 0) {
+      try {
+        const response = await fetch(`/api/bookmarks/${filtered[0]._id}`, {
+          method: "DELETE",
+        });
+
+        setShouldReload(true);
+      } catch (error) {
+        console.log(error);
+        alert(error.message);
+      }
+    } else {
+      const bookmarkedValue = {
+        rank: coinToHandle[0].cmc_rank,
+        name: coinToHandle[0].symbol,
+        price: coinToHandle[0].quote.USD.price,
+        markedCap: coinToHandle[0].quote.USD.market_cap,
+        volume: coinToHandle[0].quote.USD.volume_24h,
+      };
+
+      const options = {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(bookmarkedValue),
+      };
+
+      const response = await fetch("api/bookmarked", options);
+      const result = await response.json();
+      setShouldReload(true);
+    }
+  };
+
+  const handleDelete = async id => {
+    try {
+      const response = await fetch(`/api/bookmarks/${id}`, {
+        method: "DELETE",
+      });
+
+      setShouldReload(true);
+    } catch (error) {
+      console.log(error);
+      alert(error.message);
+    }
+  };
+
+  return (
+    <BookmarkedContext.Provider
+      value={{
+        bookmarked,
+        handleBoookmarked,
+        handleDelete,
+      }}
+    >
+      {children}
+    </BookmarkedContext.Provider>
+  );
+}
+
 export function StatesProvider({children}) {
   const [popupWellDone, setPopupWellDone] = useState(false);
 
@@ -461,6 +558,10 @@ export function useStates() {
   return useContext(StatesContext);
 }
 
+export function useBookmarked() {
+  return useContext(BookmarkedContext);
+}
+
 export function useArchive() {
   return useContext(ArchiveContext);
 }
@@ -471,4 +572,8 @@ export function useFunds() {
 
 export function useActivities() {
   return useContext(ActivitiesContext);
+}
+
+export function useCoins() {
+  return useContext(CMContext);
 }

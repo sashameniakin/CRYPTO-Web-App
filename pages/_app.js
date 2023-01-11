@@ -6,6 +6,7 @@ import {
   ArchiveProvider,
   ActivitiesProvider,
   StatesProvider,
+  BookmarkedProvider,
 } from "../context/context";
 import Router, {useRouter} from "next/router";
 import PopupMM from "../components/Popup_mm";
@@ -45,14 +46,16 @@ function MyApp({Component, pageProps: {session, ...pageProps}}) {
         <StatesProvider>
           <Layout>
             <CMProvider>
-              <ActivitiesProvider>
-                <FundsProvider>
-                  <ArchiveProvider>
-                    <PopupMM trigger={openPopup} />
-                    <Component {...pageProps} />
-                  </ArchiveProvider>
-                </FundsProvider>
-              </ActivitiesProvider>
+              <BookmarkedProvider>
+                <ActivitiesProvider>
+                  <FundsProvider>
+                    <ArchiveProvider>
+                      <PopupMM trigger={openPopup} />
+                      <Component {...pageProps} />
+                    </ArchiveProvider>
+                  </FundsProvider>
+                </ActivitiesProvider>
+              </BookmarkedProvider>
             </CMProvider>
           </Layout>
         </StatesProvider>
