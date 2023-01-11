@@ -42,7 +42,7 @@ export default function Task(props) {
   return (
     <>
       <StyledContainer isSelected={isSelected?.selected} ref={refff} {...rest}>
-        <StyledButton onClick={() => sendToMongoArchive(id)}>
+        <StyledButton onClick={() => sendToMongoArchive(id)} task>
           <StyledImage
             alt="archive"
             src={isSelected?.selected ? ArchiveActive : Archive}
@@ -50,7 +50,7 @@ export default function Task(props) {
             height="50px"
           />
         </StyledButton>
-        <StyledButton onClick={() => handleClick(id)}>
+        <StyledButton onClick={() => handleClick(id)} task>
           <StyledImage
             alt="done"
             src={isSelected?.selected ? DoneActiv : Done}
@@ -60,34 +60,32 @@ export default function Task(props) {
         </StyledButton>
         <StyledP title>{titel}</StyledP>
 
-        <StyledFlexContainer isSelected={isSelected?.selected} icons>
-          <StyledButton onClick={() => handleDelete(id)}>
-            <StyledImage
-              alt="delete"
-              src={isSelected?.selected ? DeleteActiv : Delete}
-              width="25px"
-              height="25px"
-            />
-          </StyledButton>
-          <StyledButton onClick={() => handleDetails(id)}>
-            <StyledImage
-              alt="details"
-              src={
-                isOpen && isSelected?.selected
-                  ? DetailsActiveUp
-                  : isOpen && !isSelected?.selected
-                  ? DetailsUp
-                  : !isOpen && isSelected?.selected
-                  ? DetailsActiveDown
-                  : !isOpen && !isSelected?.selected
-                  ? DetailsDown
-                  : ""
-              }
-              width="25px"
-              height="25px"
-            />
-          </StyledButton>
-        </StyledFlexContainer>
+        <StyledButton onClick={() => handleDelete(id)} task>
+          <StyledImage
+            alt="delete"
+            src={isSelected?.selected ? DeleteActiv : Delete}
+            width="25px"
+            height="25px"
+          />
+        </StyledButton>
+        <StyledButton onClick={() => handleDetails(id)} task>
+          <StyledImage
+            alt="details"
+            src={
+              isOpen && isSelected?.selected
+                ? DetailsActiveUp
+                : isOpen && !isSelected?.selected
+                ? DetailsUp
+                : !isOpen && isSelected?.selected
+                ? DetailsActiveDown
+                : !isOpen && !isSelected?.selected
+                ? DetailsDown
+                : ""
+            }
+            width="25px"
+            height="25px"
+          />
+        </StyledButton>
       </StyledContainer>
 
       {isOpen && (
@@ -127,8 +125,8 @@ export default function Task(props) {
 
 const StyledContainer = styled.section`
   display: grid;
-  grid-template-columns: 1fr 1fr 8fr 1fr;
-  justify-items: start;
+  grid-template-columns: 1fr 1fr 8fr 1fr 1fr;
+  justify-items: space-around;
   align-items: center;
   margin-top: 5px;
   height: 55px;

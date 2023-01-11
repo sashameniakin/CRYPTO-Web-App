@@ -1,22 +1,28 @@
 import Image from "next/image";
 import StarFilled from "../public/images/star_filled.svg";
-import Star from "../public/images/star.svg";
 import StyledCard from "./styled/StyledCard";
 import styled from "styled-components";
 import {useBookmarked} from "../context/context";
 
-export default function CoinCard({id, rank, name, price, market_cap, volume}) {
-  const {handleBoookmarked, bookmarked} = useBookmarked();
-
-  const filtered = bookmarked?.filter(coin => coin.name === name);
+export default function BookmarkedCard({
+  id,
+  rank,
+  name,
+  price,
+  market_cap,
+  volume,
+  /*  isBookmarked, */
+  /* toggleBookmark, */
+}) {
+  const {handleDelete} = useBookmarked();
 
   return (
     <StyledCard>
       <StyledStar>
         <Image
-          onClick={() => handleBoookmarked(id)}
+          onClick={() => handleDelete(id)}
           alt="bookmark"
-          src={filtered.length > 0 ? StarFilled : Star}
+          src={StarFilled}
         ></Image>
       </StyledStar>
       <StyledP> {rank}</StyledP>
