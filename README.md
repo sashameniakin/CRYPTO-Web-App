@@ -25,7 +25,30 @@
 ```
 npm install
 ```
-- install ethers
+- install web3
+```
+npm i web3
+```
+- install react chartjs-2
+```
+npm i react-chartjs-2
+```
+- install react beautiful dnd
+```
+npm i react-beautiful-dnd
+```
+- install react hook global state
+```
+npm i react-hooks-global-state
+```
+- install react styled components
+```
+npm i styled-components
+```
+- Add your API_KEY from Coinmarketcap, Rapidapi
+- Use .env.example to create your own .env inside the root folder
+- Run app in development mode via $ npm run dev
+
 
 
 
