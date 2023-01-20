@@ -3,8 +3,8 @@ import styled from "styled-components";
 const StyledButtonMain = styled.button`
   margin-top: ${props => (props.test ? "180px" : "")};
 
-  width: ${props => (props.form ? "" : "300px")};
-  height: ${props => (props.form ? "" : "58px")};
+  width: ${props => (props.$form ? "" : "300px")};
+  height: ${props => (props.$form ? "" : "58px")};
   margin-top: 3px;
   color: white;
   background: rgba(165, 202, 210, 0.75);

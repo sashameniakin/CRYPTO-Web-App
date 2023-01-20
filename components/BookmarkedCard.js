@@ -11,8 +11,7 @@ export default function BookmarkedCard({
   price,
   market_cap,
   volume,
-  /*  isBookmarked, */
-  /* toggleBookmark, */
+
 }) {
   const {handleDelete} = useBookmarked();
 

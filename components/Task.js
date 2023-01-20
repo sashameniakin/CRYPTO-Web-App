@@ -58,7 +58,7 @@ export default function Task(props) {
             height="50px"
           />
         </StyledButton>
-        <StyledP title>{titel}</StyledP>
+        <StyledP $title>{titel}</StyledP>
 
         <StyledButton onClick={() => handleDelete(id)} task>
           <StyledImage
@@ -129,6 +129,7 @@ const StyledContainer = styled.section`
   justify-items: space-around;
   align-items: center;
   margin-top: 5px;
+  padding-right: 5px;
   height: 55px;
   border: none;
   background: ${props =>
@@ -153,7 +154,7 @@ const StyledP = styled.p`
   padding-top: ${props => (props.details || props.link ? "5px" : 0)};
   padding-bottom: ${props => (props.details || props.link ? "5px" : 0)};
   border-radius: 4px;
-  background-color: ${props => (props.title ? "" : "rgba(165, 202, 210, 0.2)")};
+  background-color: ${props => (props.$title ? "" : "rgba(165, 202, 210, 0.2)")};
   margin-left: ${props => (props.description || props.link ? "10px" : "")};
   margin-right: ${props => (props.description || props.link ? "10px" : "")};
   display: ${props => (props.viewmode === true ? "none" : "")};

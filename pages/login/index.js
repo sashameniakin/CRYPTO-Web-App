@@ -4,20 +4,20 @@ import github from "../../public/images/github.svg";
 import github_logo from "../../public/images/github_logo.svg";
 import Image from "next/image";
 import FeatureBackground from "../../components/styled/FeatureBackground";
-import {useState} from "react";
+/* import {useState} from "react"; */
 import StyledBackground from "../../components/styled/StyledBackground";
 import Link from "next/link";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
+/*   const [email, setEmail] = useState("");
+  const [pass, setPass] = useState(""); */
 
   const handleSubmit = e => {
     e.preventDefault();
-    const form = e.target;
-    const {email, password} = form.elements;
-    setEmail(email.value);
-    setPass(password.value);
+/*     const form = e.target;
+    const {email, password} = form.elements; */
+/*     setEmail(email.value);
+    setPass(password.value); */
   };
 
   function magic(event) {
@@ -31,17 +31,17 @@ export default function Login() {
     <FeatureBackground onPointerMove={magic} login>
       <StyledBackground>
         <StyledForm onSubmit={handleSubmit}>
-          <label for="email" />
+          <label htmlFor="email" />
           <StyledInput
-            value={email}
+            /* value={email} */
             placeholder="test@gmail.com"
             type="email"
             id="email"
             name="email"
           />
-          <label for="password" />
+          <label htmlFor="password" />
           <StyledInput
-            value={pass}
+            /* value={pass} */
             type="password"
             placeholder="********"
             id="password"
