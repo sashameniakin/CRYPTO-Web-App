@@ -31,17 +31,17 @@ export default function Login() {
     <FeatureBackground onPointerMove={magic} login>
       <StyledBackground>
         <StyledForm onSubmit={handleSubmit}>
-          <label for="email" />
+          <label htmlFor="email" />
           <StyledInput
-            value={email}
+            /* value={email} */
             placeholder="test@gmail.com"
             type="email"
             id="email"
             name="email"
           />
-          <label for="password" />
+          <label htmlFor="password" />
           <StyledInput
-            value={pass}
+            /* value={pass} */
             type="password"
             placeholder="********"
             id="password"

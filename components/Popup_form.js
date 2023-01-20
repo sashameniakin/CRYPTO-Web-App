@@ -9,12 +9,13 @@ import StyledPopup from "../components/styled/StyledPopup";
 import {useActivities, useStates} from "../context/context";
 import StyledFormContainer from "./styled/StyledFormContainer";
 import StyledButtonMain from "./styled/StyledButtonMain";
+import PopupDouble from "./Popup_double_BC";
 
 function PopupForm({trigger}) {
   const {handleSubmit, options} = useActivities();
   const [openAddBlockchain] = useGlobalState("openPopupAddBlockchain");
-  /*   const [openPopupWellDone] = useGlobalState("openPopupWellDone"); */
   const {popupWellDone} = useStates();
+  const {popupDouble} = useStates();
 
   function closePopup() {
     setGlobalState("openForm", false);
@@ -27,11 +28,12 @@ function PopupForm({trigger}) {
   return (
     trigger && (
       <>
-        <PopupAddBlockchain trigger={openAddBlockchain}></PopupAddBlockchain>
+        <PopupAddBlockchain trigger={openAddBlockchain}/>
+        <PopupDouble trigger={popupDouble} />
         <StyledPopup primary>
-          <StyledPopupInner active={openAddBlockchain || popupWellDone}>
+          <StyledPopupInner active={openAddBlockchain || popupWellDone || popupDouble}>
             <StyledCloseButton onClick={() => closePopup()}>
-              <Image alt="close" src={Close}></Image>
+              <Image alt="close" src={Close}/>
             </StyledCloseButton>
 
             <StyledFormContainer onSubmit={handleSubmit}>
@@ -73,7 +75,7 @@ function PopupForm({trigger}) {
                 autoComplete="off"
                 required
               />
-              <StyledButtonMain form type="submit">
+              <StyledButtonMain $form type="submit">
                 SUBMIT
               </StyledButtonMain>
             </StyledFormContainer>

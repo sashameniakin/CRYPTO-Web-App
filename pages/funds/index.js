@@ -41,26 +41,11 @@ Chart.register(
 );
 
 export default function Funds() {
-  let {getCoins} = useContext(CMContext);
-  const [coins, setCoins] = useState();
-  const [coinsToFind, setCoinToFind] = useState();
-
+  let {coinData} = useContext(CMContext);
+  const [coinsToFind, setCoinToFind] = useState(null);
   const {handleBuy, handleSell, transactions, diagram} = useFunds();
-
-  useEffect(() => {
-    const setData = async () => {
-      try {
-        let apiResponse = await getCoins();
-        setCoins(apiResponse);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-
-    setData();
-  }, [getCoins]);
-
-  const selected = coins?.filter(coin => coin.name === coinsToFind);
+  const selected = coinData?.filter(coin => coin.name === coinsToFind);
+  
   useEffect(() => {
     coinsToFind &&
       setGlobalState("coinPrice", selected[0]?.quote?.USD?.price.toFixed(1));
@@ -83,8 +68,8 @@ export default function Funds() {
           <h3>Select your coin:</h3>
           <StyledSelect onChange={e => setCoinToFind(e.target.value)}>
             <option value="coin">cryptocurrency</option>
-            {coins
-              ? coins.map((coin, i) => {
+            {coinData
+              ? coinData.map((coin, i) => {
                   return (
                     <option key={i} value={coin.name}>
                       {coin.name}
@@ -141,12 +126,12 @@ export default function Funds() {
 
         <FeatureBackground onPointerMove={magic}>
           <h2>PORTFOLIO</h2>
-          <Diagram diagram={diagram} coins={coins} />
+          <Diagram diagram={diagram} coins={coinData} />
         </FeatureBackground>
 
         <FeatureBackground onPointerMove={magic}>
           <h2>PROFIT/LOSS LIVE IN $</h2>
-          <BarGrafik diagram={diagram} coins={coins} />
+          <BarGrafik diagram={diagram} coins={coinData} />
         </FeatureBackground>
         <FeatureBackground onPointerMove={magic} transactions>
           <h2>TRANSACTIONS</h2>

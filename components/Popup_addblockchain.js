@@ -17,6 +17,8 @@ export default function PopupAddBlockchain({trigger}) {
 
   return (
     trigger && (
+      <>
+     
       <StyledPopup>
         <StyledPopupInner>
           <StyledFormContainer onSubmit={handleSubmitBlockchain}>
@@ -30,12 +32,13 @@ export default function PopupAddBlockchain({trigger}) {
               name="blockchain"
               autoComplete="off"
             />
-            <StyledButtonMain form type="submit">
+            <StyledButtonMain $form type="submit">
               Add blockchain
             </StyledButtonMain>
           </StyledFormContainer>
         </StyledPopupInner>
       </StyledPopup>
+      </>
     )
   );
 }

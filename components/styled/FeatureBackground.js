@@ -3,7 +3,7 @@ import styled from "styled-components";
 const FeatureBackground = styled.div`
   width: ${props => (props.welcome || props.login ? "100%" : "98%")};
   height: ${props =>
-    props.welcome || props.login || props.tasks || props.profile
+    props.welcome || props.login || props.tasks || props.$profile
       ? "100vh"
       : ""};
   opacity: 0.8;
@@ -12,11 +12,11 @@ const FeatureBackground = styled.div`
   overflow-y: ${props => (props.transactions || props.tasks ? "scroll" : "")};
   filter: ${props => (props.active ? "blur(2px)" : "")};
   overflow: ${props => (props.active ? "hidden" : "")};
-  display: ${props => (props.profile || props.login ? "flex" : "")};
-  flex-direction: ${props => (props.profile || props.login ? "column" : "")};
-  justify-content: ${props => (props.profile || props.login ? "center" : "")};
-  align-items: ${props => (props.profile || props.login ? "center" : "")};
-  gap: ${props => (props.profile ? "10px" : "")};
+  display: ${props => (props.$profile || props.login ? "flex" : "")};
+  flex-direction: ${props => (props.$profile || props.login ? "column" : "")};
+  justify-content: ${props => (props.$profile || props.login ? "center" : "")};
+  align-items: ${props => (props.$profile || props.login ? "center" : "")};
+  gap: ${props => (props.$profile ? "10px" : "")};
   h2 {
     border-top: solid 5px #ccd;
     border-bottom: solid 5px #ccd;

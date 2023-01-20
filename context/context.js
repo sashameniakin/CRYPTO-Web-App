@@ -3,7 +3,7 @@ import {createContext} from "react";
 import {useEffect, useState} from "react";
 import {setGlobalState, useGlobalState} from "../state";
 
-export const CMContext = createContext();
+export const CMContext = createContext(null);
 
 export const CMProvider = ({children}) => {
   let [coinData, setCoinData] = useState(null);
@@ -33,6 +33,7 @@ const BookmarkedContext = createContext(null);
 
 export function ActivitiesProvider({children}) {
   const {setPopupWellDone} = useStates();
+  const {setPopupDouble} = useStates();
   const [activities, setActivities] = useState(() => {
     if (typeof window !== "undefined") {
       const localData = JSON.parse(localStorage.getItem("tasks"));
@@ -110,8 +111,6 @@ export function ActivitiesProvider({children}) {
       return [newActivity, ...activities];
     });
     setGlobalState("openForm", false);
-    /*  setGlobalState("openPopupWellDone", true); */
-
     setPopupWellDone(true);
 
     form.reset();
@@ -121,19 +120,28 @@ export function ActivitiesProvider({children}) {
     event.preventDefault();
     const form = event.target;
     const {blockchain} = form.elements;
-    const newBlockchain = {
-      id: options.length + 1,
-      blockchain: blockchain.value,
-    };
 
-    setOptions(options => {
-      return [newBlockchain, ...options];
-    });
+    const doubleOption = options?.filter( option => option.blockchain === blockchain.value);
+   
+    if (doubleOption.length > 0) {
 
-    setGlobalState("openPopupAddBlockchain", false);
-    /*   setGlobalState("openPopupWellDone", true); */
+      setGlobalState("openPopupAddBlockchain", false);
+     setPopupDouble(true); 
 
-    setPopupWellDone(true);
+    } else {
+      const newBlockchain = {
+        id: options.length + 1,
+        blockchain: blockchain.value,
+      };
+  
+      setOptions(options => {
+        return [newBlockchain, ...options];
+      });
+  
+      setGlobalState("openPopupAddBlockchain", false);
+      setPopupWellDone(true);
+
+    }
 
     form.reset();
     blockchain.focus();
@@ -155,7 +163,7 @@ export function ActivitiesProvider({children}) {
     if (typeof window !== "undefined") {
       const localData = JSON.parse(localStorage.getItem("blockchains"));
       return (
-        localData ?? [
+        localData ??  [
           {id: 0, blockchain: "Ethereum"},
           {id: 1, blockchain: "Polygon"},
           {id: 2, blockchain: "BSC"},
@@ -187,6 +195,8 @@ export function ActivitiesProvider({children}) {
     </ActivitiesContext.Provider>
   );
 }
+
+//Funds Provider
 
 export function FundsProvider({children}) {
   const [coinPrice] = useGlobalState("coinPrice");
@@ -368,6 +378,8 @@ export function FundsProvider({children}) {
   );
 }
 
+// Archive Mongo DB
+
 export function ArchiveProvider({children}) {
   const [archive, setArchive] = useState(null);
   const [shouldReload, setShouldReload] = useState(true);
@@ -447,6 +459,8 @@ export function ArchiveProvider({children}) {
     </ArchiveContext.Provider>
   );
 }
+
+// Bookmarked Provider
 
 export function BookmarkedProvider({children}) {
   const [bookmarked, setBookmarked] = useState(null);
@@ -539,14 +553,19 @@ export function BookmarkedProvider({children}) {
   );
 }
 
+// States Provider
+
 export function StatesProvider({children}) {
   const [popupWellDone, setPopupWellDone] = useState(false);
+  const [popupDouble, setPopupDouble] = useState(false);
 
   return (
     <StatesContext.Provider
       value={{
         setPopupWellDone,
         popupWellDone,
+        setPopupDouble,
+        popupDouble,
       }}
     >
       {children}

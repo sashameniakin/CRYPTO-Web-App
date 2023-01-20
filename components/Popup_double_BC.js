@@ -1,12 +1,14 @@
 import styled from "styled-components";
-import {setGlobalState} from "../state";
 import StyledPopup from "../components/styled/StyledPopup";
 import StyledFormContainer from "./styled/StyledFormContainer";
 import StyledButtonMain from "./styled/StyledButtonMain";
+import {useStates} from "../context/context";
 
-function PopupSended(props) {
-  function closePopup() {
-    setGlobalState("openPopupSended", false);
+function PopupDouble(props) {
+  const {setPopupDouble} = useStates();
+
+  function closePopupDouble() {
+    setPopupDouble(false);
   }
 
   return (
@@ -14,8 +16,8 @@ function PopupSended(props) {
       <StyledPopup>
         <StyledPopupInner>
           <StyledFormContainer>
-            <p>Successfully sended to database!</p>
-            <StyledButtonMain $form onClick={closePopup}>
+            <p>This blockchain already exists!</p>
+            <StyledButtonMain $form onClick={closePopupDouble}>
               OK
             </StyledButtonMain>
           </StyledFormContainer>
@@ -25,7 +27,7 @@ function PopupSended(props) {
   );
 }
 
-export default PopupSended;
+export default PopupDouble;
 
 const StyledPopupInner = styled.div`
   position: relative;

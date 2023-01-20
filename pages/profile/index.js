@@ -21,7 +21,7 @@ export default function Profile() {
   return (
     <>
       <StyledBody>
-        <FeatureBackground onPointerMove={magic} profile>
+        <FeatureBackground onPointerMove={magic} $profile>
           <StyledBackground>
             <StyledProfileImage
               alt=""
