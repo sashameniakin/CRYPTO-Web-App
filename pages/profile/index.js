@@ -5,11 +5,22 @@ import styled from "styled-components";
 import StyledButtonMain from "../../components/styled/StyledButtonMain";
 import FeatureBackground from "../../components/styled/FeatureBackground";
 import StyledBackground from "../../components/styled/StyledBackground";
+import {useEffect, useState} from "react";
 
 export default function Profile() {
   const {data: session} = useSession();
   const src = `""`;
   const demoImage = "";
+  const [data, setData] = useState(null);
+
+  function logout() {
+    if (session === null) {
+      window.localStorage.clear("token", "loggedIn");
+      window.location.href = "./login";
+    } else {
+      signOut({callbackUrl: "http://localhost:3000"});
+    }
+  }
 
   function magic(event) {
     const {currentTarget: el, clientX: x, clientY: y} = event;
@@ -17,6 +28,31 @@ export default function Profile() {
     el.style.setProperty("--posX", x - l - w / 2);
     el.style.setProperty("--posY", y - t - h / 2);
   }
+
+  useEffect(() => {
+    const getUserData = async () => {
+      const options = {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+          token: window.localStorage.getItem("token"),
+        }),
+      };
+
+      fetch("api/userData", options)
+        .then(res => res.json())
+        .then(data => {
+          console.log(data, "userData");
+          setData(data);
+          if (data.data == "token expired") {
+            alert("Token expired, please login again");
+            window.localStorage.clear("token", "loggedIn");
+            window.location.href = "./login";
+          }
+        });
+    };
+    getUserData();
+  }, []);
 
   return (
     <>
@@ -31,13 +67,12 @@ export default function Profile() {
               height={200}
             />
             <StyledSign>Signed in as</StyledSign>
-            <StyledEmail> {session?.user?.email}</StyledEmail>
+            <StyledEmail>
+              {" "}
+              {session?.user?.email || data?.data?.email}
+            </StyledEmail>
 
-            <StyledButtonMain
-              onClick={() => signOut({callbackUrl: "http://localhost:3000"})}
-            >
-              SIGN OUT
-            </StyledButtonMain>
+            <StyledButtonMain onClick={logout}>SIGN OUT</StyledButtonMain>
           </StyledBackground>
         </FeatureBackground>
       </StyledBody>

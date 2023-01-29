@@ -30,6 +30,7 @@ const FundsContext = createContext(null);
 const ArchiveContext = createContext(null);
 const StatesContext = createContext(null);
 const BookmarkedContext = createContext(null);
+const UserContext = createContext(null);
 
 export function ActivitiesProvider({children}) {
   const {setPopupWellDone} = useStates();
@@ -121,26 +122,25 @@ export function ActivitiesProvider({children}) {
     const form = event.target;
     const {blockchain} = form.elements;
 
-    const doubleOption = options?.filter( option => option.blockchain === blockchain.value);
-   
+    const doubleOption = options?.filter(
+      option => option.blockchain === blockchain.value
+    );
+
     if (doubleOption.length > 0) {
-
       setGlobalState("openPopupAddBlockchain", false);
-     setPopupDouble(true); 
-
+      setPopupDouble(true);
     } else {
       const newBlockchain = {
         id: options.length + 1,
         blockchain: blockchain.value,
       };
-  
+
       setOptions(options => {
         return [newBlockchain, ...options];
       });
-  
+
       setGlobalState("openPopupAddBlockchain", false);
       setPopupWellDone(true);
-
     }
 
     form.reset();
@@ -163,7 +163,7 @@ export function ActivitiesProvider({children}) {
     if (typeof window !== "undefined") {
       const localData = JSON.parse(localStorage.getItem("blockchains"));
       return (
-        localData ??  [
+        localData ?? [
           {id: 0, blockchain: "Ethereum"},
           {id: 1, blockchain: "Polygon"},
           {id: 2, blockchain: "BSC"},
@@ -553,6 +553,81 @@ export function BookmarkedProvider({children}) {
   );
 }
 
+// User Provider
+
+export function UserProvider({children}) {
+  const handleRegister = async event => {
+    event.preventDefault();
+    const form = event.target;
+    const {first_name, last_name, email, password} = form.elements;
+
+    const user = {
+      firstname: first_name.value,
+      lastname: last_name.value,
+      email: email.value,
+      password: password.value,
+    };
+
+    const options = {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(user),
+    };
+
+    await fetch("api/userValues", options)
+      .then(res => res.json())
+      .then(data => {
+        if (data.status == "ok") {
+          alert("register successful");
+        } else if (data.error == "User Exists") {
+          alert("User Exists");
+        }
+        console.log(data, "userRegister");
+      });
+  };
+  const handleLogin = async event => {
+    event.preventDefault();
+    const form = event.target;
+    const {email, password} = form.elements;
+
+    const login = {
+      email: email.value,
+      password: password.value,
+    };
+    const options = {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(login),
+    };
+    await fetch("api/loginValues", options)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data, "userRegister");
+        if (data.status == "ok") {
+          alert("login successful");
+          window.localStorage.setItem("token", data.data);
+          window.localStorage.setItem("loggedIn", true);
+          window.location.href = "./profile";
+        } else if (data.error == "User not found") {
+          alert("User not found");
+        } else if (data.error == "Invalid Password") {
+          alert("Invalid Password");
+        }
+      });
+  };
+
+  return (
+    <UserContext.Provider
+      value={{
+        handleRegister,
+        handleLogin,
+      }}
+    >
+      {children}
+    </UserContext.Provider>
+  );
+}
+
 // States Provider
 
 export function StatesProvider({children}) {
@@ -575,6 +650,10 @@ export function StatesProvider({children}) {
 
 export function useStates() {
   return useContext(StatesContext);
+}
+
+export function useUser() {
+  return useContext(UserContext);
 }
 
 export function useBookmarked() {

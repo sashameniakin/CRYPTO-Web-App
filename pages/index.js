@@ -10,6 +10,9 @@ const LottieComponent = props => {
   const initState = {url: "", height: 100, width: 100};
   const [state, setLottieState] = useState(initState);
 
+  const isLoggedIn =
+    typeof window !== "undefined" ? localStorage.getItem("loggedIn") : false;
+
   const lottieUrlPath =
     "https://assets7.lottiefiles.com/packages/lf20_6q3x8d8e.json";
 
@@ -57,7 +60,7 @@ const LottieComponent = props => {
               />
             }
           </StyledLottie>
-          <Link href="/login">
+          <Link href={isLoggedIn ? "/profile" : "/login"}>
             <StyledButtonMain>GO</StyledButtonMain>
           </Link>
         </StyledDiv>

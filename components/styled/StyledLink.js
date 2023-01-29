@@ -10,6 +10,10 @@ const StyledLink = styled(Link)`
     transform: scale(1.2);
     transition: 0.5s ease-in-out;
   }
+  padding: ${props => props.$register ? "0px 5px" : ""};
+  color: ${props => props.$register ? "lightblue" : ""};
+  
+
 `;
 
 export default StyledLink;
