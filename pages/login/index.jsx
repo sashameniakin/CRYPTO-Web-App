@@ -4,21 +4,14 @@ import github from "../../public/images/github.svg";
 import github_logo from "../../public/images/github_logo.svg";
 import Image from "next/image";
 import FeatureBackground from "../../components/styled/FeatureBackground";
-/* import {useState} from "react"; */
 import StyledBackground from "../../components/styled/StyledBackground";
-import Link from "next/link";
+import StyledLink from "../../components/styled/StyledLink";
+import StyledForm from "../../components/styled/StyledForm";
+import StyledInput from "../../components/styled/StyledInput";
+import {useUser} from "../../context/context";
 
 export default function Login() {
-/*   const [email, setEmail] = useState("");
-  const [pass, setPass] = useState(""); */
-
-  const handleSubmit = e => {
-    e.preventDefault();
-/*     const form = e.target;
-    const {email, password} = form.elements; */
-/*     setEmail(email.value);
-    setPass(password.value); */
-  };
+  const {handleLogin} = useUser();
 
   function magic(event) {
     const {currentTarget: el, clientX: x, clientY: y} = event;
@@ -30,10 +23,9 @@ export default function Login() {
   return (
     <FeatureBackground onPointerMove={magic} login>
       <StyledBackground>
-        <StyledForm onSubmit={handleSubmit}>
+        <StyledForm onSubmit={handleLogin}>
           <label htmlFor="email" />
           <StyledInput
-            /* value={email} */
             placeholder="test@gmail.com"
             type="email"
             id="email"
@@ -41,19 +33,25 @@ export default function Login() {
           />
           <label htmlFor="password" />
           <StyledInput
-            /* value={pass} */
             type="password"
-            placeholder="********"
+            placeholder="password"
             id="password"
             name="password"
           />
+          <StyledCheckbox>
+            <label htmlFor="checkbox" />
+            <input type="checkbox" id="checkbox" name="checkbox" />
+            <p>Remember me</p>
+          </StyledCheckbox>
           <StyledLoginButton type="submit">LOGIN </StyledLoginButton>
+          <StyledRegister>
+            <p>Dont have an account? Register</p>
+            <StyledLink $register href="/register">
+              here
+            </StyledLink>
+            <p>!</p>
+          </StyledRegister>
         </StyledForm>
-        <StyledRegister>
-          Dont have an account? Register{" "}
-          <StyledRegisterButton>here</StyledRegisterButton>!
-        </StyledRegister>
-
         <StyledButtonGitHub
           onClick={() =>
             signIn(undefined, {
@@ -67,48 +65,35 @@ export default function Login() {
           <Image alt="github" src={github}></Image>
         </StyledButtonGitHub>
       </StyledBackground>
-      <Link href="/profile">
-        <StyledLoginButton test>Go to app (without login)</StyledLoginButton>
-      </Link>
     </FeatureBackground>
   );
 }
 
-const StyledRegisterButton = styled.button`
-  background-color: transparent;
-  border: none;
-  color: lightblue;
-  padding: 0;
+const StyledCheckbox = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: small;
+  input {
+    margin-top: 5px;
+  }
+
+  p {
+    padding: 0px;
+    margin: 0px;
+    color: white;
+  }
 `;
 
 const StyledRegister = styled.div`
+  display: flex;
+  flex-direction: row;
   color: white;
   font-size: small;
-  margin-top: 4px;
-`;
-
-const StyledForm = styled.form`
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-`;
-
-const StyledInput = styled.input`
-  background: rgba(165, 202, 210, 0.2);
-  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
-  border: 1px solid white;
-  border-radius: 4px;
-  width: 300px;
-  height: 58px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  color: white;
-  margin-top: 3px;
-  ::placeholder {
-    color: white;
+  margin-bottom: 5px;
+  p {
+    padding: 0px;
+    margin: 0px;
   }
 `;
 

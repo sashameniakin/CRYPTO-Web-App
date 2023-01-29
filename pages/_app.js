@@ -7,6 +7,7 @@ import {
   ActivitiesProvider,
   StatesProvider,
   BookmarkedProvider,
+  UserProvider,
 } from "../context/context";
 import Router, {useRouter} from "next/router";
 import PopupMM from "../components/Popup_mm";
@@ -28,38 +29,44 @@ function MyApp({Component, pageProps: {session, ...pageProps}}) {
   Router.events.on("routeChangeComplete", () => NProgress.done());
   Router.events.on("routeChangeError", () => NProgress.done());
 
+  //TODO: add popupDouble to global styles
+
   return (
     <SessionProvider session={session}>
-      <GlobalStyles
-        active={
-          openForm ||
-          openArchive ||
-          openWellDone ||
-          openBookmark ||
-          openPopup ||
-          openPopupSended
-        }
-      />
-      {asPath === "/login" || asPath === "/" ? (
-        <Component {...pageProps} />
-      ) : (
-        <StatesProvider>
-          <Layout>
-            <CMProvider>
-              <BookmarkedProvider>
-                <ActivitiesProvider>
-                  <FundsProvider>
-                    <ArchiveProvider>
-                      <PopupMM trigger={openPopup} />
-                      <Component {...pageProps} />
-                    </ArchiveProvider>
-                  </FundsProvider>
-                </ActivitiesProvider>
-              </BookmarkedProvider>
-            </CMProvider>
-          </Layout>
-        </StatesProvider>
-      )}
+      <UserProvider>
+        <GlobalStyles
+          active={
+            openForm ||
+            openArchive ||
+            openWellDone ||
+            openBookmark ||
+            openPopup ||
+            openPopupSended
+          }
+        />
+        {asPath === "/login" || asPath === "/" || asPath === "/register" ? (
+          <StatesProvider>
+            <Component {...pageProps} />
+          </StatesProvider>
+        ) : (
+          <StatesProvider>
+            <Layout>
+              <CMProvider>
+                <BookmarkedProvider>
+                  <ActivitiesProvider>
+                    <FundsProvider>
+                      <ArchiveProvider>
+                        <PopupMM trigger={openPopup} />
+                        <Component {...pageProps} />
+                      </ArchiveProvider>
+                    </FundsProvider>
+                  </ActivitiesProvider>
+                </BookmarkedProvider>
+              </CMProvider>
+            </Layout>
+          </StatesProvider>
+        )}
+      </UserProvider>
     </SessionProvider>
   );
 }

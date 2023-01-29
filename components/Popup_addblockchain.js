@@ -17,8 +17,6 @@ export default function PopupAddBlockchain({trigger}) {
 
   return (
     trigger && (
-      <>
-     
       <StyledPopup>
         <StyledPopupInner>
           <StyledFormContainer onSubmit={handleSubmitBlockchain}>
@@ -38,7 +36,6 @@ export default function PopupAddBlockchain({trigger}) {
           </StyledFormContainer>
         </StyledPopupInner>
       </StyledPopup>
-      </>
     )
   );
 }
