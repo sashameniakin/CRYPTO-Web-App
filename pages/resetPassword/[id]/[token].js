@@ -37,7 +37,7 @@ const ResetPassword = () => {
         body: JSON.stringify(data),
       };
 
-      await fetch("http://localhost:3000/api/verify", options)
+      await fetch("https://crypto10.vercel.app/api/verify", options)
         .then(res => res.json())
         .then(data => {
           if (data.status == "ok") {
@@ -69,14 +69,14 @@ const ResetPassword = () => {
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify(resetData),
     };
-    await fetch("http://localhost:3000/api/resetPassword", options)
+    await fetch("https://crypto10.vercel.app/api/resetPassword", options)
       .then(res => res.json())
       .then(data => {
         if (data.status == "ok") {
           alert("Password updated");
           setReseting(false);
           if (confirm("Do you want to login?")) {
-            window.location.href = "http://localhost:3000/login";
+            window.location.href = "https://crypto10.vercel.app/login";
           }
         } else if (data.error == "Something went wrong") {
           alert("Something went wrong");

@@ -19,7 +19,7 @@ async function handler(req, res) {
           secret,
           {expiresIn: "5m"}
         );
-        const link = `http://localhost:3000/resetPassword/${oldUser._id}/${token}`;
+        const link = `https://crypto10.vercel.app/resetPassword/${oldUser._id}/${token}`;
         var transporter = nodemailer.createTransport({
           service: "gmail",
           auth: {

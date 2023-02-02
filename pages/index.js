@@ -3,8 +3,8 @@ import Lottie from "react-lottie";
 import Link from "next/link";
 import {useEffect, useState} from "react";
 import StyledLottie from "../components/styled/StyledLottie";
-import StyledButtonMain from "../components/styled/StyledButtonMain";
 import FeatureBackground from "../components/styled/FeatureBackground";
+import StyledRegisterButton from "../components/styled/StyledRegisterButton";
 
 const LottieComponent = props => {
   const initState = {url: "", height: 100, width: 100};
@@ -61,7 +61,7 @@ const LottieComponent = props => {
             }
           </StyledLottie>
           <Link href={isLoggedIn ? "/profile" : "/login"}>
-            <StyledButtonMain>GO</StyledButtonMain>
+            <StyledRegisterButton>GO</StyledRegisterButton>
           </Link>
         </StyledDiv>
       </FeatureBackground>
