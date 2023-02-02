@@ -12,7 +12,7 @@ async function handler(req, res) {
           return res.json({status: "User not exists!"});
         }
         const secret = process.env.JWT_SECRET + oldUser.password;
-        const verify = jwt.verify(req.body.token, secret);
+        jwt.verify(req.body.token, secret);
         const encryptedPassword = await bcrypt.hashSync(req.body.password, 10);
         await User.updateOne(
           {

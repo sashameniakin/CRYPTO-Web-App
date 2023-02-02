@@ -12,7 +12,7 @@ async function handler(req, res) {
         }
         try {
           const secret = process.env.JWT_SECRET + oldUser.password;
-          const verify = jwt.verify(req.body.token, secret);
+          jwt.verify(req.body.token, secret);
 
           res.json({status: "ok"});
         } catch (error) {
