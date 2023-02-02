@@ -9,6 +9,7 @@ import StyledLink from "../../components/styled/StyledLink";
 import StyledForm from "../../components/styled/StyledForm";
 import StyledInput from "../../components/styled/StyledInput";
 import {useUser} from "../../context/context";
+import StyledRegisterButton from "../../components/styled/StyledRegisterButton";
 
 export default function Login() {
   const {handleLogin} = useUser();
@@ -26,30 +27,38 @@ export default function Login() {
         <StyledForm onSubmit={handleLogin}>
           <label htmlFor="email" />
           <StyledInput
-            placeholder="test@gmail.com"
+            placeholder="Enter email"
             type="email"
             id="email"
             name="email"
+            white
           />
           <label htmlFor="password" />
           <StyledInput
             type="password"
-            placeholder="password"
+            placeholder="Password"
             id="password"
             name="password"
+            white
           />
-          <StyledCheckbox>
-            <label htmlFor="checkbox" />
-            <input type="checkbox" id="checkbox" name="checkbox" />
-            <p>Remember me</p>
-          </StyledCheckbox>
-          <StyledLoginButton type="submit">LOGIN </StyledLoginButton>
+          <StyledContainerLoginOptions>
+            <StyledCheckbox>
+              <label htmlFor="checkbox" />
+              <input type="checkbox" id="checkbox" name="checkbox" />
+              <p>Remember me</p>
+            </StyledCheckbox>
+            <StyledRegister>
+              <StyledLink $register href="/reset">
+                Forgot Password!
+              </StyledLink>
+            </StyledRegister>
+          </StyledContainerLoginOptions>
+          <StyledRegisterButton type="submit">LOGIN </StyledRegisterButton>
           <StyledRegister>
             <p>Dont have an account? Register</p>
             <StyledLink $register href="/register">
-              here
+              here!
             </StyledLink>
-            <p>!</p>
           </StyledRegister>
         </StyledForm>
         <StyledButtonGitHub
@@ -90,29 +99,17 @@ const StyledRegister = styled.div`
   flex-direction: row;
   color: white;
   font-size: small;
-  margin-bottom: 5px;
   p {
     padding: 0px;
     margin: 0px;
   }
 `;
 
-const StyledLoginButton = styled.button`
-  width: 300px;
-  height: 58px;
-  margin-top: 3px;
-  color: white;
-  background: rgba(165, 202, 210, 0.75);
-  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 5px;
-  border-color: white;
-`;
-
 const StyledButtonGitHub = styled.button`
   width: 300px;
   height: 58px;
-  margin-top: 6px;
-  background-color: rgba(165, 202, 210, 0.4);
+  margin-top: 20px;
+  background: rgba(165, 202, 210, 0.4);
   color: white;
   border-radius: 5px;
   border-color: white;
@@ -121,5 +118,16 @@ const StyledButtonGitHub = styled.button`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 15px;
+  :hover,
+  :active,
+  :focus {
+    background: rgba(165, 202, 210, 0.2);
+  }
+`;
+
+const StyledContainerLoginOptions = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;

@@ -247,7 +247,7 @@ export function FundsProvider({children}) {
       };
 
       const response = await fetch("api/diagramValues", options);
-      const result = await response.json();
+      await response.json();
 
       setDiagram([diagramValue]);
     } else if (coin.length !== 0) {
@@ -430,13 +430,13 @@ export function ArchiveProvider({children}) {
     if (response.ok) {
       setGlobalState("openPopupSended", true);
     }
-    const result = await response.json();
+    await response.json();
     setShouldReload(true);
   };
 
   const handleDelete = async id => {
     try {
-      const response = await fetch(`/api/tasks/${id}`, {
+      await fetch(`/api/tasks/${id}`, {
         method: "DELETE",
       });
 
@@ -497,7 +497,7 @@ export function BookmarkedProvider({children}) {
     );
     if (filtered.length > 0) {
       try {
-        const response = await fetch(`/api/bookmarks/${filtered[0]._id}`, {
+        await fetch(`/api/bookmarks/${filtered[0]._id}`, {
           method: "DELETE",
         });
 
@@ -522,14 +522,14 @@ export function BookmarkedProvider({children}) {
       };
 
       const response = await fetch("api/bookmarked", options);
-      const result = await response.json();
+      await response.json();
       setShouldReload(true);
     }
   };
 
   const handleDelete = async id => {
     try {
-      const response = await fetch(`/api/bookmarks/${id}`, {
+      await fetch(`/api/bookmarks/${id}`, {
         method: "DELETE",
       });
 
@@ -556,6 +556,8 @@ export function BookmarkedProvider({children}) {
 // User Provider
 
 export function UserProvider({children}) {
+  const {setLoading} = useStates();
+
   const handleRegister = async event => {
     event.preventDefault();
     const form = event.target;
@@ -582,7 +584,6 @@ export function UserProvider({children}) {
         } else if (data.error == "User Exists") {
           alert("User Exists");
         }
-        console.log(data, "userRegister");
       });
   };
   const handleLogin = async event => {
@@ -602,7 +603,6 @@ export function UserProvider({children}) {
     await fetch("api/loginValues", options)
       .then(res => res.json())
       .then(data => {
-        console.log(data, "userRegister");
         if (data.status == "ok") {
           alert("login successful");
           window.localStorage.setItem("token", data.data);
@@ -616,11 +616,33 @@ export function UserProvider({children}) {
       });
   };
 
+  const handleReset = async event => {
+    event.preventDefault();
+    setLoading(true);
+    const form = event.target;
+    const {email} = form.elements;
+    const options = {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(email.value),
+    };
+    await fetch("api/forgotPassword", options)
+      .then(res => res.json())
+      .then(data => {
+        if (data.status == "ok") {
+          setLoading(false);
+        }
+
+        alert(data.status);
+      });
+  };
+
   return (
     <UserContext.Provider
       value={{
         handleRegister,
         handleLogin,
+        handleReset,
       }}
     >
       {children}
@@ -633,6 +655,7 @@ export function UserProvider({children}) {
 export function StatesProvider({children}) {
   const [popupWellDone, setPopupWellDone] = useState(false);
   const [popupDouble, setPopupDouble] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   return (
     <StatesContext.Provider
@@ -641,6 +664,8 @@ export function StatesProvider({children}) {
         popupWellDone,
         setPopupDouble,
         popupDouble,
+        setLoading,
+        loading,
       }}
     >
       {children}

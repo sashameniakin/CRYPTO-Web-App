@@ -55,28 +55,26 @@ export default function Profile() {
   }, []);
 
   return (
-    <>
-      <StyledBody>
-        <FeatureBackground onPointerMove={magic} $profile>
-          <StyledBackground>
-            <StyledProfileImage
-              alt=""
-              loader={() => session?.user?.image || demoImage}
-              src={src}
-              width={200}
-              height={200}
-            />
-            <StyledSign>Signed in as</StyledSign>
-            <StyledEmail>
-              {" "}
-              {session?.user?.email || data?.data?.email}
-            </StyledEmail>
+    <StyledBody>
+      <FeatureBackground onPointerMove={magic} $profile>
+        <StyledBackground>
+          <StyledProfileImage
+            alt=""
+            loader={() => session?.user?.image || demoImage}
+            src={src}
+            width={200}
+            height={200}
+          />
+          <StyledSign>Signed in as</StyledSign>
+          <StyledEmail>
+            {" "}
+            {session?.user?.email || data?.data?.email}
+          </StyledEmail>
 
-            <StyledButtonMain onClick={logout}>SIGN OUT</StyledButtonMain>
-          </StyledBackground>
-        </FeatureBackground>
-      </StyledBody>
-    </>
+          <StyledButtonMain onClick={logout}>SIGN OUT</StyledButtonMain>
+        </StyledBackground>
+      </FeatureBackground>
+    </StyledBody>
   );
 }
 

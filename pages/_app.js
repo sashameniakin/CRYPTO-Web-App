@@ -33,23 +33,25 @@ function MyApp({Component, pageProps: {session, ...pageProps}}) {
 
   return (
     <SessionProvider session={session}>
-      <UserProvider>
-        <GlobalStyles
-          active={
-            openForm ||
-            openArchive ||
-            openWellDone ||
-            openBookmark ||
-            openPopup ||
-            openPopupSended
-          }
-        />
-        {asPath === "/login" || asPath === "/" || asPath === "/register" ? (
-          <StatesProvider>
+      <StatesProvider>
+        <UserProvider>
+          <GlobalStyles
+            active={
+              openForm ||
+              openArchive ||
+              openWellDone ||
+              openBookmark ||
+              openPopup ||
+              openPopupSended
+            }
+          />
+          {asPath === "/login" ||
+          asPath.includes("resetPassword") ||
+          asPath === "/" ||
+          asPath === "/register" ||
+          asPath === "/reset" ? (
             <Component {...pageProps} />
-          </StatesProvider>
-        ) : (
-          <StatesProvider>
+          ) : (
             <Layout>
               <CMProvider>
                 <BookmarkedProvider>
@@ -64,9 +66,9 @@ function MyApp({Component, pageProps: {session, ...pageProps}}) {
                 </BookmarkedProvider>
               </CMProvider>
             </Layout>
-          </StatesProvider>
-        )}
-      </UserProvider>
+          )}
+        </UserProvider>
+      </StatesProvider>
     </SessionProvider>
   );
 }
