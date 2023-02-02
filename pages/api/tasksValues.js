@@ -9,7 +9,6 @@ async function handler(req, res) {
         res.status(200).json(tasks);
       } catch (error) {
         console.log(error);
-
         res.status(500).json({error: "something went wrong"});
       }
       break;
@@ -24,7 +23,6 @@ async function handler(req, res) {
         });
         await newTasks.save();
         res.status(200).json(newTasks);
-        console.log(res.ok);
       } catch (error) {
         res.status(500).json({error: error.message});
       }

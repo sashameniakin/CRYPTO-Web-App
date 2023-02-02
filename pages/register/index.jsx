@@ -5,6 +5,7 @@ import StyledInput from "../../components/styled/StyledInput";
 import styled from "styled-components";
 import StyledLink from "../../components/styled/StyledLink";
 import {useUser} from "../../context/context";
+import StyledRegisterButton from "../../components/styled/StyledRegisterButton";
 
 export default function Register() {
   const {handleRegister} = useUser();
@@ -26,6 +27,7 @@ export default function Register() {
             id="first name"
             name="first_name"
             placeholder="First name"
+            white
             required
           />
           <label htmlFor="last name" />
@@ -34,6 +36,7 @@ export default function Register() {
             id="last name"
             name="last_name"
             placeholder="Last name"
+            white
             required
           />
           <label htmlFor="email" />
@@ -42,6 +45,7 @@ export default function Register() {
             id="email"
             name="email"
             placeholder="Enter email"
+            white
             required
           />
           <label htmlFor="password" />
@@ -50,6 +54,7 @@ export default function Register() {
             id="password"
             name="password"
             placeholder="Enter password"
+            white
             required
           />
           <StyledRegisterButton type="submit">Register</StyledRegisterButton>
@@ -76,15 +81,4 @@ const StyledRegister = styled.div`
     padding: 0px;
     margin: 0px;
   }
-`;
-
-const StyledRegisterButton = styled.button`
-  width: 300px;
-  height: 58px;
-  margin-top: 3px;
-  color: white;
-  background: rgba(165, 202, 210, 0.75);
-  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 5px;
-  border-color: white;
 `;
